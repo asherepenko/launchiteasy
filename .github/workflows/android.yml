@@ -4,6 +4,8 @@ on: [push]
 
 jobs:
   build:
+    name: Run checks and publish artifacts
+
     runs-on: ubuntu-latest
 
     steps:
