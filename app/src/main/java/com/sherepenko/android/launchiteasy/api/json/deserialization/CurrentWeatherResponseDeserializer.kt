@@ -1,4 +1,4 @@
-package com.sherepenko.android.launchiteasy.api.json.deserializers
+package com.sherepenko.android.launchiteasy.api.json.deserialization
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.core.JsonProcessingException
