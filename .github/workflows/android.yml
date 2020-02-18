@@ -30,9 +30,12 @@ jobs:
         java-version: 1.8
     - name: Assemble APK
       run: ./gradlew assembleDebug --stacktrace
+
+    - id: getfilename
+      run: echo "::set-output name=file::$(ls app/build/outputs/apk/debug/*.apk)"
   
     - name: Upload APK
       uses: actions/upload-artifact@v1
       with:
         name: launchiteasy.apk
-        path: app/build/outputs/apk/debug/*.apk
+        path: ${{ steps.getfilename.outputs.file }}
