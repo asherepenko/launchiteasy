@@ -14,7 +14,7 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerViewHolder<T>>(
 ) : RecyclerView.Adapter<VH>(),
     OnItemClickListener {
 
-    var items: List<T> = items
+    open var items: List<T> = items
         set(newItems) {
             field = newItems
             notifyDataSetChanged()

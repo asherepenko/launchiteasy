@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.sherepenko.android.launchiteasy.HomeFragmentDirections
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.utils.Status
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel

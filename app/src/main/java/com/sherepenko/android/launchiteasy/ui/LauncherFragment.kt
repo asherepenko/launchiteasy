@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DiffUtil
 import com.sherepenko.android.launchiteasy.ui.adapters.BaseRecyclerAdapter
 import com.sherepenko.android.launchiteasy.ui.adapters.BaseRecyclerViewHolder
 import com.sherepenko.android.launchiteasy.R
@@ -15,7 +16,8 @@ import com.sherepenko.android.launchiteasy.data.AppItem
 import com.sherepenko.android.launchiteasy.data.utils.Status
 import com.sherepenko.android.launchiteasy.ui.utils.inflate
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
-import kotlinx.android.synthetic.main.fragment_launcher.*
+import kotlinx.android.synthetic.main.fragment_launcher.appsView
+import kotlinx.android.synthetic.main.fragment_launcher.loadingView
 import kotlinx.android.synthetic.main.item_app.view.iconView
 import kotlinx.android.synthetic.main.item_app.view.labelView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -68,6 +70,13 @@ class LauncherFragment : Fragment() {
 
 class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
 
+    override var items: List<AppItem> = listOf()
+        set(newItems) {
+            val oldItems = field
+            field = newItems
+            notifyItemsChanged(oldItems, field)
+        }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflate(R.layout.item_app))
 
@@ -77,6 +86,24 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
         view.context.packageManager.getLaunchIntentForPackage(items[position].packageName)?.let {
             view.context.startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
+    }
+
+    private fun notifyItemsChanged(oldItems: List<AppItem>, newItems: List<AppItem>) {
+        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+            override fun getOldListSize(): Int =
+                oldItems.size
+
+            override fun getNewListSize(): Int =
+                newItems.size
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+                oldItems[oldItemPosition].packageName == newItems[newItemPosition].packageName
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+                oldItems[oldItemPosition] == newItems[newItemPosition]
+        })
+
+        diffResult.dispatchUpdatesTo(this@AppsAdapter)
     }
 
     inner class ViewHolder(

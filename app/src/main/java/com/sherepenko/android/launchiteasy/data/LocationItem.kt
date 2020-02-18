@@ -3,7 +3,7 @@ package com.sherepenko.android.launchiteasy.data
 import androidx.room.ColumnInfo
 
 data class LocationItem(
-    @ColumnInfo(name = "id", index = true)
+    @ColumnInfo(name = "id")
     val id: Int,
     @ColumnInfo(name = "name")
     val name: String,

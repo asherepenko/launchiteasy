@@ -3,10 +3,17 @@ package com.sherepenko.android.launchiteasy.data
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.threeten.bp.Instant
 
-@Entity(tableName = "weather_forecast")
+@Entity(
+    tableName = "weather_forecast",
+    indices = [
+        Index(value = ["location_id"]),
+        Index(value = ["location_name"])
+    ]
+)
 data class ForecastItem(
     @Embedded(prefix = "temperature_")
     val temperature: TemperatureItem,
