@@ -9,7 +9,7 @@ import com.sherepenko.android.launchiteasy.data.utils.Resource
 import com.sherepenko.android.launchiteasy.providers.AppsLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.AppsRemoteDataSource
 
-interface AppsRepository {
+interface AppsRepository : BaseRepository {
 
     fun getInstalledApps(): LiveData<Resource<List<AppItem>>>
 

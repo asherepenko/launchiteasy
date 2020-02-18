@@ -10,6 +10,11 @@ class AppsViewModel(
     private val repository: AppsRepository
 ) : ViewModel() {
 
+    override fun onCleared() {
+        super.onCleared()
+        repository.dispose()
+    }
+
     fun getInstalledApps(): LiveData<Resource<List<AppItem>>> =
         repository.getInstalledApps()
 

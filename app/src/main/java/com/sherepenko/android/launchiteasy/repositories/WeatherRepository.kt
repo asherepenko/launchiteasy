@@ -10,7 +10,7 @@ import com.sherepenko.android.launchiteasy.data.utils.Resource
 import com.sherepenko.android.launchiteasy.providers.WeatherLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.WeatherRemoteDataSource
 
-interface WeatherRepository {
+interface WeatherRepository : BaseRepository {
 
     fun getCurrentWeather(): LiveData<Resource<WeatherItem>>
 

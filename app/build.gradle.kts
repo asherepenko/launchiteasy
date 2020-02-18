@@ -143,6 +143,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.github.bumptech.glide:glide:$glideVersion")
+    implementation("com.google.android.gms:play-services-location:17.0.0")
     implementation("com.google.firebase:firebase-analytics:17.2.2")
     implementation("com.google.firebase:firebase-config-ktx:19.1.1")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta01")

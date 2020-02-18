@@ -11,6 +11,11 @@ class WeatherViewModel(
     private val repository: WeatherRepository
 ) : ViewModel() {
 
+    override fun onCleared() {
+        super.onCleared()
+        repository.dispose()
+    }
+
     fun getCurrentWeather(): LiveData<Resource<WeatherItem>> =
         repository.getCurrentWeather()
 

@@ -4,9 +4,9 @@ import androidx.room.ColumnInfo
 
 data class LocationItem(
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = "name")
-    val name: String,
+    val name: String?,
     @ColumnInfo(name = "latitude")
     val latitude: Float,
     @ColumnInfo(name = "longitude")
