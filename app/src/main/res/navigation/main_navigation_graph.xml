@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/mainNavigationGraph"
+        app:startDestination="@+id/homeFragment">
+
+    <fragment
+            android:id="@+id/homeFragment"
+            android:name="com.sherepenko.android.launchiteasy.ui.HomeFragment"
+            tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/toLauncherFragment"
+            app:destination="@+id/launcherFragment"
+            app:launchSingleTop="true"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/launcherFragment"
+            android:name="com.sherepenko.android.launchiteasy.ui.LauncherFragment"
+            tools:layout="@layout/fragment_launcher" />
+
+</navigation>

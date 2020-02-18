@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "622677559235",
+    "firebase_url": "https://launchiteasy.firebaseio.com",
+    "project_id": "launchiteasy",
+    "storage_bucket": "launchiteasy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622677559235:android:1a6448e5847527c218df76",
+        "android_client_info": {
+          "package_name": "com.sherepenko.android.launchiteasy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "622677559235-35uvhu6e8qr3rvml92cchpdaf882vte5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm1HX--LfOSlnJaQMv4RixfZ_uXIvrQ8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "622677559235-35uvhu6e8qr3rvml92cchpdaf882vte5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

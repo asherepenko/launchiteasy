@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name" translatable="false">Launch It Easy</string>
+
+    <string name="temperature_value">%1$d°</string>
+</resources>
