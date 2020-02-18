@@ -24,7 +24,7 @@ class AppsRepositoryImpl(
     private val appsChanged = MutableLiveData<Boolean>(false)
 
     override fun getInstalledApps(): LiveData<Resource<List<AppItem>>> =
-        appsChanged.switchMap {
+        appsChanged.switchMap { shouldFetch ->
             object : RemoteBoundResource<List<AppItem>, List<AppItem>>() {
                 override suspend fun getRemoteData(): List<AppItem> =
                     remoteDataSource.getInstalledApps()
@@ -40,7 +40,7 @@ class AppsRepositoryImpl(
                     data
 
                 override fun shouldFetchRemoteData(data: List<AppItem>?): Boolean =
-                    it || data.isNullOrEmpty()
+                    shouldFetch || data.isNullOrEmpty()
             }.asLiveData()
         }
 
