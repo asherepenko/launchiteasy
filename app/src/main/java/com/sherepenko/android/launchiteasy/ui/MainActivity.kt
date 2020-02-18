@@ -3,12 +3,11 @@ package com.sherepenko.android.launchiteasy.ui
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.sherepenko.android.launchiteasy.R
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(R.layout.activity_main) {
 
     companion object {
         private const val PHONE_STATE_REQUEST_CODE = 101
@@ -17,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkPermissions()
-        setContentView(R.layout.activity_main)
     }
 
     override fun onRequestPermissionsResult(

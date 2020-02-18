@@ -153,6 +153,7 @@ dependencies {
     implementation("org.koin:koin-androidx-fragment:$koinVersion")
     implementation("org.koin:koin-androidx-scope:$koinVersion")
     implementation("org.koin:koin-androidx-viewmodel:$koinVersion")
+    implementation("uk.co.chrisjenx:calligraphy:2.3.0")
     testImplementation("junit:junit:4.12")
     testImplementation("androidx.test:core:1.2.0")
     testImplementation("androidx.test:runner:1.2.0")
