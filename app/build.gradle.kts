@@ -16,10 +16,7 @@ val archivesBaseName = "launchiteasy"
 val buildVersion = BuildVersion.parse(rootProject.file("version"))
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
-
-val localProperties = Properties().apply {
-    load(FileInputStream(rootProject.file("local.properties")))
-}
+val localPropertiesFile = rootProject.file("local.properties")
 
 android {
     compileSdkVersion(29)
@@ -35,11 +32,19 @@ android {
 
         setProperty("archivesBaseName", "$archivesBaseName-$versionName")
 
-        buildConfigField(
-            "String",
-            "OPEN_WEATHER_API_KEY",
-            "\"${localProperties.getProperty("openweather.apiKey", "")}\""
-        )
+        if (localPropertiesFile.exists()) {
+            val localProperties = Properties().apply {
+                load(FileInputStream(localPropertiesFile))
+            }
+
+            buildConfigField(
+                "String",
+                "OPEN_WEATHER_API_KEY",
+                "\"${localProperties.getProperty("openweather.apiKey", "")}\""
+            )
+        } else {
+            buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"\"")
+        }
     }
 
     compileOptions {
