@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   check:
-    name: Run checks and unit tests
+    name: Run Checks and Unit Tests
 
     runs-on: ubuntu-latest
 
@@ -18,7 +18,7 @@ jobs:
       run: ./gradlew check --stacktrace
 
   apk:
-    name: Build debug APK
+    name: Generate APK
 
     runs-on: ubuntu-latest
 
@@ -28,10 +28,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Assemble debug APK
+    - name: Assemble APK
       run: ./gradlew assembleDebug --stacktrace
   
-    - name: Upload debug APK
+    - name: Upload APK
       uses: actions/upload-artifact@v1
       with:
         name: launchiteasy.apk
