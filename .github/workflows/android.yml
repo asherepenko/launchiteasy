@@ -16,11 +16,12 @@ jobs:
         java-version: 1.8
     - name: Run checks and unit tests
       run: ./gradlew check --stacktrace
-    - name: Assemble debug APK
+    - name: Assemble debug apk
       run: ./gradlew assembleDebug --stacktrace
     - id: getfilename
+      name: Get apk file name
       run: echo "::set-output name=file::$(ls app/build/outputs/apk/debug/*.apk)"
-    - name: Upload debug APK
+    - name: Upload debug apk
       uses: actions/upload-artifact@v1
       with:
         name: launchiteasy
