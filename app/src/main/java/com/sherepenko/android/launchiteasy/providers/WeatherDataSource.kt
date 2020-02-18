@@ -21,7 +21,7 @@ class WeatherLocalDataSource(private val database: AppDatabase) :
     override suspend fun getWeatherForecasts(locationId: Int): List<ForecastItem> =
         database.getForecastDao().getAllWeatherForecasts()
 
-    suspend fun saveCurrentWeather(weather: WeatherItem ) {
+    suspend fun saveCurrentWeather(weather: WeatherItem) {
         database.getWeatherDao().updateCurrentWeather(weather)
     }
 

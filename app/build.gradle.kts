@@ -18,7 +18,7 @@ val buildVersion = BuildVersion.parse(rootProject.file("version"))
 val keystorePropertiesFile = rootProject.file("keystore.properties")
 
 val localProperties = Properties().apply {
-    load(FileInputStream( rootProject.file("local.properties")))
+    load(FileInputStream(rootProject.file("local.properties")))
 }
 
 android {

@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
-import com.sherepenko.android.launchiteasy.ui.adapters.BaseRecyclerAdapter
-import com.sherepenko.android.launchiteasy.ui.adapters.BaseRecyclerViewHolder
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.AppItem
 import com.sherepenko.android.launchiteasy.data.utils.Status
+import com.sherepenko.android.launchiteasy.ui.adapters.BaseRecyclerAdapter
+import com.sherepenko.android.launchiteasy.ui.adapters.BaseRecyclerViewHolder
 import com.sherepenko.android.launchiteasy.ui.utils.inflate
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
 import kotlinx.android.synthetic.main.fragment_launcher.appsView

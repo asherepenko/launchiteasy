@@ -5,13 +5,13 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
+import com.sherepenko.android.launchiteasy.api.json.WeatherForecastResponse
+import com.sherepenko.android.launchiteasy.data.ConditionItem
 import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.data.TemperatureItem
-import com.sherepenko.android.launchiteasy.api.json.WeatherForecastResponse
-import com.sherepenko.android.launchiteasy.data.ConditionItem
-import org.threeten.bp.Instant
 import java.io.IOException
+import org.threeten.bp.Instant
 
 class WeatherForecastResponseDeserializer : JsonDeserializer<WeatherForecastResponse>() {
 

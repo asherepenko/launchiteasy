@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 interface OnItemClickListener {
 
     fun onItemClick(view: View, position: Int, id: Long)
+
+    fun onItemLongClick(view: View, position: Int, id: Long)
 }
 
 abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerViewHolder<T>>(
@@ -34,6 +36,10 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerViewHolder<T>>(
     override fun onItemClick(view: View, position: Int, id: Long) {
         itemClickListener?.onItemClick(view, position, id)
     }
+
+    override fun onItemLongClick(view: View, position: Int, id: Long) {
+        itemClickListener?.onItemLongClick(view, position, id)
+    }
 }
 
 abstract class BaseRecyclerViewHolder<T>(
@@ -47,6 +53,15 @@ abstract class BaseRecyclerViewHolder<T>(
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     this.onItemClick(view, adapterPosition, itemId)
                 }
+            }
+
+            itemView.setOnLongClickListener { view ->
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    this.onItemClick(view, adapterPosition, itemId)
+                    return@setOnLongClickListener true
+                }
+
+                return@setOnLongClickListener false
             }
         }
     }

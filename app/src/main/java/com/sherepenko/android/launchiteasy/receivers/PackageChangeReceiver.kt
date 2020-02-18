@@ -13,9 +13,6 @@ class PackageChangeReceiver : BroadcastReceiver(), KoinComponent {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
-            Intent.ACTION_MY_PACKAGE_REPLACED -> {
-
-            }
             Intent.ACTION_PACKAGE_ADDED -> {
                 appsRepository.updateInstalledApps()
             }
@@ -27,6 +24,8 @@ class PackageChangeReceiver : BroadcastReceiver(), KoinComponent {
             }
             Intent.ACTION_PACKAGE_CHANGED -> {
                 appsRepository.updateInstalledApps()
+            }
+            Intent.ACTION_MY_PACKAGE_REPLACED -> {
             }
             else -> {
                 // ignore

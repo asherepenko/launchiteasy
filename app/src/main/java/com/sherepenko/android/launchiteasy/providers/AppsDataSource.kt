@@ -3,10 +3,10 @@ package com.sherepenko.android.launchiteasy.providers
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import com.sherepenko.android.launchiteasy.data.db.AppDatabase
 import com.sherepenko.android.launchiteasy.BuildConfig
 import com.sherepenko.android.launchiteasy.data.AppItem
-import java.util.*
+import com.sherepenko.android.launchiteasy.data.db.AppDatabase
+import java.util.Locale
 
 interface AppsDataSource {
 
