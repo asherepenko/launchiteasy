@@ -30,8 +30,8 @@ class WeatherRepositoryImpl(
 ) : WeatherRepository {
 
     companion object {
-        private const val MAX_DISTANCE = 1500.0F
-        private val MAX_STALE_TIME = TimeUnit.HOURS.toMillis(2L)
+        private const val MAX_DISTANCE = 1500.0f
+        private val MAX_STALE_TIME = TimeUnit.HOURS.toMillis(2)
     }
 
     private val currentLocation = MutableLiveData<LocationItem>()
