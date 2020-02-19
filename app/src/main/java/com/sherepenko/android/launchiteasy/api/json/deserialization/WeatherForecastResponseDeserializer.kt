@@ -10,6 +10,7 @@ import com.sherepenko.android.launchiteasy.data.ConditionItem
 import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.data.TemperatureItem
+import com.sherepenko.android.launchiteasy.utils.round
 import java.io.IOException
 import org.threeten.bp.Instant
 
@@ -39,8 +40,8 @@ class WeatherForecastResponseDeserializer : JsonDeserializer<WeatherForecastResp
                             it["weather"][0]["icon"].asText()
                         ),
                         LocationItem(
-                            jsonRoot["city"]["coord"]["lat"].doubleValue(),
-                            jsonRoot["city"]["coord"]["lon"].doubleValue(),
+                            jsonRoot["city"]["coord"]["lat"].doubleValue().round(),
+                            jsonRoot["city"]["coord"]["lon"].doubleValue().round(),
                             jsonRoot["city"]["id"].intValue(),
                             jsonRoot["city"]["name"].asText()
                         ),
