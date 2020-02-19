@@ -1,30 +1,26 @@
 package com.sherepenko.android.launchiteasy.repositories
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import com.sherepenko.android.launchiteasy.data.AppItem
-import com.sherepenko.android.launchiteasy.data.utils.RemoteBoundResource
-import com.sherepenko.android.launchiteasy.data.utils.Resource
+import com.sherepenko.android.launchiteasy.data.Resource
+import com.sherepenko.android.launchiteasy.livedata.AppStateLiveData
 import com.sherepenko.android.launchiteasy.providers.AppsLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.AppsRemoteDataSource
 
 interface AppsRepository : BaseRepository {
 
     fun getInstalledApps(): LiveData<Resource<List<AppItem>>>
-
-    fun updateInstalledApps()
 }
 
 class AppsRepositoryImpl(
     private val localDataSource: AppsLocalDataSource,
-    private val remoteDataSource: AppsRemoteDataSource
+    private val remoteDataSource: AppsRemoteDataSource,
+    private val appStateDataSource: AppStateLiveData
 ) : AppsRepository {
 
-    private val appsChanged = MutableLiveData<Boolean>(false)
-
     override fun getInstalledApps(): LiveData<Resource<List<AppItem>>> =
-        appsChanged.switchMap { shouldFetch ->
+        appStateDataSource.switchMap { appsChanged ->
             object : RemoteBoundResource<List<AppItem>, List<AppItem>>() {
                 override suspend fun getRemoteData(): List<AppItem> =
                     remoteDataSource.getInstalledApps()
@@ -40,11 +36,7 @@ class AppsRepositoryImpl(
                     data
 
                 override fun shouldFetchRemoteData(data: List<AppItem>?): Boolean =
-                    shouldFetch || data.isNullOrEmpty()
+                    appsChanged || data.isNullOrEmpty()
             }.asLiveData()
         }
-
-    override fun updateInstalledApps() {
-        appsChanged.postValue(true)
-    }
 }

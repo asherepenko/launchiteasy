@@ -1,4 +1,4 @@
-package com.sherepenko.android.launchiteasy.ui.utils
+package com.sherepenko.android.launchiteasy.utils
 
 import android.view.LayoutInflater
 import android.view.View

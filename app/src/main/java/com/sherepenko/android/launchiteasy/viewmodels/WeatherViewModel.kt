@@ -1,15 +1,14 @@
 package com.sherepenko.android.launchiteasy.viewmodels
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.sherepenko.android.launchiteasy.data.ForecastItem
+import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.data.WeatherItem
-import com.sherepenko.android.launchiteasy.data.utils.Resource
 import com.sherepenko.android.launchiteasy.repositories.WeatherRepository
 
 class WeatherViewModel(
     private val repository: WeatherRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     override fun onCleared() {
         super.onCleared()
@@ -21,8 +20,4 @@ class WeatherViewModel(
 
     fun getWeatherForecasts(): LiveData<Resource<List<ForecastItem>>> =
         repository.getWeatherForecasts()
-
-    fun updateCurrentLocation(latitude: Double, longitude: Double) {
-        repository.updateCurrentLocation(latitude, longitude)
-    }
 }

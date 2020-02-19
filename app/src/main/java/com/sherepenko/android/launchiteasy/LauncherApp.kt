@@ -1,17 +1,18 @@
 package com.sherepenko.android.launchiteasy
 
 import android.app.Application
-import android.content.Context
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import androidx.work.WorkManager
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.google.android.gms.location.LocationServices
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.sherepenko.android.launchiteasy.api.OpenWeatherApi
 import com.sherepenko.android.launchiteasy.data.db.AppDatabase
+import com.sherepenko.android.launchiteasy.livedata.AppStateLiveData
+import com.sherepenko.android.launchiteasy.livedata.ConnectivityLiveData
+import com.sherepenko.android.launchiteasy.livedata.LocationLiveData
 import com.sherepenko.android.launchiteasy.providers.AppsLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.AppsRemoteDataSource
 import com.sherepenko.android.launchiteasy.providers.WeatherLocalDataSource
@@ -40,10 +41,6 @@ class LauncherApp : Application() {
     }
 
     private val appModule = module {
-        single {
-            LocationServices.getFusedLocationProviderClient(get<Context>())
-        }
-
         single {
             PreferenceManager.getDefaultSharedPreferences(get())
         }
@@ -96,24 +93,23 @@ class LauncherApp : Application() {
 
     private val repositoryModule = module {
         single {
+            ConnectivityLiveData(get())
+        }
+
+        single {
             WeatherRepositoryImpl(
-                localDataSource = WeatherLocalDataSource(
-                    get()
-                ),
-                remoteDataSource = WeatherRemoteDataSource(
-                    get()
-                )
+                WeatherLocalDataSource(get()),
+                WeatherRemoteDataSource(get()),
+                LocationLiveData(get()),
+                get()
             ) as WeatherRepository
         }
 
         single {
             AppsRepositoryImpl(
-                localDataSource = AppsLocalDataSource(
-                    get()
-                ),
-                remoteDataSource = AppsRemoteDataSource(
-                    get()
-                )
+                AppsLocalDataSource(get()),
+                AppsRemoteDataSource(get()),
+                AppStateLiveData(get())
             ) as AppsRepository
         }
     }

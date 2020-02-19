@@ -22,7 +22,7 @@ android {
     compileSdkVersion(29)
 
     defaultConfig {
-        minSdkVersion(19)
+        minSdkVersion(21)
         targetSdkVersion(29)
         applicationId = "com.sherepenko.android.launchiteasy"
         versionCode = buildVersion.versionCode

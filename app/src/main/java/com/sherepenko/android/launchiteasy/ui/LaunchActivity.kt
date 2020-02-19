@@ -1,7 +1,6 @@
 package com.sherepenko.android.launchiteasy.ui
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +36,7 @@ class LaunchActivity : AppCompatActivity() {
                 }
 
                 if (permissionsGranted) {
-                    startActivity(Intent(this@LaunchActivity, MainActivity::class.java))
+                    startActivity(MainActivity.homeIntent(this@LaunchActivity))
                     finish()
                 } else {
                     finishAffinity()
@@ -57,7 +56,7 @@ class LaunchActivity : AppCompatActivity() {
         }
 
         if (requestedPermissions.isEmpty()) {
-            startActivity(Intent(this@LaunchActivity, MainActivity::class.java))
+            startActivity(MainActivity.homeIntent(this@LaunchActivity))
             finish()
         } else {
             ActivityCompat.requestPermissions(

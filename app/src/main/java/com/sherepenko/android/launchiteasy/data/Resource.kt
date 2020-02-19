@@ -1,4 +1,4 @@
-package com.sherepenko.android.launchiteasy.data.utils
+package com.sherepenko.android.launchiteasy.data
 
 data class Resource<out T> private constructor(
     val status: Status,
@@ -11,16 +11,28 @@ data class Resource<out T> private constructor(
             data: T? = null,
             message: String? = null
         ): Resource<T> =
-            Resource(Status.LOADING, data, message)
+            Resource(
+                Status.LOADING,
+                data,
+                message
+            )
 
         fun <T> success(data: T): Resource<T> =
-            Resource(Status.SUCCESS, data)
+            Resource(
+                Status.SUCCESS,
+                data
+            )
 
         fun <T> error(
             error: Throwable? = null,
             data: T? = null,
             message: String? = null
         ): Resource<T> =
-            Resource(Status.ERROR, data, message, error)
+            Resource(
+                Status.ERROR,
+                data,
+                message,
+                error
+            )
     }
 }
