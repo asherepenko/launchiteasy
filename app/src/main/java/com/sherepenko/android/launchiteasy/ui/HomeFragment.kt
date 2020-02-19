@@ -16,6 +16,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val weatherViewModel: WeatherViewModel by viewModel()
 
+    private lateinit var snackbar: Snackbar
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         launcherButton.setOnClickListener {
             findNavController().navigate(
@@ -23,13 +25,13 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             )
         }
 
-        val snackbar = Snackbar.make(view, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
+        snackbar = Snackbar.make(view, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
 
         weatherViewModel.getConnectionState().observe(viewLifecycleOwner, Observer { isConnected ->
             if (isConnected) {
-                snackbar.dismiss()
+                showSnackbar()
             } else {
-                snackbar.show()
+                hideSnackbar()
             }
         })
 
@@ -51,5 +53,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
             }
         })
+    }
+
+    private fun showSnackbar() {
+        if (!snackbar.isShownOrQueued) {
+            snackbar.show()
+        }
+    }
+
+    private fun hideSnackbar() {
+        if (snackbar.isShownOrQueued) {
+            snackbar.dismiss()
+        }
     }
 }
