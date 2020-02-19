@@ -39,10 +39,10 @@ class WeatherForecastResponseDeserializer : JsonDeserializer<WeatherForecastResp
                             it["weather"][0]["icon"].asText()
                         ),
                         LocationItem(
+                            jsonRoot["city"]["coord"]["lat"].doubleValue(),
+                            jsonRoot["city"]["coord"]["lon"].doubleValue(),
                             jsonRoot["city"]["id"].intValue(),
-                            jsonRoot["city"]["name"].asText(),
-                            jsonRoot["city"]["coord"]["lat"].floatValue(),
-                            jsonRoot["city"]["coord"]["lon"].floatValue()
+                            jsonRoot["city"]["name"].asText()
                         ),
                         Instant.ofEpochSecond(it["dt"].longValue())
                     )

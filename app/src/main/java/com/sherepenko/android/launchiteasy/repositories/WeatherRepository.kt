@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import com.sherepenko.android.launchiteasy.data.ForecastItem
+import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.data.WeatherItem
 import com.sherepenko.android.launchiteasy.data.utils.RemoteBoundResource
 import com.sherepenko.android.launchiteasy.data.utils.Resource
@@ -16,7 +17,7 @@ interface WeatherRepository : BaseRepository {
 
     fun getWeatherForecasts(): LiveData<Resource<List<ForecastItem>>>
 
-    fun updateCurrentLocation(locationId: Int)
+    fun updateCurrentLocation(latitude: Double, longitude: Double)
 }
 
 class WeatherRepositoryImpl(
@@ -24,16 +25,16 @@ class WeatherRepositoryImpl(
     private val remoteDataSource: WeatherRemoteDataSource
 ) : WeatherRepository {
 
-    private val currentLocation = MutableLiveData(703448)
+    private val currentLocation = MutableLiveData<LocationItem>()
 
     override fun getCurrentWeather(): LiveData<Resource<WeatherItem>> =
         currentLocation.switchMap {
             object : RemoteBoundResource<WeatherItem, WeatherItem>() {
                 override suspend fun getRemoteData(): WeatherItem =
-                    remoteDataSource.getCurrentWeather(it)
+                    remoteDataSource.getCurrentWeather(it.latitude, it.longitude)
 
                 override suspend fun getLocalData(): WeatherItem =
-                    localDataSource.getCurrentWeather(it)
+                    localDataSource.getCurrentWeather(it.latitude, it.longitude)
 
                 override suspend fun saveLocally(data: WeatherItem) {
                     localDataSource.saveCurrentWeather(data)
@@ -51,10 +52,10 @@ class WeatherRepositoryImpl(
         currentLocation.switchMap {
             object : RemoteBoundResource<List<ForecastItem>, List<ForecastItem>>() {
                 override suspend fun getRemoteData(): List<ForecastItem> =
-                    remoteDataSource.getWeatherForecasts(it)
+                    remoteDataSource.getWeatherForecasts(it.latitude, it.longitude)
 
                 override suspend fun getLocalData(): List<ForecastItem> =
-                    localDataSource.getWeatherForecasts(it)
+                    localDataSource.getWeatherForecasts(it.latitude, it.longitude)
 
                 override suspend fun saveLocally(data: List<ForecastItem>) {
                     localDataSource.saveWeatherForecasts(data)
@@ -68,7 +69,12 @@ class WeatherRepositoryImpl(
             }.asLiveData()
         }
 
-    override fun updateCurrentLocation(locationId: Int) {
-        currentLocation.postValue(locationId)
+    override fun updateCurrentLocation(latitude: Double, longitude: Double) {
+        currentLocation.postValue(
+            LocationItem(
+                latitude = latitude,
+                longitude = longitude
+            )
+        )
     }
 }

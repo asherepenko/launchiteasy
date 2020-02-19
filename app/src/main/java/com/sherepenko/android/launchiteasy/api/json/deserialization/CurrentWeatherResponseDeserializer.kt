@@ -36,10 +36,10 @@ class CurrentWeatherResponseDeserializer : JsonDeserializer<CurrentWeatherRespon
                     jsonRoot["weather"][0]["icon"].asText()
                 ),
                 LocationItem(
+                    jsonRoot["coord"]["lat"].doubleValue(),
+                    jsonRoot["coord"]["lon"].doubleValue(),
                     jsonRoot["id"].intValue(),
-                    jsonRoot["name"].asText(),
-                    jsonRoot["coord"]["lat"].floatValue(),
-                    jsonRoot["coord"]["lon"].floatValue()
+                    jsonRoot["name"].asText()
                 ),
                 Instant.ofEpochSecond(jsonRoot["dt"].longValue())
             )

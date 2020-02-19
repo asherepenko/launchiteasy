@@ -108,7 +108,7 @@ ktlint {
 
 val glideVersion = "4.11.0"
 val jacksonVersion = "2.10.2"
-val koinVersion = "2.1.0-alpha-10"
+val koinVersion = "2.1.0-beta-1"
 val ktxVersion = "1.2.0"
 val lifecycleVersion = "2.2.0"
 val navigationVersion = "2.3.0-alpha01"
@@ -156,7 +156,6 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-jackson:$retrofitVersion")
     implementation("org.koin:koin-androidx-ext:$koinVersion")
-    implementation("org.koin:koin-androidx-fragment:$koinVersion")
     implementation("org.koin:koin-androidx-scope:$koinVersion")
     implementation("org.koin:koin-androidx-viewmodel:$koinVersion")
     implementation("uk.co.chrisjenx:calligraphy:2.3.0")
@@ -166,6 +165,7 @@ dependencies {
     testImplementation("androidx.test.ext:junit:1.1.1")
     testImplementation("com.google.truth:truth:0.44")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation("org.koin:koin-test:$koinVersion")
     testImplementation("org.robolectric:robolectric:4.3.1")
 }
 

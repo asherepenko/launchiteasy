@@ -22,7 +22,7 @@ class WeatherViewModel(
     fun getWeatherForecasts(): LiveData<Resource<List<ForecastItem>>> =
         repository.getWeatherForecasts()
 
-    fun updateCurrentLocation(locationId: Int) {
-        repository.updateCurrentLocation(locationId)
+    fun updateCurrentLocation(latitude: Double, longitude: Double) {
+        repository.updateCurrentLocation(latitude, longitude)
     }
 }

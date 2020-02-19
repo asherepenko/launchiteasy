@@ -2,14 +2,18 @@
 <resources
         xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.App" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Application" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@android:color/white</item>
+    </style>
+
+    <style name="Theme.Launcher" parent="Theme.Application">
+        <item name="android:windowBackground">@drawable/launch_background</item>
     </style>
 
 </resources>
