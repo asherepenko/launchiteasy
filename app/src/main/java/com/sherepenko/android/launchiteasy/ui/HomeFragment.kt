@@ -1,6 +1,8 @@
 package com.sherepenko.android.launchiteasy.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.AlarmClock
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -9,6 +11,7 @@ import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_home.currentTemperatureView
+import kotlinx.android.synthetic.main.fragment_home.currentTimeView
 import kotlinx.android.synthetic.main.fragment_home.currentWeatherConditionView
 import kotlinx.android.synthetic.main.fragment_home.currentWeatherIconView
 import kotlinx.android.synthetic.main.fragment_home.launcherButton
@@ -21,6 +24,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private lateinit var snackbar: Snackbar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        currentTimeView.setOnClickListener {
+            val intent = Intent(AlarmClock.ACTION_SHOW_ALARMS)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+            if (intent.resolveActivity(requireContext().packageManager) != null) {
+                startActivity(intent)
+            }
+        }
+
         launcherButton.setOnClickListener {
             findNavController().navigate(
                 HomeFragmentDirections.toLauncherFragment()
