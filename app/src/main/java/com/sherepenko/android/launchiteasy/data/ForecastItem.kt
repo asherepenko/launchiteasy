@@ -27,6 +27,10 @@ data class ForecastItem(
     val location: LocationItem,
     @ColumnInfo(name = "timestamp")
     val timestamp: Instant,
+    @ColumnInfo(name = "created_at")
+    val createdAt: Instant = Instant.now(),
+    @ColumnInfo(name = "updated_at")
+    val updatedAt: Instant = Instant.now(),
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null
 )

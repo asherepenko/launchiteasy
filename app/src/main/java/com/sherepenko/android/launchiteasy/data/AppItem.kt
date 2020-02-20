@@ -3,6 +3,7 @@ package com.sherepenko.android.launchiteasy.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import org.threeten.bp.Instant
 
 @Entity(tableName = "applications")
 data class AppItem(
@@ -14,5 +15,9 @@ data class AppItem(
     @ColumnInfo(name = "is_system")
     val isSystem: Boolean,
     @ColumnInfo(name = "is_enabled")
-    val isEnabled: Boolean
+    val isEnabled: Boolean,
+    @ColumnInfo(name = "created_at")
+    val createdAt: Instant = Instant.now(),
+    @ColumnInfo(name = "updated_at")
+    val updatedAt: Instant = Instant.now()
 )

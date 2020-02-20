@@ -13,7 +13,7 @@ import com.sherepenko.android.launchiteasy.data.WeatherItem
         WeatherItem::class,
         ForecastItem::class
     ],
-    version = 2020_02_20_03,
+    version = 2020_02_21_01,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
