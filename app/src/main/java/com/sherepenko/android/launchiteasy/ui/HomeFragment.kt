@@ -9,6 +9,8 @@ import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_home.currentTemperatureView
+import kotlinx.android.synthetic.main.fragment_home.currentWeatherConditionView
+import kotlinx.android.synthetic.main.fragment_home.currentWeatherIconView
 import kotlinx.android.synthetic.main.fragment_home.launcherButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,9 +31,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         weatherViewModel.getConnectionState().observe(viewLifecycleOwner, Observer { isConnected ->
             if (isConnected) {
-                showSnackbar()
-            } else {
                 hideSnackbar()
+            } else {
+                showSnackbar()
             }
         })
 
@@ -39,13 +41,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             when (it.status) {
                 Status.LOADING -> {
                     it.data?.let { data ->
+                        currentWeatherIconView.text = data.condition.icon.glyph
+                        currentWeatherConditionView.text = data.condition.name
                         currentTemperatureView.text =
                             getString(R.string.temperature_value, data.temperature.celsius)
                     }
                 }
                 Status.SUCCESS -> {
+                    currentWeatherIconView.text = it.data!!.condition.icon.glyph
+                    currentWeatherConditionView.text = it.data.condition.name
                     currentTemperatureView.text =
-                        getString(R.string.temperature_value, it.data!!.temperature.celsius)
+                        getString(R.string.temperature_value, it.data.temperature.celsius)
                 }
                 Status.ERROR -> {
                     currentTemperatureView.text =

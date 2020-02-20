@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.sherepenko.android.launchiteasy.data.ForecastItem
+import org.threeten.bp.Instant
 
 @Dao
 interface ForecastDao {
@@ -25,6 +26,11 @@ interface ForecastDao {
         insertWeatherForecasts(*forecasts)
     }
 
-    @Query("SELECT * FROM weather_forecast ORDER BY datetime(timestamp)")
+    @Query("SELECT * FROM weather_forecast ORDER BY datetime(timestamp) ASC")
     suspend fun getAllWeatherForecasts(): List<ForecastItem>
+
+    @Query(
+        "SELECT * FROM weather_forecast WHERE timestamp >= :from ORDER BY datetime(timestamp) ASC"
+    )
+    suspend fun getWeatherForecasts(from: Instant): List<ForecastItem>
 }

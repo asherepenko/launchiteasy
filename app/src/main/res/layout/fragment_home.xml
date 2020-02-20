@@ -7,6 +7,12 @@
         android:layout_height="match_parent"
         tools:context=".ui.HomeFragment">
 
+    <androidx.constraintlayout.widget.Group
+            android:id="@+id/currentWeatherGroup"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:constraint_referenced_ids="currentWeatherIconView,currentWeatherConditionView,currentTemperatureView" />
+
     <TextClock
             android:id="@+id/currentTimeView"
             android:layout_width="wrap_content"
@@ -31,23 +37,49 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/currentTimeView"
-            app:layout_constraintBottom_toTopOf="@+id/currentTemperatureView"
+            app:layout_constraintBottom_toTopOf="@+id/currentWeatherIconView"
             tools:text="Sun, February 16" />
+
+    <TextView
+            android:id="@+id/currentWeatherIconView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="48sp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/currentTemperatureView"
+            app:layout_constraintTop_toBottomOf="@+id/currentDateView"
+            app:layout_constraintBottom_toTopOf="@+id/currentWeatherConditionView"
+            fontPath="fonts/WeatherIcons-regular.ttf"
+            tools:ignore="MissingPrefix"
+            tools:text="*" />
 
     <TextView
             android:id="@+id/currentTemperatureView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/currentWeatherIconView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/currentWeatherIconView"
+            app:layout_constraintBottom_toBottomOf="@+id/currentWeatherIconView"
+            tools:text="-11°" />
+
+    <TextView
+            android:id="@+id/currentWeatherConditionView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/currentDateView"
+            app:layout_constraintTop_toBottomOf="@+id/currentWeatherIconView"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="+15.1" />
+            tools:text="Clear" />
 
     <Button
             android:id="@+id/launcherButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:text="All Apps"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

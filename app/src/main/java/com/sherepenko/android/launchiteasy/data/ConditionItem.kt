@@ -1,6 +1,7 @@
 package com.sherepenko.android.launchiteasy.data
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 
 data class ConditionItem(
     @ColumnInfo(name = "id")
@@ -9,6 +10,6 @@ data class ConditionItem(
     val name: String,
     @ColumnInfo(name = "description")
     val description: String,
-    @ColumnInfo(name = "icon")
-    val icon: String
+    @Embedded(prefix = "icon_")
+    val icon: WeatherIcon
 )

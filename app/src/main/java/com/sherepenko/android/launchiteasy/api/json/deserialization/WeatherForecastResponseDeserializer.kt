@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
+import com.sherepenko.android.launchiteasy.api.OpenWeatherIconMapper
 import com.sherepenko.android.launchiteasy.api.json.WeatherForecastResponse
 import com.sherepenko.android.launchiteasy.data.ConditionItem
 import com.sherepenko.android.launchiteasy.data.ForecastItem
@@ -37,7 +38,7 @@ class WeatherForecastResponseDeserializer : JsonDeserializer<WeatherForecastResp
                             it["weather"][0]["id"].intValue(),
                             it["weather"][0]["main"].asText(),
                             it["weather"][0]["description"].asText(),
-                            it["weather"][0]["icon"].asText()
+                            OpenWeatherIconMapper.toWeatherIcon(it["weather"][0]["icon"].asText())
                         ),
                         LocationItem(
                             jsonRoot["city"]["coord"]["lat"].doubleValue().round(),

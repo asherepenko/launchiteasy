@@ -4,6 +4,7 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.switchMap
 import com.sherepenko.android.launchiteasy.data.ForecastItem
+import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.data.WeatherItem
 import com.sherepenko.android.launchiteasy.livedata.ConnectivityLiveData
@@ -58,20 +59,8 @@ class WeatherRepositoryImpl(
 
                     override fun shouldFetchRemoteData(data: WeatherItem?): Boolean =
                         data?.let {
-                            val sinceLastUpdate =
-                                Instant.now().toEpochMilli() - it.timestamp.toEpochMilli()
-
-                            val distances = FloatArray(3)
-
-                            Location.distanceBetween(
-                                it.location.latitude,
-                                it.location.longitude,
-                                lastLocation.latitude,
-                                lastLocation.longitude,
-                                distances
-                            )
-
-                            sinceLastUpdate > MAX_STALE_TIME || distances[0] > MAX_DISTANCE
+                            it.sinceLastUpdateMilli() > MAX_STALE_TIME ||
+                                it.location.distanceTo(lastLocation) > MAX_DISTANCE
                         } ?: isConnected
                 }.asLiveData()
             }
@@ -99,4 +88,18 @@ class WeatherRepositoryImpl(
                 }.asLiveData()
             }
         }
+
+    private fun WeatherItem.sinceLastUpdateMilli() =
+        Instant.now().toEpochMilli() - timestamp.toEpochMilli()
+
+    private fun LocationItem.distanceTo(location: LocationItem): Float =
+        FloatArray(1).apply {
+            Location.distanceBetween(
+                latitude,
+                longitude,
+                location.latitude,
+                location.longitude,
+                this
+            )
+        }[0]
 }

@@ -87,7 +87,9 @@ class LauncherApp : Application() {
                 get(),
                 AppDatabase::class.java,
                 DB_NAME
-            ).build()
+            )
+                .fallbackToDestructiveMigration()
+                .build()
         }
     }
 
@@ -128,6 +130,7 @@ class LauncherApp : Application() {
         super.onCreate()
 
         AndroidThreeTen.init(this@LauncherApp)
+
         Timber.plant(Timber.DebugTree())
 
         startKoin {
