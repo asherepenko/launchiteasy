@@ -32,6 +32,12 @@ android {
 
         setProperty("archivesBaseName", "$archivesBaseName-$versionName")
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = mapOf("room.schemaLocation" to "$projectDir/schemas")
+            }
+        }
+
         if (localPropertiesFile.exists()) {
             val localProperties = Properties().apply {
                 load(FileInputStream(localPropertiesFile))

@@ -13,8 +13,7 @@ import com.sherepenko.android.launchiteasy.data.WeatherItem
         WeatherItem::class,
         ForecastItem::class
     ],
-    version = 2020_02_21_01,
-    exportSchema = false
+    version = 2020_02_21_01
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
