@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 import org.threeten.bp.Instant
 
 @Entity(
-    tableName = "weather_forecast",
+    tableName = "weather_forecasts",
     indices = [
         Index(value = ["location_id"]),
         Index(value = ["location_name"])

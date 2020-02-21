@@ -25,7 +25,7 @@ class CurrentWeatherResponseDeserializer : JsonDeserializer<CurrentWeatherRespon
         val jsonRoot: JsonNode = jsonParser.codec.readTree(jsonParser)
 
         return CurrentWeatherResponse(
-            item = WeatherItem(
+            currentWeather = WeatherItem(
                 TemperatureItem(
                     jsonRoot["main"]["temp"].floatValue()
                 ),

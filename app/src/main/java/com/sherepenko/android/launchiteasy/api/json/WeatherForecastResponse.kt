@@ -6,5 +6,5 @@ import com.sherepenko.android.launchiteasy.data.ForecastItem
 
 @JsonDeserialize(using = WeatherForecastResponseDeserializer::class)
 data class WeatherForecastResponse(
-    val items: List<ForecastItem>
+    val weatherForecasts: List<ForecastItem>
 )

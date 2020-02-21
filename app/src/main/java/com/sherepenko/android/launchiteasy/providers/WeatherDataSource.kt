@@ -37,11 +37,11 @@ class WeatherRemoteDataSource(private val weatherApi: OpenWeatherApi) :
     WeatherDataSource {
 
     override suspend fun getCurrentWeather(latitude: Double, longitude: Double): WeatherItem =
-        weatherApi.getCurrentWeatherByLocation(latitude, longitude).item
+        weatherApi.getCurrentWeatherByLocation(latitude, longitude).currentWeather
 
     override suspend fun getWeatherForecasts(
         latitude: Double,
         longitude: Double
     ): List<ForecastItem> =
-        weatherApi.getWeatherForecastByLocation(latitude, longitude).items
+        weatherApi.getWeatherForecastsByLocation(latitude, longitude).weatherForecasts
 }

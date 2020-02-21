@@ -17,7 +17,7 @@ interface ForecastDao {
     @Delete
     suspend fun deleteWeatherForecasts(vararg forecasts: ForecastItem)
 
-    @Query("DELETE FROM weather_forecast")
+    @Query("DELETE FROM weather_forecasts")
     suspend fun deleteAllWeatherForecasts()
 
     @Transaction
@@ -26,11 +26,15 @@ interface ForecastDao {
         insertWeatherForecasts(*forecasts)
     }
 
-    @Query("SELECT * FROM weather_forecast ORDER BY datetime(timestamp) ASC")
+    @Query("SELECT * FROM weather_forecasts ORDER BY datetime(timestamp) ASC")
     suspend fun getAllWeatherForecasts(): List<ForecastItem>
 
     @Query(
-        "SELECT * FROM weather_forecast WHERE timestamp >= :from ORDER BY datetime(timestamp) ASC"
+        "SELECT * FROM weather_forecasts WHERE timestamp >= :after " +
+            "ORDER BY datetime(timestamp) ASC LIMIT :atMost"
     )
-    suspend fun getWeatherForecasts(from: Instant): List<ForecastItem>
+    suspend fun getWeatherForecasts(
+        atMost: Int = Int.MAX_VALUE,
+        after: Instant = Instant.now()
+    ): List<ForecastItem>
 }

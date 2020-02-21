@@ -31,7 +31,9 @@ class WeatherRepositoryImpl(
     companion object {
         private const val MAX_DISTANCE = 1500.0f // In metres
 
-        private val MAX_STALE_TIME = TimeUnit.HOURS.toMillis(2)
+        private val WEATHER_MAX_STALE_TIME = TimeUnit.HOURS.toMillis(2)
+
+        private val FORECAST_MIN_STALE_TIME = TimeUnit.HOURS.toMillis(27)
     }
 
     override fun getCurrentWeather(): LiveData<Resource<WeatherItem>> =
@@ -59,7 +61,7 @@ class WeatherRepositoryImpl(
 
                     override fun shouldFetchRemoteData(data: WeatherItem?): Boolean =
                         data?.let {
-                            it.sinceLastUpdateMilli() > MAX_STALE_TIME ||
+                            it.sinceLastUpdateMilli() > WEATHER_MAX_STALE_TIME ||
                                 it.location.distanceTo(lastLocation) > MAX_DISTANCE
                         } ?: isConnected
                 }.asLiveData()
@@ -68,13 +70,19 @@ class WeatherRepositoryImpl(
 
     override fun getWeatherForecasts(): LiveData<Resource<List<ForecastItem>>> =
         connectivityDataSource.switchMap { isConnected ->
-            locationDataSource.switchMap {
+            locationDataSource.switchMap { lastLocation ->
                 object : RemoteBoundResource<List<ForecastItem>, List<ForecastItem>>() {
                     override suspend fun getRemoteData(): List<ForecastItem> =
-                        remoteDataSource.getWeatherForecasts(it.latitude, it.longitude)
+                        remoteDataSource.getWeatherForecasts(
+                            lastLocation.latitude,
+                            lastLocation.longitude
+                        )
 
                     override suspend fun getLocalData(): List<ForecastItem> =
-                        localDataSource.getWeatherForecasts(it.latitude, it.longitude)
+                        localDataSource.getWeatherForecasts(
+                            lastLocation.latitude,
+                            lastLocation.longitude
+                        )
 
                     override suspend fun saveLocally(data: List<ForecastItem>) {
                         localDataSource.saveWeatherForecasts(data)
@@ -84,13 +92,20 @@ class WeatherRepositoryImpl(
                         data
 
                     override fun shouldFetchRemoteData(data: List<ForecastItem>?): Boolean =
-                        isConnected
+                        data?.let {
+                            it.isEmpty() ||
+                                it.last().tillNextUpdateMilli() < FORECAST_MIN_STALE_TIME ||
+                                    it.last().location.distanceTo(lastLocation) > MAX_DISTANCE
+                        } ?: isConnected
                 }.asLiveData()
             }
         }
 
     private fun WeatherItem.sinceLastUpdateMilli() =
         Instant.now().toEpochMilli() - timestamp.toEpochMilli()
+
+    private fun ForecastItem.tillNextUpdateMilli() =
+        timestamp.toEpochMilli() - Instant.now().toEpochMilli()
 
     private fun LocationItem.distanceTo(location: LocationItem): Float =
         FloatArray(1).apply {

@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 2020022101,
-    "identityHash": "70a21eef164f4b66a4a9eb06db65c677",
+    "version": 2020022103,
+    "identityHash": "d55c2a1cf3aec195fe2afc8a2627d7bf",
     "entities": [
       {
         "tableName": "applications",
@@ -176,7 +176,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "weather_forecast",
+        "tableName": "weather_forecasts",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pressure` REAL NOT NULL, `humidity` REAL NOT NULL, `timestamp` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `temperature_kelvin` REAL NOT NULL, `condition_id` INTEGER NOT NULL, `condition_name` TEXT NOT NULL, `condition_description` TEXT NOT NULL, `condition_icon_glyph` TEXT NOT NULL, `location_latitude` REAL NOT NULL, `location_longitude` REAL NOT NULL, `location_id` INTEGER, `location_name` TEXT)",
         "fields": [
           {
@@ -278,20 +278,20 @@
         },
         "indices": [
           {
-            "name": "index_weather_forecast_location_id",
+            "name": "index_weather_forecasts_location_id",
             "unique": false,
             "columnNames": [
               "location_id"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_weather_forecast_location_id` ON `${TABLE_NAME}` (`location_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_weather_forecasts_location_id` ON `${TABLE_NAME}` (`location_id`)"
           },
           {
-            "name": "index_weather_forecast_location_name",
+            "name": "index_weather_forecasts_location_name",
             "unique": false,
             "columnNames": [
               "location_name"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_weather_forecast_location_name` ON `${TABLE_NAME}` (`location_name`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_weather_forecasts_location_name` ON `${TABLE_NAME}` (`location_name`)"
           }
         ],
         "foreignKeys": []
@@ -300,7 +300,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '70a21eef164f4b66a4a9eb06db65c677')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd55c2a1cf3aec195fe2afc8a2627d7bf')"
     ]
   }
 }

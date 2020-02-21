@@ -8,6 +8,12 @@
         tools:context=".ui.HomeFragment">
 
     <androidx.constraintlayout.widget.Group
+            android:id="@+id/currentDateTimeGroup"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:constraint_referenced_ids="currentTimeView,currentDateView" />
+
+    <androidx.constraintlayout.widget.Group
             android:id="@+id/currentWeatherGroup"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -52,7 +58,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/currentTemperatureView"
             app:layout_constraintTop_toBottomOf="@+id/currentDateView"
-            app:layout_constraintBottom_toTopOf="@+id/currentWeatherConditionView"
+            app:layout_constraintBottom_toTopOf="@+id/weatherForecastsView"
             fontPath="fonts/WeatherIcons-regular.ttf"
             tools:ignore="MissingPrefix"
             tools:text="*" />
@@ -62,10 +68,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
+            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/currentWeatherIconView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/currentWeatherIconView"
-            app:layout_constraintBottom_toBottomOf="@+id/currentWeatherIconView"
+            app:layout_constraintBottom_toTopOf="@+id/currentWeatherConditionView"
             tools:text="-11°" />
 
     <TextView
@@ -73,11 +80,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="true"
+            app:layout_constraintStart_toStartOf="@+id/currentTemperatureView"
+            app:layout_constraintTop_toBottomOf="@+id/currentTemperatureView"
+            app:layout_constraintBottom_toBottomOf="@+id/currentWeatherIconView"
+            tools:text="Clear" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/weatherForecastsView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="48dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/currentWeatherIconView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="Clear" />
+            app:layout_constraintBottom_toTopOf="@+id/launcherButton"
+            tools:listitem="@layout/item_forecast" />
 
     <Button
             android:id="@+id/launcherButton"

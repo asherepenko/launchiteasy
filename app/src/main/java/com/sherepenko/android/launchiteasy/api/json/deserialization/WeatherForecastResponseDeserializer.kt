@@ -25,7 +25,7 @@ class WeatherForecastResponseDeserializer : JsonDeserializer<WeatherForecastResp
         val jsonRoot: JsonNode = jsonParser.codec.readTree(jsonParser)
 
         return WeatherForecastResponse(
-            items = jsonRoot["list"]
+            weatherForecasts = jsonRoot["list"]
                 .asSequence()
                 .map {
                     ForecastItem(

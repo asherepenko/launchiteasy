@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Launch It Easy</string>
+    <string name="app_name" translatable="false">Sleazy Launcher</string>
 
     <string name="temperature_value" translatable="false">%1$d°</string>
     <string name="no_temperature" translatable="false">_ _°</string>

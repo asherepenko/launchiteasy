@@ -12,18 +12,20 @@
         android:paddingBottom="16dp">
 
     <ImageView
-            android:id="@+id/iconView"
+            android:id="@+id/appIconView"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:src="@mipmap/ic_launcher_round"
             android:adjustViewBounds="true"
+            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/appLabelView"
             tools:ignore="ContentDescription" />
 
     <TextView
-            android:id="@+id/labelView"
+            android:id="@+id/appLabelView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -32,7 +34,7 @@
             android:ellipsize="end"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iconView"
+            app:layout_constraintTop_toBottomOf="@+id/appIconView"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Test application" />
 
