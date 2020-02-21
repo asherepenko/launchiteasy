@@ -17,12 +17,16 @@ import org.threeten.bp.Instant
 data class ForecastItem(
     @Embedded(prefix = "temperature_")
     val temperature: TemperatureItem,
+    @Embedded(prefix = "perceived_temperature_")
+    val perceivedTemperature: TemperatureItem,
     @ColumnInfo(name = "pressure")
     val pressure: Float,
     @ColumnInfo(name = "humidity")
     val humidity: Float,
     @Embedded(prefix = "condition_")
     val condition: ConditionItem,
+    @Embedded(prefix = "wind_")
+    val wind: WindItem,
     @Embedded(prefix = "location_")
     val location: LocationItem,
     @ColumnInfo(name = "timestamp")

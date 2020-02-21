@@ -39,7 +39,8 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                     }
                 }
                 Status.SUCCESS -> {
-                    appsAdapter.items = it.data!!
+                    appsView.setItemViewCacheSize(it.data!!.size)
+                    appsAdapter.items = it.data
                     loadingView.visibility = View.GONE
                 }
                 Status.ERROR -> {

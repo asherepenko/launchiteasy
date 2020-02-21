@@ -12,6 +12,7 @@ import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
+import kotlinx.android.synthetic.main.fragment_home.currentLocationView
 import kotlinx.android.synthetic.main.fragment_home.currentTemperatureView
 import kotlinx.android.synthetic.main.fragment_home.currentTimeView
 import kotlinx.android.synthetic.main.fragment_home.currentWeatherConditionView
@@ -68,6 +69,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                         currentWeatherConditionView.text = data.condition.name
                         currentTemperatureView.text =
                             getString(R.string.temperature_value, data.temperature.celsius)
+                        currentLocationView.text = data.location.name
                     }
                 }
                 Status.SUCCESS -> {
@@ -75,6 +77,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                     currentWeatherConditionView.text = it.data.condition.name
                     currentTemperatureView.text =
                         getString(R.string.temperature_value, it.data.temperature.celsius)
+                    currentLocationView.text = it.data.location.name
                 }
                 Status.ERROR -> {
                     currentTemperatureView.text =

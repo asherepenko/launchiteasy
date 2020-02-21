@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 2020022103,
-    "identityHash": "d55c2a1cf3aec195fe2afc8a2627d7bf",
+    "version": 2020022105,
+    "identityHash": "a8af4e9d2c13825311b7f7dd05334665",
     "entities": [
       {
         "tableName": "applications",
@@ -56,7 +56,7 @@
       },
       {
         "tableName": "current_weather",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pressure` REAL NOT NULL, `humidity` REAL NOT NULL, `timestamp` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `temperature_kelvin` REAL NOT NULL, `condition_id` INTEGER NOT NULL, `condition_name` TEXT NOT NULL, `condition_description` TEXT NOT NULL, `condition_icon_glyph` TEXT NOT NULL, `location_latitude` REAL NOT NULL, `location_longitude` REAL NOT NULL, `location_id` INTEGER, `location_name` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pressure` REAL NOT NULL, `humidity` REAL NOT NULL, `visibility` REAL NOT NULL, `sunrise` INTEGER NOT NULL, `sunset` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `temperature_kelvin` REAL NOT NULL, `perceived_temperature_kelvin` REAL NOT NULL, `condition_id` INTEGER NOT NULL, `condition_name` TEXT NOT NULL, `condition_description` TEXT NOT NULL, `condition_icon_glyph` TEXT NOT NULL, `wind_speed` REAL NOT NULL, `wind_direction` INTEGER NOT NULL, `location_latitude` REAL NOT NULL, `location_longitude` REAL NOT NULL, `location_id` INTEGER, `location_name` TEXT)",
         "fields": [
           {
             "fieldPath": "pressure",
@@ -68,6 +68,24 @@
             "fieldPath": "humidity",
             "columnName": "humidity",
             "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visibility",
+            "columnName": "visibility",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sunrise",
+            "columnName": "sunrise",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sunset",
+            "columnName": "sunset",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -101,6 +119,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "perceivedTemperature.kelvin",
+            "columnName": "perceived_temperature_kelvin",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
             "fieldPath": "condition.id",
             "columnName": "condition_id",
             "affinity": "INTEGER",
@@ -122,6 +146,18 @@
             "fieldPath": "condition.icon.glyph",
             "columnName": "condition_icon_glyph",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wind.speed",
+            "columnName": "wind_speed",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wind.direction",
+            "columnName": "wind_direction",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -177,7 +213,7 @@
       },
       {
         "tableName": "weather_forecasts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pressure` REAL NOT NULL, `humidity` REAL NOT NULL, `timestamp` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `temperature_kelvin` REAL NOT NULL, `condition_id` INTEGER NOT NULL, `condition_name` TEXT NOT NULL, `condition_description` TEXT NOT NULL, `condition_icon_glyph` TEXT NOT NULL, `location_latitude` REAL NOT NULL, `location_longitude` REAL NOT NULL, `location_id` INTEGER, `location_name` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pressure` REAL NOT NULL, `humidity` REAL NOT NULL, `timestamp` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `temperature_kelvin` REAL NOT NULL, `perceived_temperature_kelvin` REAL NOT NULL, `condition_id` INTEGER NOT NULL, `condition_name` TEXT NOT NULL, `condition_description` TEXT NOT NULL, `condition_icon_glyph` TEXT NOT NULL, `wind_speed` REAL NOT NULL, `wind_direction` INTEGER NOT NULL, `location_latitude` REAL NOT NULL, `location_longitude` REAL NOT NULL, `location_id` INTEGER, `location_name` TEXT)",
         "fields": [
           {
             "fieldPath": "pressure",
@@ -222,6 +258,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "perceivedTemperature.kelvin",
+            "columnName": "perceived_temperature_kelvin",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
             "fieldPath": "condition.id",
             "columnName": "condition_id",
             "affinity": "INTEGER",
@@ -243,6 +285,18 @@
             "fieldPath": "condition.icon.glyph",
             "columnName": "condition_icon_glyph",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wind.speed",
+            "columnName": "wind_speed",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wind.direction",
+            "columnName": "wind_direction",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -300,7 +354,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd55c2a1cf3aec195fe2afc8a2627d7bf')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a8af4e9d2c13825311b7f7dd05334665')"
     ]
   }
 }

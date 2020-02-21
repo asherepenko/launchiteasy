@@ -22,6 +22,9 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflate(R.layout.item_app))
 
+    override fun getItemId(position: Int): Long =
+        items[position].packageName.hashCode().toLong()
+
     override fun onItemClick(view: View, position: Int, id: Long) {
         super.onItemClick(view, position, id)
 

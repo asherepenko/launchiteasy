@@ -11,6 +11,7 @@ import com.sherepenko.android.launchiteasy.data.ConditionItem
 import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.data.TemperatureItem
 import com.sherepenko.android.launchiteasy.data.WeatherItem
+import com.sherepenko.android.launchiteasy.data.WindItem
 import com.sherepenko.android.launchiteasy.utils.round
 import java.io.IOException
 import org.threeten.bp.Instant
@@ -29,13 +30,21 @@ class CurrentWeatherResponseDeserializer : JsonDeserializer<CurrentWeatherRespon
                 TemperatureItem(
                     jsonRoot["main"]["temp"].floatValue()
                 ),
+                TemperatureItem(
+                    jsonRoot["main"]["feels_like"].floatValue()
+                ),
                 jsonRoot["main"]["pressure"].floatValue(),
                 jsonRoot["main"]["humidity"].floatValue(),
+                jsonRoot["visibility"].floatValue(),
                 ConditionItem(
                     jsonRoot["weather"][0]["id"].intValue(),
                     jsonRoot["weather"][0]["main"].asText(),
                     jsonRoot["weather"][0]["description"].asText(),
                     OpenWeatherIconMapper.toWeatherIcon(jsonRoot["weather"][0]["icon"].asText())
+                ),
+                WindItem(
+                    jsonRoot["wind"]["speed"].floatValue(),
+                    jsonRoot["wind"]["deg"].intValue()
                 ),
                 LocationItem(
                     jsonRoot["coord"]["lat"].doubleValue().round(),
@@ -43,6 +52,8 @@ class CurrentWeatherResponseDeserializer : JsonDeserializer<CurrentWeatherRespon
                     jsonRoot["id"].intValue(),
                     jsonRoot["name"].asText()
                 ),
+                Instant.ofEpochSecond(jsonRoot["sys"]["sunrise"].longValue()),
+                Instant.ofEpochSecond(jsonRoot["sys"]["sunset"].longValue()),
                 Instant.ofEpochSecond(jsonRoot["dt"].longValue())
             )
         )

@@ -29,7 +29,7 @@ class WeatherRepositoryImpl(
 ) : WeatherRepository {
 
     companion object {
-        private const val MAX_DISTANCE = 1500.0f // In metres
+        private const val MAX_DISTANCE = 2500.0f // In metres
 
         private val WEATHER_MAX_STALE_TIME = TimeUnit.HOURS.toMillis(2)
 
