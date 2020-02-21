@@ -12,8 +12,10 @@ interface WeatherDataSource {
     suspend fun getWeatherForecasts(latitude: Double, longitude: Double): List<ForecastItem>
 }
 
-class WeatherLocalDataSource(private val database: AppDatabase) :
-    WeatherDataSource {
+class WeatherLocalDataSource(
+    private val database: AppDatabase,
+    private val forecastsCount: Int
+) : WeatherDataSource {
 
     override suspend fun getCurrentWeather(latitude: Double, longitude: Double): WeatherItem =
         database.getWeatherDao().getCurrentWeather()
@@ -22,7 +24,7 @@ class WeatherLocalDataSource(private val database: AppDatabase) :
         latitude: Double,
         longitude: Double
     ): List<ForecastItem> =
-        database.getForecastDao().getAllWeatherForecasts()
+        database.getForecastDao().getWeatherForecasts(forecastsCount)
 
     suspend fun saveCurrentWeather(weather: WeatherItem) {
         database.getWeatherDao().updateCurrentWeather(weather)

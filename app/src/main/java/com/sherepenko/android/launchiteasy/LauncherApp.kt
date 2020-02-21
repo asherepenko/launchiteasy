@@ -100,7 +100,7 @@ class LauncherApp : Application() {
 
         single {
             WeatherRepositoryImpl(
-                WeatherLocalDataSource(get()),
+                WeatherLocalDataSource(get(), AppConstants.WEATHER_FORECASTS_LIMIT),
                 WeatherRemoteDataSource(get()),
                 LocationLiveData(get()),
                 get()
