@@ -12,7 +12,6 @@ import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.data.TemperatureItem
 import com.sherepenko.android.launchiteasy.data.WindItem
-import com.sherepenko.android.launchiteasy.utils.round
 import java.io.IOException
 import org.threeten.bp.Instant
 
@@ -29,30 +28,44 @@ class WeatherForecastResponseDeserializer : JsonDeserializer<WeatherForecastResp
             weatherForecasts = jsonRoot["list"]
                 .asSequence()
                 .map {
+                    val jsonMain = it["main"]
+                    val jsonCity = jsonRoot["city"]
+                    val jsonLocation = jsonCity["coord"]
+                    val jsonWeather = it["weather"][0]
+                    val jsonWind = it["wind"]
+
                     ForecastItem(
                         TemperatureItem(
-                            it["main"]["temp"].floatValue()
+                            jsonMain["temp"].floatValue()
                         ),
                         TemperatureItem(
-                            it["main"]["feels_like"].floatValue()
+                            jsonMain["feels_like"].floatValue()
                         ),
-                        it["main"]["pressure"].floatValue(),
-                        it["main"]["humidity"].floatValue(),
+                        jsonMain["pressure"].floatValue(),
+                        jsonMain["humidity"].floatValue(),
                         ConditionItem(
-                            it["weather"][0]["id"].intValue(),
-                            it["weather"][0]["main"].asText(),
-                            it["weather"][0]["description"].asText(),
-                            OpenWeatherIconMapper.toWeatherIcon(it["weather"][0]["icon"].asText())
+                            jsonWeather["id"].intValue(),
+                            jsonWeather["main"].asText(),
+                            jsonWeather["description"].asText(),
+                            OpenWeatherIconMapper.toWeatherIcon(jsonWeather["icon"].asText())
                         ),
                         WindItem(
-                            it["wind"]["speed"].floatValue(),
-                            it["wind"]["deg"].intValue()
+                            if (jsonWind.hasNonNull("speed")) {
+                                jsonWind["speed"].floatValue()
+                            } else {
+                                0.0f
+                            },
+                            if (jsonWind.hasNonNull("deg")) {
+                                jsonWind["deg"].intValue()
+                            } else {
+                                null
+                            }
                         ),
                         LocationItem(
-                            jsonRoot["city"]["coord"]["lat"].doubleValue().round(),
-                            jsonRoot["city"]["coord"]["lon"].doubleValue().round(),
-                            jsonRoot["city"]["id"].intValue(),
-                            jsonRoot["city"]["name"].asText()
+                            jsonLocation["lat"].doubleValue(),
+                            jsonLocation["lon"].doubleValue(),
+                            jsonCity["id"].intValue(),
+                            jsonCity["name"].asText()
                         ),
                         Instant.ofEpochSecond(it["dt"].longValue())
                     )

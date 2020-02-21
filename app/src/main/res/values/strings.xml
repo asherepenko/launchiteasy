@@ -5,5 +5,8 @@
     <string name="temperature_value" translatable="false">%1$d°</string>
     <string name="no_temperature" translatable="false">_ _°</string>
 
+    <string name="perceived_temperature_metric">Feels like %1$d°C</string>
+    <string name="perceived_temperature_imperial">Feels like %1$d°F</string>
+
     <string name="no_connection">No connection</string>
 </resources>

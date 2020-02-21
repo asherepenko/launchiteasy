@@ -24,7 +24,7 @@ data class WeatherItem(
     @ColumnInfo(name = "humidity")
     val humidity: Float,
     @ColumnInfo(name = "visibility")
-    val visibility: Float,
+    val visibility: Float?,
     @Embedded(prefix = "condition_")
     val condition: ConditionItem,
     @Embedded(prefix = "wind_")

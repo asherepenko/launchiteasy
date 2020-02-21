@@ -6,7 +6,7 @@ data class WindItem(
     @ColumnInfo(name = "speed")
     val speed: Float,
     @ColumnInfo(name = "direction")
-    val direction: Int
+    val direction: Int?
 )
 
 fun WindItem.toImperial(): WindItem =

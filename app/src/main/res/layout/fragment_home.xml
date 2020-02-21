@@ -45,7 +45,7 @@
             android:id="@+id/currentWeatherGroup"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:constraint_referenced_ids="currentWeatherIconView,currentTemperatureView,currentWeatherConditionView,currentLocationView" />
+            app:constraint_referenced_ids="currentLocationView,currentWeatherIconView,currentTemperatureView,perceivedTemperatureView,currentWeatherConditionView" />
 
     <TextClock
             android:id="@+id/currentTimeView"
@@ -56,7 +56,7 @@
             android:fontFamily="sans-serif-thin"
             android:format12Hour="hh:mm a"
             android:format24Hour="HH:mm"
-            app:layout_constraintVertical_bias="0.15"
+            app:layout_constraintVertical_bias="0.3"
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
             app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
@@ -73,21 +73,49 @@
             android:format12Hour="E, MMMM dd"
             android:format24Hour="E, MMMM dd"
             app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
-            app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
+            app:layout_constraintEnd_toStartOf="@+id/nextAlarmView"
             app:layout_constraintTop_toBottomOf="@+id/currentTimeView"
-            app:layout_constraintBottom_toTopOf="@+id/launcherButton"
+            app:layout_constraintBottom_toTopOf="@+id/currentLocationView"
             tools:text="Sun, February 16" />
+
+    <TextView
+            android:id="@+id/nextAlarmView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-medium"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/currentDateView"
+            app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
+            app:layout_constraintTop_toTopOf="@+id/currentDateView"
+            app:layout_constraintBottom_toBottomOf="@+id/currentDateView"
+            tools:text="Mon 07:00"
+            tools:visibility="visible" />
+
+    <TextView
+            android:id="@+id/currentLocationView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:fontFamily="sans-serif"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/currentDateView"
+            app:layout_constraintBottom_toTopOf="@+id/currentTemperatureView"
+            tools:text="Kyiv" />
 
     <TextView
             android:id="@+id/currentWeatherIconView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="48sp"
+            android:textSize="64sp"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
             app:layout_constraintEnd_toStartOf="@+id/currentTemperatureView"
-            app:layout_constraintTop_toBottomOf="@+id/currentDateView"
+            app:layout_constraintTop_toTopOf="@+id/currentTemperatureView"
+            app:layout_constraintBottom_toBottomOf="@+id/currentWeatherConditionView"
             fontPath="fonts/WeatherIcons-regular.ttf"
             tools:ignore="MissingPrefix"
             tools:text="*" />
@@ -96,14 +124,26 @@
             android:id="@+id/currentTemperatureView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:textSize="24sp"
+            android:layout_marginStart="16dp"
+            android:textSize="56sp"
+            android:fontFamily="sans-serif-thin"
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/currentWeatherIconView"
             app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
-            app:layout_constraintTop_toTopOf="@+id/currentWeatherIconView"
-            app:layout_constraintBottom_toTopOf="@+id/currentWeatherConditionView"
+            app:layout_constraintTop_toBottomOf="@+id/currentLocationView"
+            app:layout_constraintBottom_toTopOf="@+id/perceivedTemperatureView"
             tools:text="-11°" />
+
+    <TextView
+            android:id="@+id/perceivedTemperatureView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/currentTemperatureView"
+            app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/currentTemperatureView"
+            app:layout_constraintBottom_toTopOf="@+id/currentWeatherConditionView"
+            tools:text="Feels like -14°C" />
 
     <TextView
             android:id="@+id/currentWeatherConditionView"
@@ -112,18 +152,9 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/currentTemperatureView"
             app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/currentTemperatureView"
-            app:layout_constraintBottom_toBottomOf="@+id/currentWeatherIconView"
+            app:layout_constraintTop_toBottomOf="@+id/perceivedTemperatureView"
+            app:layout_constraintBottom_toTopOf="@+id/weatherForecastsView"
             tools:text="Clear" />
-
-    <TextView
-            android:id="@+id/currentLocationView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="4dp"
-            app:layout_constraintStart_toStartOf="@+id/currentWeatherIconView"
-            app:layout_constraintTop_toBottomOf="@+id/currentWeatherIconView"
-            tools:text="Kyiv" />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/weatherForecastsView"
@@ -139,15 +170,15 @@
             app:layout_constraintVertical_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
             app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/currentLocationView"
-            app:layout_constraintBottom_toTopOf="@+id/launcherButton"
+            app:layout_constraintTop_toBottomOf="@+id/currentWeatherConditionView"
+            app:layout_constraintBottom_toTopOf="@+id/allAppsButton"
             tools:listitem="@layout/item_forecast" />
 
-    <Button
-            android:id="@+id/launcherButton"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/allAppsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All Apps"
+            android:src="@drawable/ic_apps"
             app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
             app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
             app:layout_constraintBottom_toBottomOf="@+id/contentBottomGuideline" />

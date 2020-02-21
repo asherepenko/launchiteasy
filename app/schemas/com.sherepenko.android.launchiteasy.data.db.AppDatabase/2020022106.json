@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 2020022105,
-    "identityHash": "a8af4e9d2c13825311b7f7dd05334665",
+    "version": 2020022106,
+    "identityHash": "723b160f653fec92b894dde0e049b935",
     "entities": [
       {
         "tableName": "applications",
@@ -56,7 +56,7 @@
       },
       {
         "tableName": "current_weather",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pressure` REAL NOT NULL, `humidity` REAL NOT NULL, `visibility` REAL NOT NULL, `sunrise` INTEGER NOT NULL, `sunset` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `temperature_kelvin` REAL NOT NULL, `perceived_temperature_kelvin` REAL NOT NULL, `condition_id` INTEGER NOT NULL, `condition_name` TEXT NOT NULL, `condition_description` TEXT NOT NULL, `condition_icon_glyph` TEXT NOT NULL, `wind_speed` REAL NOT NULL, `wind_direction` INTEGER NOT NULL, `location_latitude` REAL NOT NULL, `location_longitude` REAL NOT NULL, `location_id` INTEGER, `location_name` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pressure` REAL NOT NULL, `humidity` REAL NOT NULL, `visibility` REAL, `sunrise` INTEGER NOT NULL, `sunset` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `temperature_kelvin` REAL NOT NULL, `perceived_temperature_kelvin` REAL NOT NULL, `condition_id` INTEGER NOT NULL, `condition_name` TEXT NOT NULL, `condition_description` TEXT NOT NULL, `condition_icon_glyph` TEXT NOT NULL, `wind_speed` REAL NOT NULL, `wind_direction` INTEGER, `location_latitude` REAL NOT NULL, `location_longitude` REAL NOT NULL, `location_id` INTEGER, `location_name` TEXT)",
         "fields": [
           {
             "fieldPath": "pressure",
@@ -74,7 +74,7 @@
             "fieldPath": "visibility",
             "columnName": "visibility",
             "affinity": "REAL",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "sunrise",
@@ -158,7 +158,7 @@
             "fieldPath": "wind.direction",
             "columnName": "wind_direction",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "location.latitude",
@@ -213,7 +213,7 @@
       },
       {
         "tableName": "weather_forecasts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pressure` REAL NOT NULL, `humidity` REAL NOT NULL, `timestamp` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `temperature_kelvin` REAL NOT NULL, `perceived_temperature_kelvin` REAL NOT NULL, `condition_id` INTEGER NOT NULL, `condition_name` TEXT NOT NULL, `condition_description` TEXT NOT NULL, `condition_icon_glyph` TEXT NOT NULL, `wind_speed` REAL NOT NULL, `wind_direction` INTEGER NOT NULL, `location_latitude` REAL NOT NULL, `location_longitude` REAL NOT NULL, `location_id` INTEGER, `location_name` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pressure` REAL NOT NULL, `humidity` REAL NOT NULL, `timestamp` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `temperature_kelvin` REAL NOT NULL, `perceived_temperature_kelvin` REAL NOT NULL, `condition_id` INTEGER NOT NULL, `condition_name` TEXT NOT NULL, `condition_description` TEXT NOT NULL, `condition_icon_glyph` TEXT NOT NULL, `wind_speed` REAL NOT NULL, `wind_direction` INTEGER, `location_latitude` REAL NOT NULL, `location_longitude` REAL NOT NULL, `location_id` INTEGER, `location_name` TEXT)",
         "fields": [
           {
             "fieldPath": "pressure",
@@ -297,7 +297,7 @@
             "fieldPath": "wind.direction",
             "columnName": "wind_direction",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "location.latitude",
@@ -354,7 +354,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a8af4e9d2c13825311b7f7dd05334665')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '723b160f653fec92b894dde0e049b935')"
     ]
   }
 }

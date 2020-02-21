@@ -1,5 +1,7 @@
 package com.sherepenko.android.launchiteasy.ui
 
+import android.app.AlarmManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.AlarmClock
@@ -12,14 +14,20 @@ import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
+import kotlinx.android.synthetic.main.fragment_home.allAppsButton
 import kotlinx.android.synthetic.main.fragment_home.currentLocationView
 import kotlinx.android.synthetic.main.fragment_home.currentTemperatureView
 import kotlinx.android.synthetic.main.fragment_home.currentTimeView
 import kotlinx.android.synthetic.main.fragment_home.currentWeatherConditionView
 import kotlinx.android.synthetic.main.fragment_home.currentWeatherIconView
-import kotlinx.android.synthetic.main.fragment_home.launcherButton
+import kotlinx.android.synthetic.main.fragment_home.nextAlarmView
+import kotlinx.android.synthetic.main.fragment_home.perceivedTemperatureView
 import kotlinx.android.synthetic.main.fragment_home.weatherForecastsView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
+import org.threeten.bp.format.DateTimeFormatter
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
@@ -37,7 +45,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         }
 
-        launcherButton.setOnClickListener {
+        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        alarmManager.nextAlarmClock?.let {
+            nextAlarmView.text = it.format()
+            nextAlarmView.visibility = View.VISIBLE
+        }
+
+        allAppsButton.setOnClickListener {
             findNavController().navigate(
                 HomeFragmentDirections.toLauncherFragment()
             )
@@ -65,19 +80,35 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             when (it.status) {
                 Status.LOADING -> {
                     it.data?.let { data ->
+                        currentLocationView.text = data.location.name
                         currentWeatherIconView.text = data.condition.icon.glyph
                         currentWeatherConditionView.text = data.condition.name
                         currentTemperatureView.text =
-                            getString(R.string.temperature_value, data.temperature.celsius)
-                        currentLocationView.text = data.location.name
+                            getString(
+                                R.string.temperature_value,
+                                data.temperature.celsius
+                            )
+                        perceivedTemperatureView.text =
+                            getString(
+                                R.string.perceived_temperature_metric,
+                                data.perceivedTemperature.celsius
+                            )
                     }
                 }
                 Status.SUCCESS -> {
-                    currentWeatherIconView.text = it.data!!.condition.icon.glyph
+                    currentLocationView.text = it.data!!.location.name
+                    currentWeatherIconView.text = it.data.condition.icon.glyph
                     currentWeatherConditionView.text = it.data.condition.name
                     currentTemperatureView.text =
-                        getString(R.string.temperature_value, it.data.temperature.celsius)
-                    currentLocationView.text = it.data.location.name
+                        getString(
+                            R.string.temperature_value,
+                            it.data.temperature.celsius
+                        )
+                    perceivedTemperatureView.text =
+                        getString(
+                            R.string.perceived_temperature_metric,
+                            it.data.perceivedTemperature.celsius
+                        )
                 }
                 Status.ERROR -> {
                     currentTemperatureView.text =
@@ -114,4 +145,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             snackbar.dismiss()
         }
     }
+
+    private fun AlarmManager.AlarmClockInfo.format(): String =
+        LocalDateTime.ofInstant(Instant.ofEpochSecond(triggerTime), ZoneId.systemDefault())
+            .format(DateTimeFormatter.ofPattern("E HH:mm"))
 }
