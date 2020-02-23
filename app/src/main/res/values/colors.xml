@@ -19,4 +19,7 @@
 
     <color name="textColorPrimary">#de212121</color>
     <color name="textColorSecondary">#99212121</color>
+
+    <color name="colorGradientStart">#9900c7ab</color>
+    <color name="colorGradientEnd">#0000c7ab</color>
 </resources>

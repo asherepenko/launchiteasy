@@ -8,20 +8,68 @@
         android:animateLayoutChanges="true"
         tools:context=".ui.SplashFragment">
 
+
+    <!-- Content guidelines -->
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/contentStartGuideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/content_guideline_start" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/contentEndGuideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/content_guideline_end" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/contentTopGuideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/content_guideline_top" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/contentBottomGuideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/content_guideline_bottom" />
+
+    <TextView
+            android:id="@+id/appLogoView"
+            style="@style/Base.Theme.App.TextAppearance.AppLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_logo"
+            app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
+            app:layout_constraintTop_toTopOf="@+id/contentTopGuideline" />
+
     <TextView
             android:id="@+id/appMottoView"
             style="@style/Base.Theme.App.TextAppearance.AppMotto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/app_motto"
+            app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
+            app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
+            app:layout_constraintTop_toTopOf="@+id/contentTopGuideline"
+            app:layout_constraintBottom_toTopOf="@+id/loadingView" />
+
+    <ProgressBar
+            android:id="@+id/loadingView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin_horizontal"
             android:layout_marginEnd="@dimen/default_margin_horizontal"
             android:layout_marginTop="@dimen/default_margin_vertical"
             android:layout_marginBottom="@dimen/default_margin_vertical"
-            android:layout_gravity="center"
-            android:text="@string/app_motto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
+            app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
+            app:layout_constraintBottom_toBottomOf="@id/contentBottomGuideline"
+            android:layout_gravity="center" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

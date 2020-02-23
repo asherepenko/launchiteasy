@@ -6,6 +6,7 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_home"
         tools:context=".ui.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,6 +54,15 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:constraint_referenced_ids="currentWeatherIconView,currentTemperatureView,perceivedTemperatureView,currentWeatherConditionView" />
+
+        <TextView
+                android:id="@+id/appLogoView"
+                style="@style/Base.Theme.App.TextAppearance.AppLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_logo"
+                app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
+                app:layout_constraintTop_toTopOf="@+id/contentTopGuideline" />
 
         <!-- Clock widget -->
         <TextClock

@@ -175,6 +175,14 @@
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="fontFamily">sans-serif-thin</item>
         <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.AppLogo" parent="Widget.AppCompat.TextView">
+        <item name="android:typeface">monospace</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textAlignment">center</item>
     </style>
 
     <style name="Base.Theme.App.Animation.Activity" parent="Animation.MaterialComponents.BottomSheetDialog">

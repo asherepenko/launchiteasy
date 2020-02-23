@@ -39,6 +39,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         setupConnectionStateHandler(view)
 
         setupSwipeRefreshLayout()
+
         setupCurrentWeather()
         setupWeatherForecasts()
 
