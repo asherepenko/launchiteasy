@@ -15,14 +15,14 @@ import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_home.swipeRefreshLayout
-import kotlinx.android.synthetic.main.layout_home.allAppsButton
-import kotlinx.android.synthetic.main.layout_home.currentLocationView
-import kotlinx.android.synthetic.main.layout_home.currentTemperatureView
-import kotlinx.android.synthetic.main.layout_home.currentWeatherConditionView
-import kotlinx.android.synthetic.main.layout_home.currentWeatherIconView
-import kotlinx.android.synthetic.main.layout_home.nextAlarmView
-import kotlinx.android.synthetic.main.layout_home.perceivedTemperatureView
-import kotlinx.android.synthetic.main.layout_home.weatherForecastsView
+import kotlinx.android.synthetic.main.fragment_home.allAppsButton
+import kotlinx.android.synthetic.main.fragment_home.currentLocationView
+import kotlinx.android.synthetic.main.fragment_home.currentTemperatureView
+import kotlinx.android.synthetic.main.fragment_home.currentWeatherConditionView
+import kotlinx.android.synthetic.main.fragment_home.currentWeatherIconView
+import kotlinx.android.synthetic.main.fragment_home.nextAlarmView
+import kotlinx.android.synthetic.main.fragment_home.perceivedTemperatureView
+import kotlinx.android.synthetic.main.fragment_home.weatherForecastsView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
@@ -42,12 +42,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             val intent = Intent(AlarmClock.ACTION_SHOW_ALARMS)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
-            intent.resolveActivity(requireContext().packageManager)?.let {
+            intent.resolveActivity(requireActivity().packageManager)?.let {
                 startActivity(intent)
             }
         }
 
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         alarmManager.nextAlarmClock?.let {
             nextAlarmView.text = it.format()

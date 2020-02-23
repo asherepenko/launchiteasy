@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/splashNavigationGraph"
+        app:startDestination="@+id/splashFragment">
+
+    <fragment
+            android:id="@+id/splashFragment"
+            android:name="com.sherepenko.android.launchiteasy.ui.SplashFragment"
+            tools:layout="@layout/fragment_splash">
+
+        <action
+                android:id="@+id/toMainActivity"
+                app:destination="@+id/mainActivity"
+                app:launchSingleTop="true"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <activity
+            android:id="@+id/mainActivity"
+            android:name="com.sherepenko.android.launchiteasy.ui.MainActivity"
+            tools:layout="@layout/activity_main" />
+
+</navigation>

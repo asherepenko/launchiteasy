@@ -9,16 +9,16 @@
     <fragment
             android:id="@+id/homeFragment"
             android:name="com.sherepenko.android.launchiteasy.ui.HomeFragment"
-            tools:layout="@layout/layout_home">
+            tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/toLauncherFragment"
-            app:destination="@+id/launcherFragment"
-            app:launchSingleTop="true"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+                android:id="@+id/toLauncherFragment"
+                app:destination="@+id/launcherFragment"
+                app:launchSingleTop="true"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment

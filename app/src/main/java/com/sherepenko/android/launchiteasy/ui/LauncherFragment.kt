@@ -43,7 +43,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             override fun onItemLongClick(view: View, position: Int, id: Long) {
                 selectedAppPosition = position
                 val popupMenu = PopupMenu(requireActivity(), view, Gravity.TOP)
-                popupMenu.inflate(R.menu.app_context_menu)
+                popupMenu.inflate(R.menu.app_details_menu)
 
                 popupMenu.setOnMenuItemClickListener {
                     val packageName = appsAdapter.getPackageName(selectedAppPosition)
@@ -55,7 +55,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     .setData(Uri.parse("package:$packageName"))
 
-                                intent.resolveActivity(requireContext().packageManager)?.let {
+                                intent.resolveActivity(requireActivity().packageManager)?.let {
                                     startActivity(intent)
                                 }
                             }
@@ -64,7 +64,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                             val intent = Intent(Intent.ACTION_DELETE)
                                 .setData(Uri.parse("package:$packageName"))
 
-                            intent.resolveActivity(requireContext().packageManager)?.let {
+                            intent.resolveActivity(requireActivity().packageManager)?.let {
                                 startActivity(intent)
                             }
                         }

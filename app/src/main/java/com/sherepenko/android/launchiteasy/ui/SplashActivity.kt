@@ -3,21 +3,27 @@ package com.sherepenko.android.launchiteasy.ui
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.sherepenko.android.launchiteasy.R
 import kotlinx.coroutines.delay
 
-class SplashActivity : BaseActivity(R.layout.activity_splash) {
+class SplashActivity : BaseActivity(R.layout.activity_splash)
+
+class SplashFragment : BaseFragment(R.layout.fragment_splash) {
+
     companion object {
         private const val REQUEST_RUNTIME_PERMISSIONS = 101
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             delay(1000)
             checkPermissions()
         }
@@ -42,10 +48,12 @@ class SplashActivity : BaseActivity(R.layout.activity_splash) {
                 }
 
                 if (permissionsGranted) {
-                    startActivity(MainActivity.homeIntent(this@SplashActivity))
-                    finish()
+                    findNavController().navigate(
+                        SplashFragmentDirections.toMainActivity()
+                    )
+                    requireActivity().finish()
                 } else {
-                    finishAffinity()
+                    finishAffinity(requireActivity())
                 }
             }
             else -> {
@@ -62,11 +70,11 @@ class SplashActivity : BaseActivity(R.layout.activity_splash) {
         }
 
         if (requestedPermissions.isEmpty()) {
-            startActivity(MainActivity.homeIntent(this@SplashActivity))
-            finish()
+            startActivity(MainActivity.homeIntent(requireActivity()))
+            requireActivity().finish()
         } else {
             ActivityCompat.requestPermissions(
-                this@SplashActivity,
+                requireActivity(),
                 requestedPermissions.toTypedArray(),
                 REQUEST_RUNTIME_PERMISSIONS
             )
@@ -74,6 +82,6 @@ class SplashActivity : BaseActivity(R.layout.activity_splash) {
     }
 
     private fun String.isGranted(): Boolean =
-        ContextCompat.checkSelfPermission(this@SplashActivity, this) ==
+        ContextCompat.checkSelfPermission(requireActivity(), this) ==
                 PackageManager.PERMISSION_GRANTED
 }
