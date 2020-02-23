@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Sleazy Launcher</string>
+    <string name="app_name" translatable="false">Lieasy</string>
 
     <string name="action_dismiss">Dismiss</string>
 
     <!-- Splash screen -->
-    <string name="app_motto">Take it Sleazy</string>
+    <string name="app_motto">Launch it Easy</string>
 
     <!-- Weather -->
     <string name="temperature_value" translatable="false">%1$d°</string>
