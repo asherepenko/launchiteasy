@@ -10,10 +10,12 @@
 -renamesourcefileattribute SourceFile
 
 # Kotlin
--keep class kotlin.reflect.** { *; }
+-keep class kotlin.reflect.** {
+    *;
+}
 
 -keep class kotlin.Metadata {
-    public <methods>;
+    *;
 }
 
 # Glide
@@ -34,11 +36,19 @@
 -keep class com.fasterxml.jackson.databind.ObjectWriter {
     public ** writeValueAsString(**);
 }
+
 -keepnames class com.fasterxml.jackson.** {
     *;
 }
+
 -keepclassmembers class * {
-     @com.fasterxml.jackson.annotation.* *;
+     @com.fasterxml.jackson.annotation.** *;
+}
+-keepclassmembers class * extends com.fasterxml.jackson.databind.JsonDeserializer {
+    <init>(...);
 }
 
 -dontwarn com.fasterxml.jackson.databind.**
+
+-keepnames class com.sherepenko.**
+-keepnames class com.fasterxml.**
