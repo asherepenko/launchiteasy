@@ -82,10 +82,10 @@ android {
                     load(FileInputStream(keystorePropertiesFile))
                 }
 
-                storeFile = rootProject.file(keystoreProperties.getProperty("keystore.file"))
-                storePassword = keystoreProperties.getProperty("keystore.password")
-                keyAlias = keystoreProperties.getProperty("keystore.key.alias")
-                keyPassword = keystoreProperties.getProperty("keystore.key.password")
+                storeFile = rootProject.file(keystoreProperties.getProperty("keystore.sign.file"))
+                storePassword = keystoreProperties.getProperty("keystore.sign.password")
+                keyAlias = keystoreProperties.getProperty("keystore.sign.key.alias")
+                keyPassword = keystoreProperties.getProperty("keystore.sign.key.password")
             }
         }
     }

@@ -59,7 +59,8 @@ data class BuildVersion(
         }
     }
 
-    val versionCode: Int = major * 10000 + minor * 1000 + patch
+    val versionCode: Int =
+        major * 10000 + minor * 1000 + patch * 100 + (preRelease?.hashCode() ?: 0) % 100
 
     val versionName: String = buildString {
         append("$major.$minor.$patch")
