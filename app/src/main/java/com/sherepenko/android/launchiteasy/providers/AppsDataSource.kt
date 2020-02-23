@@ -22,7 +22,7 @@ class AppsLocalDataSource(database: AppDatabase) :
         appDao.getAllApps()
 
     suspend fun saveInstalledApps(apps: List<AppItem>) =
-        appDao.insertApps(*apps.toTypedArray())
+        appDao.updateApps(*apps.toTypedArray())
 }
 
 class AppsRemoteDataSource(context: Context) :
