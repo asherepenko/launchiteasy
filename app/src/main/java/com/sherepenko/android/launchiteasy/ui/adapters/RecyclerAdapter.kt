@@ -23,7 +23,7 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerViewHolder<T>>(
         }
 
     init {
-        this.setHasStableIds(true)
+        this@BaseRecyclerAdapter.setHasStableIds(true)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) =
@@ -51,13 +51,13 @@ abstract class BaseRecyclerViewHolder<T>(
         itemClickListener?.apply {
             itemView.setOnClickListener { view ->
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    this.onItemClick(view, adapterPosition, itemId)
+                    this@apply.onItemClick(view, adapterPosition, itemId)
                 }
             }
 
             itemView.setOnLongClickListener { view ->
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    this.onItemLongClick(view, adapterPosition, itemId)
+                    this@apply.onItemLongClick(view, adapterPosition, itemId)
                     return@setOnLongClickListener true
                 }
 

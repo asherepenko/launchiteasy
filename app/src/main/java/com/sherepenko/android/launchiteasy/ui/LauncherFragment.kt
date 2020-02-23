@@ -24,17 +24,24 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
 
     private val appsViewModel: AppsViewModel by viewModel()
 
-    private lateinit var appsAdapter: AppsAdapter
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupToolbar()
+        setupInstalledApps()
+    }
 
-        appsAdapter = AppsAdapter()
+    private fun setupToolbar() {
+        if (requireActivity() is AppCompatActivity) {
+            (requireActivity() as AppCompatActivity).setSupportActionBar(toolbarView)
+        }
+    }
+
+    private fun setupInstalledApps() {
+        val appsAdapter = AppsAdapter()
         appsAdapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClick(view: View, position: Int, id: Long) {
                 val packageName = appsAdapter.getPackageName(position)
+
                 requireActivity().packageManager.getLaunchIntentForPackage(packageName)?.let {
                     startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     requireActivity().overridePendingTransition(
@@ -45,46 +52,45 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             }
 
             override fun onItemLongClick(view: View, position: Int, id: Long) {
-                val popupMenu = PopupMenu(requireActivity(), view, Gravity.TOP)
-                popupMenu.inflate(R.menu.app_details_menu)
+                val packageName = appsAdapter.getPackageName(position)
 
-                popupMenu.setOnMenuItemClickListener {
-                    val packageName = appsAdapter.getPackageName(position)
+                PopupMenu(requireActivity(), view, Gravity.TOP).apply {
+                    inflate(R.menu.app_details_menu)
 
-                    when (it.itemId) {
-                        R.id.actionAppInfo -> {
-                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                .setData(Uri.parse("package:$packageName"))
+                    setOnMenuItemClickListener {
+                        when (it.itemId) {
+                            R.id.actionAppInfo -> {
+                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    .setData(Uri.parse("package:$packageName"))
 
-                            intent.resolveActivity(requireActivity().packageManager)?.let {
-                                startActivity(intent)
-                                requireActivity().overridePendingTransition(
-                                    R.anim.nav_default_enter_anim,
-                                    R.anim.nav_default_exit_anim
-                                )
+                                intent.resolveActivity(requireActivity().packageManager)?.let {
+                                    startActivity(intent)
+                                    requireActivity().overridePendingTransition(
+                                        R.anim.nav_default_enter_anim,
+                                        R.anim.nav_default_exit_anim
+                                    )
+                                }
+                            }
+                            R.id.actionAppUninstall -> {
+                                val intent = Intent(Intent.ACTION_DELETE)
+                                    .setData(Uri.parse("package:$packageName"))
+
+                                intent.resolveActivity(requireActivity().packageManager)?.let {
+                                    startActivity(intent)
+                                    requireActivity().overridePendingTransition(
+                                        R.anim.nav_default_enter_anim,
+                                        R.anim.nav_default_exit_anim
+                                    )
+                                }
+                            }
+                            else -> {
+                                // ignore
                             }
                         }
-                        R.id.actionAppUninstall -> {
-                            val intent = Intent(Intent.ACTION_DELETE)
-                                .setData(Uri.parse("package:$packageName"))
-
-                            intent.resolveActivity(requireActivity().packageManager)?.let {
-                                startActivity(intent)
-                                requireActivity().overridePendingTransition(
-                                    R.anim.nav_default_enter_anim,
-                                    R.anim.nav_default_exit_anim
-                                )
-                            }
-                        }
-                        else -> {
-                            // ignore
-                        }
+                        true
                     }
-                    true
-                }
-
-                popupMenu.show()
+                }.show()
             }
         }
 
@@ -115,11 +121,5 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                 }
             }
         })
-    }
-
-    private fun setupToolbar() {
-        if (requireActivity() is AppCompatActivity) {
-            (requireActivity() as AppCompatActivity).setSupportActionBar(toolbarView)
-        }
     }
 }

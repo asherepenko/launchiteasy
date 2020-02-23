@@ -79,6 +79,6 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
     }
 
     private fun String.isGranted(): Boolean =
-        ContextCompat.checkSelfPermission(requireActivity(), this) ==
+        ContextCompat.checkSelfPermission(requireActivity(), this@isGranted) ==
             PackageManager.PERMISSION_GRANTED
 }

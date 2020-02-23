@@ -132,7 +132,7 @@ class WeatherRepositoryImpl(
                 longitude,
                 location.latitude,
                 location.longitude,
-                this
+                this@apply
             )
         }[0]
 }

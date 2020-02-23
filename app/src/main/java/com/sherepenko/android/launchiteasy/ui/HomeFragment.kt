@@ -33,11 +33,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val weatherViewModel: WeatherViewModel by viewModel()
 
-    private lateinit var forecastsAdapter: ForecastsAdapter
-
-    private lateinit var snackbar: Snackbar
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupConnectionStateHandler(view)
+
+        setupSwipeRefreshLayout()
+        setupCurrentWeather()
+        setupWeatherForecasts()
+
         nextAlarmView.setOnClickListener {
             val intent = Intent(AlarmClock.ACTION_SHOW_ALARMS)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -56,40 +60,57 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 HomeFragmentDirections.toLauncherFragment()
             )
         }
+    }
 
-        swipeRefreshLayout.setColorSchemeResources(
-            R.color.colorSecondary,
-            R.color.colorSecondaryVariant
-        )
-        swipeRefreshLayout.setOnRefreshListener {
-            weatherViewModel.forceUpdate()
+    override fun onStart() {
+        super.onStart()
+        setupAlarmClock()
+    }
+
+    private fun setupConnectionStateHandler(view: View) {
+        val snackbar = Snackbar.make(view, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction(R.string.action_dismiss) {
+            snackbar.hideSnackbar()
         }
-
-        swipeRefreshLayout.post {
-            swipeRefreshLayout.isRefreshing = true
-        }
-
-        forecastsAdapter = ForecastsAdapter()
-
-        weatherForecastsView.apply {
-            setHasFixedSize(true)
-            itemAnimator = DefaultItemAnimator()
-            adapter = forecastsAdapter
-        }
-
-        snackbar = Snackbar.make(view, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.action_dismiss) {
-                hideSnackbar()
-            }
 
         weatherViewModel.getConnectionState().observe(viewLifecycleOwner, Observer { isConnected ->
             if (isConnected) {
-                hideSnackbar()
+                snackbar.hideSnackbar()
             } else {
-                showSnackbar()
+                snackbar.showSnackbar()
             }
         })
+    }
 
+    private fun setupSwipeRefreshLayout() {
+        swipeRefreshLayout.apply {
+            setColorSchemeResources(
+                R.color.colorSecondary,
+                R.color.colorSecondaryVariant
+            )
+            setOnRefreshListener {
+                weatherViewModel.forceUpdate()
+            }
+            post {
+                swipeRefreshLayout.isRefreshing = true
+            }
+        }
+    }
+
+    private fun setupAlarmClock() {
+        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        if (alarmManager.nextAlarmClock != null) {
+            val nextAlarm = alarmManager.nextAlarmClock.toLocalDateTime()
+            nextAlarmView.text = nextAlarm
+                .format(DateTimeFormatter.ofPattern("E HH:mm"))
+            nextAlarmView.visibility = View.VISIBLE
+        } else {
+            nextAlarmView.visibility = View.GONE
+        }
+    }
+
+    private fun setupCurrentWeather() {
         weatherViewModel.getCurrentWeather().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -137,6 +158,16 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
             }
         })
+    }
+
+    private fun setupWeatherForecasts() {
+        val forecastsAdapter = ForecastsAdapter()
+
+        weatherForecastsView.apply {
+            setHasFixedSize(true)
+            itemAnimator = DefaultItemAnimator()
+            adapter = forecastsAdapter
+        }
 
         weatherViewModel.getWeatherForecasts().observe(viewLifecycleOwner, Observer {
             when (it.status) {
@@ -160,29 +191,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         })
     }
 
-    override fun onStart() {
-        super.onStart()
-        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        if (alarmManager.nextAlarmClock != null) {
-            val nextAlarm = alarmManager.nextAlarmClock.toLocalDateTime()
-            nextAlarmView.text = nextAlarm
-                .format(DateTimeFormatter.ofPattern("E HH:mm"))
-            nextAlarmView.visibility = View.VISIBLE
-        } else {
-            nextAlarmView.visibility = View.GONE
+    private fun Snackbar.showSnackbar() {
+        if (!this@showSnackbar.isShownOrQueued) {
+            this@showSnackbar.show()
         }
     }
 
-    private fun showSnackbar() {
-        if (!snackbar.isShownOrQueued) {
-            snackbar.show()
-        }
-    }
-
-    private fun hideSnackbar() {
-        if (snackbar.isShownOrQueued) {
-            snackbar.dismiss()
+    private fun Snackbar.hideSnackbar() {
+        if (this@hideSnackbar.isShownOrQueued) {
+            this@hideSnackbar.dismiss()
         }
     }
 
