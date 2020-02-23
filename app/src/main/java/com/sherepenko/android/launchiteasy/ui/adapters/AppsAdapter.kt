@@ -1,6 +1,5 @@
 package com.sherepenko.android.launchiteasy.ui.adapters
 
-import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -24,14 +23,6 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
 
     override fun getItemId(position: Int): Long =
         items[position].packageName.hashCode().toLong()
-
-    override fun onItemClick(view: View, position: Int, id: Long) {
-        super.onItemClick(view, position, id)
-
-        view.context.packageManager.getLaunchIntentForPackage(items[position].packageName)?.let {
-            view.context.startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-        }
-    }
 
     fun getPackageName(position: Int): String =
         items[position].packageName

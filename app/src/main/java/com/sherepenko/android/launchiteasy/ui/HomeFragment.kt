@@ -14,7 +14,6 @@ import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
-import kotlinx.android.synthetic.main.fragment_home.swipeRefreshLayout
 import kotlinx.android.synthetic.main.fragment_home.allAppsButton
 import kotlinx.android.synthetic.main.fragment_home.currentLocationView
 import kotlinx.android.synthetic.main.fragment_home.currentTemperatureView
@@ -22,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_home.currentWeatherConditionView
 import kotlinx.android.synthetic.main.fragment_home.currentWeatherIconView
 import kotlinx.android.synthetic.main.fragment_home.nextAlarmView
 import kotlinx.android.synthetic.main.fragment_home.perceivedTemperatureView
+import kotlinx.android.synthetic.main.fragment_home.swipeRefreshLayout
 import kotlinx.android.synthetic.main.fragment_home.weatherForecastsView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.Instant
@@ -44,14 +44,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
             intent.resolveActivity(requireActivity().packageManager)?.let {
                 startActivity(intent)
+                requireActivity().overridePendingTransition(
+                    R.anim.nav_default_enter_anim,
+                    R.anim.nav_default_exit_anim
+                )
             }
-        }
-
-        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        alarmManager.nextAlarmClock?.let {
-            nextAlarmView.text = it.format()
-            nextAlarmView.visibility = View.VISIBLE
         }
 
         allAppsButton.setOnClickListener {
@@ -163,6 +160,20 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         })
     }
 
+    override fun onStart() {
+        super.onStart()
+        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        if (alarmManager.nextAlarmClock != null) {
+            val nextAlarm = alarmManager.nextAlarmClock.toLocalDateTime()
+            nextAlarmView.text = nextAlarm
+                .format(DateTimeFormatter.ofPattern("E HH:mm"))
+            nextAlarmView.visibility = View.VISIBLE
+        } else {
+            nextAlarmView.visibility = View.GONE
+        }
+    }
+
     private fun showSnackbar() {
         if (!snackbar.isShownOrQueued) {
             snackbar.show()
@@ -175,7 +186,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
     }
 
-    private fun AlarmManager.AlarmClockInfo.format(): String =
-        LocalDateTime.ofInstant(Instant.ofEpochSecond(triggerTime), ZoneId.systemDefault())
-            .format(DateTimeFormatter.ofPattern("E HH:mm"))
+    private fun AlarmManager.AlarmClockInfo.toLocalDateTime(): LocalDateTime =
+        LocalDateTime.ofInstant(Instant.ofEpochMilli(triggerTime), ZoneId.systemDefault())
 }

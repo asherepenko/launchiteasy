@@ -24,9 +24,8 @@
             android:value="false" />
 
         <activity
-                android:name=".ui.SplashActivity"
+                android:name=".ui.MainActivity"
                 android:launchMode="singleTask"
-                android:theme="@style/Theme.App.Splash"
                 android:screenOrientation="sensorPortrait">
 
             <intent-filter>
@@ -45,11 +44,6 @@
                     android:host="start.app" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="sensorPortrait" />
 
         <receiver
                 android:name=".receivers.PackageReplaceReceiver">

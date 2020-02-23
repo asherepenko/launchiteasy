@@ -10,7 +10,6 @@ import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.RecyclerView
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.ui.adapters.AppsAdapter
@@ -27,8 +26,6 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
 
     private lateinit var appsAdapter: AppsAdapter
 
-    private var selectedAppPosition = RecyclerView.NO_POSITION
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -37,27 +34,35 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
         appsAdapter = AppsAdapter()
         appsAdapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClick(view: View, position: Int, id: Long) {
-                // ignore
+                val packageName = appsAdapter.getPackageName(position)
+                requireActivity().packageManager.getLaunchIntentForPackage(packageName)?.let {
+                    startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    requireActivity().overridePendingTransition(
+                        R.anim.nav_default_enter_anim,
+                        R.anim.nav_default_exit_anim
+                    )
+                }
             }
 
             override fun onItemLongClick(view: View, position: Int, id: Long) {
-                selectedAppPosition = position
                 val popupMenu = PopupMenu(requireActivity(), view, Gravity.TOP)
                 popupMenu.inflate(R.menu.app_details_menu)
 
                 popupMenu.setOnMenuItemClickListener {
-                    val packageName = appsAdapter.getPackageName(selectedAppPosition)
+                    val packageName = appsAdapter.getPackageName(position)
 
                     when (it.itemId) {
                         R.id.actionAppInfo -> {
-                            if (selectedAppPosition != RecyclerView.NO_POSITION) {
-                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    .setData(Uri.parse("package:$packageName"))
+                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                .setData(Uri.parse("package:$packageName"))
 
-                                intent.resolveActivity(requireActivity().packageManager)?.let {
-                                    startActivity(intent)
-                                }
+                            intent.resolveActivity(requireActivity().packageManager)?.let {
+                                startActivity(intent)
+                                requireActivity().overridePendingTransition(
+                                    R.anim.nav_default_enter_anim,
+                                    R.anim.nav_default_exit_anim
+                                )
                             }
                         }
                         R.id.actionAppUninstall -> {
@@ -66,6 +71,10 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
 
                             intent.resolveActivity(requireActivity().packageManager)?.let {
                                 startActivity(intent)
+                                requireActivity().overridePendingTransition(
+                                    R.anim.nav_default_enter_anim,
+                                    R.anim.nav_default_exit_anim
+                                )
                             }
                         }
                         else -> {
@@ -73,10 +82,6 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                         }
                     }
                     true
-                }
-
-                popupMenu.setOnDismissListener {
-                    selectedAppPosition = RecyclerView.NO_POSITION
                 }
 
                 popupMenu.show()

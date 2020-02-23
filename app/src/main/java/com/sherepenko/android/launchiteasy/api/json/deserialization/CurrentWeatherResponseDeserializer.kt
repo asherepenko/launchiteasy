@@ -36,7 +36,11 @@ class CurrentWeatherResponseDeserializer : JsonDeserializer<CurrentWeatherRespon
                     jsonMain["temp"].floatValue()
                 ),
                 TemperatureItem(
-                    jsonMain["feels_like"].floatValue()
+                    if (jsonMain.hasNonNull("feels_like")) {
+                        jsonMain["feels_like"].floatValue()
+                    } else {
+                        jsonMain["temp"].floatValue()
+                    }
                 ),
                 jsonMain["pressure"].floatValue(),
                 jsonMain["humidity"].floatValue(),

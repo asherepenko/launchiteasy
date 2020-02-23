@@ -26,7 +26,7 @@ class ConnectivityLiveData(
 
     init {
         @Suppress("DEPRECATION")
-        postValue(connectivityManager.activeNetworkInfo?.isConnectedOrConnecting)
+        postValue(connectivityManager.activeNetworkInfo?.isConnected)
     }
 
     override fun onActive() {

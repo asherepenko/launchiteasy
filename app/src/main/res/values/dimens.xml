@@ -38,7 +38,10 @@
     <dimen name="current_date_margin_top">4dp</dimen>
 
     <dimen name="current_weather_icon_size">72sp</dimen>
+    <dimen name="current_weather_icon_margin_top">8dp</dimen>
+
     <dimen name="current_temperature_margin_start">24dp</dimen>
+    <dimen name="current_temperature_margin_top">4dp</dimen>
 
     <dimen name="forecast_item_padding_horizontal">14dp</dimen>
     <dimen name="forecast_item_padding_vertical">8dp</dimen>

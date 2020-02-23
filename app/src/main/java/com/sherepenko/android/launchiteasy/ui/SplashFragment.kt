@@ -5,14 +5,11 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sherepenko.android.launchiteasy.R
 import kotlinx.coroutines.delay
-
-class SplashActivity : BaseActivity(R.layout.activity_splash)
 
 class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
@@ -49,11 +46,10 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
                 if (permissionsGranted) {
                     findNavController().navigate(
-                        SplashFragmentDirections.toMainActivity()
+                        SplashFragmentDirections.toHomeFragment()
                     )
-                    requireActivity().finish()
                 } else {
-                    finishAffinity(requireActivity())
+                    ActivityCompat.finishAffinity(requireActivity())
                 }
             }
             else -> {
@@ -70,8 +66,9 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
         }
 
         if (requestedPermissions.isEmpty()) {
-            startActivity(MainActivity.homeIntent(requireActivity()))
-            requireActivity().finish()
+            findNavController().navigate(
+                SplashFragmentDirections.toHomeFragment()
+            )
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -83,5 +80,5 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
     private fun String.isGranted(): Boolean =
         ContextCompat.checkSelfPermission(requireActivity(), this) ==
-                PackageManager.PERMISSION_GRANTED
+            PackageManager.PERMISSION_GRANTED
 }

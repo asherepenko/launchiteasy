@@ -4,7 +4,22 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/mainNavigationGraph"
-        app:startDestination="@+id/homeFragment">
+        app:startDestination="@+id/splashFragment">
+
+    <fragment
+            android:id="@+id/splashFragment"
+            android:name="com.sherepenko.android.launchiteasy.ui.SplashFragment"
+            tools:layout="@layout/fragment_splash">
+
+        <action
+                android:id="@+id/toHomeFragment"
+                app:destination="@+id/homeFragment"
+                app:launchSingleTop="true"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popUpTo="@+id/splashFragment"
+                app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
             android:id="@+id/homeFragment"

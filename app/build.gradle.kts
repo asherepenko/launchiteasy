@@ -52,7 +52,7 @@ android {
             buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"\"")
         }
 
-        buildConfigField("int", "WEATHER_FORECASTS_LIMIT", "9")
+        buildConfigField("int", "WEATHER_FORECASTS_LIMIT", "12")
     }
 
     compileOptions {

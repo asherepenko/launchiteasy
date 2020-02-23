@@ -6,10 +6,6 @@
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     </style>
 
-    <style name="Theme.App.Splash" parent="Base.Theme.App">
-        <item name="android:windowBackground">@drawable/bg_splash_screen</item>
-    </style>
-
     <style name="Base.Theme.App" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -65,6 +61,7 @@
 
         <item name="android:progressBarStyle">@style/Base.Theme.App.Widget.ProgressBar</item>
         <item name="android:popupMenuStyle">@style/Base.Theme.App.Widget.PopupMenu</item>
+        <item name="android:windowAnimationStyle">@style/Base.Theme.App.Animation.Activity</item>
     </style>
 
     <!-- Headlines -->
@@ -177,7 +174,16 @@
     <style name="Base.Theme.App.TextAppearance.AppMotto" parent="Base.Theme.App.TextAppearance.Headline2">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="fontFamily">sans-serif-thin</item>
-        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="Base.Theme.App.Animation.Activity" parent="Animation.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowEnterAnimation">@anim/nav_default_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/nav_default_exit_anim</item>
+        <item name="android:activityOpenEnterAnimation">@anim/nav_default_enter_anim</item>
+        <item name="android:activityOpenExitAnimation">@anim/nav_default_exit_anim</item>
+        <item name="android:activityCloseEnterAnimation">@anim/nav_default_pop_enter_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/nav_default_pop_exit_anim</item>
     </style>
 
 </resources>
