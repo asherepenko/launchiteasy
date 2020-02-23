@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import com.google.firebase.analytics.FirebaseAnalytics
 import org.koin.core.KoinComponent
 
 abstract class BaseFragment(
@@ -18,4 +19,14 @@ abstract class BaseFragment(
         savedInstanceState: Bundle?
     ): View? =
         inflater.inflate(contentLayoutRes, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupAnalytics()
+    }
+
+    private fun setupAnalytics() {
+        FirebaseAnalytics.getInstance(requireActivity())
+            .setCurrentScreen(requireActivity(), javaClass.simpleName, javaClass.simpleName)
+    }
 }

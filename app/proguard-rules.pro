@@ -50,5 +50,4 @@
 
 -dontwarn com.fasterxml.jackson.databind.**
 
--keepnames class com.sherepenko.**
--keepnames class com.fasterxml.**
+-keepnames class * extends androidx.fragment.app.Fragment
