@@ -45,9 +45,7 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
                 }
 
                 if (permissionsGranted) {
-                    findNavController().navigate(
-                        SplashFragmentDirections.toHomeFragment()
-                    )
+                    navigateToHomeFragment()
                 } else {
                     ActivityCompat.finishAffinity(requireActivity())
                 }
@@ -66,16 +64,19 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
         }
 
         if (requestedPermissions.isEmpty()) {
-            findNavController().navigate(
-                SplashFragmentDirections.toHomeFragment()
-            )
+            navigateToHomeFragment()
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
+            requestPermissions(
                 requestedPermissions.toTypedArray(),
                 REQUEST_RUNTIME_PERMISSIONS
             )
         }
+    }
+
+    private fun navigateToHomeFragment() {
+        findNavController().navigate(
+            SplashFragmentDirections.toHomeFragment()
+        )
     }
 
     private fun String.isGranted(): Boolean =
