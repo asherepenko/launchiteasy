@@ -57,7 +57,7 @@ abstract class BaseRecyclerViewHolder<T>(
 
             itemView.setOnLongClickListener { view ->
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    this.onItemClick(view, adapterPosition, itemId)
+                    this.onItemLongClick(view, adapterPosition, itemId)
                     return@setOnLongClickListener true
                 }
 

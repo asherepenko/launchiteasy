@@ -1,7 +1,15 @@
 package com.sherepenko.android.launchiteasy.repositories
 
-interface BaseRepository {
+import androidx.lifecycle.MutableLiveData
 
-    fun dispose() {
+abstract class BaseRepository {
+
+    protected val updateChannel = MutableLiveData<Boolean>(true)
+
+    open fun dispose() {
+    }
+
+    fun forceUpdate() {
+        updateChannel.postValue(true)
     }
 }

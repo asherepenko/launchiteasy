@@ -14,15 +14,15 @@ import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
-import kotlinx.android.synthetic.main.fragment_home.allAppsButton
-import kotlinx.android.synthetic.main.fragment_home.currentLocationView
-import kotlinx.android.synthetic.main.fragment_home.currentTemperatureView
-import kotlinx.android.synthetic.main.fragment_home.currentTimeView
-import kotlinx.android.synthetic.main.fragment_home.currentWeatherConditionView
-import kotlinx.android.synthetic.main.fragment_home.currentWeatherIconView
-import kotlinx.android.synthetic.main.fragment_home.nextAlarmView
-import kotlinx.android.synthetic.main.fragment_home.perceivedTemperatureView
-import kotlinx.android.synthetic.main.fragment_home.weatherForecastsView
+import kotlinx.android.synthetic.main.fragment_home.swipeRefreshLayout
+import kotlinx.android.synthetic.main.layout_home.allAppsButton
+import kotlinx.android.synthetic.main.layout_home.currentLocationView
+import kotlinx.android.synthetic.main.layout_home.currentTemperatureView
+import kotlinx.android.synthetic.main.layout_home.currentWeatherConditionView
+import kotlinx.android.synthetic.main.layout_home.currentWeatherIconView
+import kotlinx.android.synthetic.main.layout_home.nextAlarmView
+import kotlinx.android.synthetic.main.layout_home.perceivedTemperatureView
+import kotlinx.android.synthetic.main.layout_home.weatherForecastsView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
@@ -33,14 +33,16 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val weatherViewModel: WeatherViewModel by viewModel()
 
+    private lateinit var forecastsAdapter: ForecastsAdapter
+
     private lateinit var snackbar: Snackbar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        currentTimeView.setOnClickListener {
+        nextAlarmView.setOnClickListener {
             val intent = Intent(AlarmClock.ACTION_SHOW_ALARMS)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
-            if (intent.resolveActivity(requireContext().packageManager) != null) {
+            intent.resolveActivity(requireContext().packageManager)?.let {
                 startActivity(intent)
             }
         }
@@ -58,7 +60,19 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             )
         }
 
-        val forecastsAdapter = ForecastsAdapter()
+        swipeRefreshLayout.setColorSchemeResources(
+            R.color.colorSecondary,
+            R.color.colorSecondaryVariant
+        )
+        swipeRefreshLayout.setOnRefreshListener {
+            weatherViewModel.forceUpdate()
+        }
+
+        swipeRefreshLayout.post {
+            swipeRefreshLayout.isRefreshing = true
+        }
+
+        forecastsAdapter = ForecastsAdapter()
 
         weatherForecastsView.apply {
             setHasFixedSize(true)
@@ -67,6 +81,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
 
         snackbar = Snackbar.make(view, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
+            .setAction(R.string.action_dismiss) {
+                hideSnackbar()
+            }
 
         weatherViewModel.getConnectionState().observe(viewLifecycleOwner, Observer { isConnected ->
             if (isConnected) {
@@ -90,9 +107,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                             )
                         perceivedTemperatureView.text =
                             getString(
-                                R.string.perceived_temperature_metric,
+                                R.string.perceived_temperature,
                                 data.perceivedTemperature.celsius
                             )
+                        swipeRefreshLayout.isRefreshing = false
                     }
                 }
                 Status.SUCCESS -> {
@@ -106,13 +124,19 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                         )
                     perceivedTemperatureView.text =
                         getString(
-                            R.string.perceived_temperature_metric,
+                            R.string.perceived_temperature,
                             it.data.perceivedTemperature.celsius
                         )
+                    swipeRefreshLayout.isRefreshing = false
                 }
                 Status.ERROR -> {
+                    currentWeatherIconView.text =
+                        getString(R.string.unknown_weather)
+                    currentWeatherConditionView.text = ""
                     currentTemperatureView.text =
                         getString(R.string.no_temperature)
+                    swipeRefreshLayout.isRefreshing = false
+                    perceivedTemperatureView.text = ""
                 }
             }
         })
@@ -122,13 +146,18 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 Status.LOADING -> {
                     it.data?.let { data ->
                         forecastsAdapter.items = data
+
+                        if (data.isNotEmpty()) {
+                            swipeRefreshLayout.isRefreshing = false
+                        }
                     }
                 }
                 Status.SUCCESS -> {
                     forecastsAdapter.items = it.data!!
+                    swipeRefreshLayout.isRefreshing = false
                 }
                 Status.ERROR -> {
-                    // ignore
+                    swipeRefreshLayout.isRefreshing = false
                 }
             }
         })

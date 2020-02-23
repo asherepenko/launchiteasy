@@ -13,6 +13,6 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
     fun getConnectionState(): LiveData<Boolean> =
         connectivityLiveData
 
-    fun updateData() {
+    open fun forceUpdate() {
     }
 }

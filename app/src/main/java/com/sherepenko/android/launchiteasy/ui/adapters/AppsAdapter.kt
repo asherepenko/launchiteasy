@@ -33,6 +33,9 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
         }
     }
 
+    fun getPackageName(position: Int): String =
+        items[position].packageName
+
     private fun notifyItemsChanged(oldItems: List<AppItem>, newItems: List<AppItem>) {
         val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
             override fun getOldListSize(): Int =

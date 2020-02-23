@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,32 +7,50 @@
         android:layout_height="match_parent"
         tools:context=".ui.LauncherFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true"
+            app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/all_apps_toolbar_padding_top"
+                android:paddingBottom="@dimen/all_apps_toolbar_padding_bottom"
+                app:layout_scrollFlags="scroll|snap"
+                app:title="@string/all_apps"
+                app:titleTextAppearance="@style/Base.Theme.App.TextAppearance.Headline3" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Installed applications -->
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/appsView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/app_list_margin_start"
+            android:layout_marginEnd="@dimen/app_list_margin_end"
+            android:paddingStart="@dimen/app_list_padding_horizontal"
+            android:paddingEnd="@dimen/app_list_padding_horizontal"
             android:orientation="vertical"
             android:scrollbars="vertical"
             android:scrollbarStyle="outsideOverlay"
             android:layerType="hardware"
-            app:spanCount="4"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:spanCount="4"
             tools:listitem="@layout/item_app" />
 
     <ProgressBar
             android:id="@+id/loadingView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminate="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_marginStart="@dimen/default_margin_horizontal"
+            android:layout_marginEnd="@dimen/default_margin_horizontal"
+            android:layout_marginTop="@dimen/default_margin_vertical"
+            android:layout_marginBottom="@dimen/default_margin_vertical"
+            android:layout_gravity="center" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

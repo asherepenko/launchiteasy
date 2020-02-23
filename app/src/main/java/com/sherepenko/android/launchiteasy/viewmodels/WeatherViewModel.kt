@@ -15,6 +15,10 @@ class WeatherViewModel(
         repository.dispose()
     }
 
+    override fun forceUpdate() {
+        repository.forceUpdate()
+    }
+
     fun getCurrentWeather(): LiveData<Resource<WeatherItem>> =
         repository.getCurrentWeather()
 

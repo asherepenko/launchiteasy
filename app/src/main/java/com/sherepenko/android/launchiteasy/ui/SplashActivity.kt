@@ -3,18 +3,24 @@ package com.sherepenko.android.launchiteasy.ui
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.sherepenko.android.launchiteasy.R
+import kotlinx.coroutines.delay
 
-class LaunchActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity(R.layout.activity_splash) {
     companion object {
         private const val REQUEST_RUNTIME_PERMISSIONS = 101
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkPermissions()
+
+        lifecycleScope.launchWhenStarted {
+            delay(1000)
+            checkPermissions()
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -36,7 +42,7 @@ class LaunchActivity : AppCompatActivity() {
                 }
 
                 if (permissionsGranted) {
-                    startActivity(MainActivity.homeIntent(this@LaunchActivity))
+                    startActivity(MainActivity.homeIntent(this@SplashActivity))
                     finish()
                 } else {
                     finishAffinity()
@@ -56,11 +62,11 @@ class LaunchActivity : AppCompatActivity() {
         }
 
         if (requestedPermissions.isEmpty()) {
-            startActivity(MainActivity.homeIntent(this@LaunchActivity))
+            startActivity(MainActivity.homeIntent(this@SplashActivity))
             finish()
         } else {
             ActivityCompat.requestPermissions(
-                this@LaunchActivity,
+                this@SplashActivity,
                 requestedPermissions.toTypedArray(),
                 REQUEST_RUNTIME_PERMISSIONS
             )
@@ -68,6 +74,6 @@ class LaunchActivity : AppCompatActivity() {
     }
 
     private fun String.isGranted(): Boolean =
-        ContextCompat.checkSelfPermission(this@LaunchActivity, this) ==
+        ContextCompat.checkSelfPermission(this@SplashActivity, this) ==
                 PackageManager.PERMISSION_GRANTED
 }

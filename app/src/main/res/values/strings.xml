@@ -2,11 +2,26 @@
 <resources>
     <string name="app_name" translatable="false">Sleazy Launcher</string>
 
+    <string name="action_dismiss">Dismiss</string>
+
+    <!-- Splash screen -->
+    <string name="app_motto">Take it Sleazy</string>
+
+    <!-- Weather -->
     <string name="temperature_value" translatable="false">%1$d°</string>
+
+    <string name="perceived_temperature">Feels like %1$d°</string>
+
     <string name="no_temperature" translatable="false">_ _°</string>
 
-    <string name="perceived_temperature_metric">Feels like %1$d°C</string>
-    <string name="perceived_temperature_imperial">Feels like %1$d°F</string>
-
     <string name="no_connection">No connection</string>
+
+    <string name="unknown_weather" translatable="false">&#xf07b;</string>
+
+    <!-- Apps screen -->
+    <string name="all_apps">Apps</string>
+
+    <string name="action_app_info">App info</string>
+
+    <string name="action_app_uninstall">Uninstall</string>
 </resources>

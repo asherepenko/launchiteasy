@@ -2,30 +2,15 @@
 <resources
         xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
-
-        <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
-        <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
-        <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
-        <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4</item>
-        <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
-        <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6</item>
-
-        <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
-        <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-
-        <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
-        <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
-
-        <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
-
-        <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
-
-        <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+    <style name="Theme.App" parent="Base.Theme.App">
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     </style>
 
-    <style name="Theme.Application" parent="Theme.Base">
+    <style name="Theme.App.Splash" parent="Base.Theme.App">
+        <item name="android:windowBackground">@drawable/bg_splash_screen</item>
+    </style>
 
+    <style name="Base.Theme.App" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
@@ -40,19 +25,159 @@
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
 
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="android:textColorSecondary">?attr/colorOnSecondary</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
 
         <item name="android:colorBackground">@color/colorBackground</item>
         <item name="scrimBackground">@color/colorBackground</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
 
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="textAppearanceHeadline1">@style/Base.Theme.App.TextAppearance.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/Base.Theme.App.TextAppearance.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/Base.Theme.App.TextAppearance.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/Base.Theme.App.TextAppearance.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/Base.Theme.App.TextAppearance.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/Base.Theme.App.TextAppearance.Headline6</item>
+
+        <item name="textAppearanceSubtitle1">@style/Base.Theme.App.TextAppearance.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/Base.Theme.App.TextAppearance.Subtitle2</item>
+
+        <item name="textAppearanceBody1">@style/Base.Theme.App.TextAppearance.Body1</item>
+        <item name="textAppearanceBody2">@style/Base.Theme.App.TextAppearance.Body2</item>
+
+        <item name="textAppearanceCaption">@style/Base.Theme.App.TextAppearance.Caption</item>
+
+        <item name="textAppearanceButton">@style/Base.Theme.App.TextAppearance.Button</item>
+
+        <item name="textAppearanceOverline">@style/Base.Theme.App.TextAppearance.Overline</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/Base.Theme.App.ShapeAppearance.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/Base.Theme.App.ShapeAppearance.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/Base.Theme.App.ShapeAppearance.LargeComponent</item>
+
+        <item name="toolbarStyle">@style/Base.Theme.App.Widget.Toolbar</item>
+        <item name="snackbarStyle">@style/Base.Theme.App.Widget.Snackbar</item>
+        <item name="snackbarButtonStyle">@style/Base.Theme.App.Widget.Snackbar.Action</item>
+        <item name="snackbarTextViewStyle">@style/Base.Theme.App.Widget.Snackbar.Text</item>
+
+        <item name="android:progressBarStyle">@style/Base.Theme.App.Widget.ProgressBar</item>
+        <item name="android:popupMenuStyle">@style/Base.Theme.App.Widget.PopupMenu</item>
     </style>
 
-    <style name="Theme.Launcher" parent="Theme.Application">
-        <item name="android:windowBackground">@drawable/launch_background</item>
+    <!-- Headlines -->
+    <style name="Base.Theme.App.TextAppearance.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <!-- Subtitles -->
+    <style name="Base.Theme.App.TextAppearance.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Body -->
+    <style name="Base.Theme.App.TextAppearance.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <!-- Shapes -->
+    <style name="Base.Theme.App.ShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/small_component_corner_size</item>
+    </style>
+
+    <style name="Base.Theme.App.ShapeAppearance.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/medium_component_corner_size</item>
+    </style>
+
+    <style name="Base.Theme.App.ShapeAppearance.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/large_component_corner_size</item>
+    </style>
+
+    <!-- Widgets -->
+    <style name="Base.Theme.App.Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="contentInsetStart">@dimen/toolbar_content_inset_start</item>
+    </style>
+
+    <style name="Base.Theme.App.Widget.Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:backgroundTint">?attr/colorError</item>
+        <item name="android:textColor">?colorOnError</item>
+    </style>
+
+    <style name="Base.Theme.App.Widget.Snackbar.Action" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
+        <item name="android:textColor">?colorOnError</item>
+    </style>
+
+    <style name="Base.Theme.App.Widget.Snackbar.Text" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textColor">?colorOnError</item>
+    </style>
+
+    <style name="Base.Theme.App.Widget.ProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminate">true</item>
+    </style>
+
+    <style name="Base.Theme.App.Widget.PopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:dropDownHorizontalOffset">-4dp</item>
+        <item name="android:dropDownVerticalOffset">-4dp</item>
+    </style>
+
+    <style name="Base.Theme.App.Widget.WeatherIconView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="fontPath">fonts/WeatherIcons-regular.ttf</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.AppMotto" parent="Base.Theme.App.TextAppearance.Headline2">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="fontFamily">sans-serif-thin</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
 </resources>

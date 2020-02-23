@@ -9,7 +9,7 @@
     <fragment
             android:id="@+id/homeFragment"
             android:name="com.sherepenko.android.launchiteasy.ui.HomeFragment"
-            tools:layout="@layout/fragment_home">
+            tools:layout="@layout/layout_home">
 
         <action
             android:id="@+id/toLauncherFragment"

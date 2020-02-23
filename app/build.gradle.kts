@@ -145,6 +145,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.1.0")
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03")
     implementation("androidx.work:work-runtime-ktx:$workVersion")
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
