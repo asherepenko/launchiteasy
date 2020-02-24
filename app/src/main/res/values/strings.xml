@@ -6,7 +6,7 @@
 
     <string name="app_motto_transition" translatable="false">app_motto</string>
 
-    <string name="app_logo" translatable="false">lieasy</string>
+    <string name="app_logo" translatable="false">li/easy</string>
 
     <!-- Weather -->
     <string name="temperature_value" translatable="false">%1$d°</string>
