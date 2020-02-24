@@ -1,5 +1,6 @@
 package com.sherepenko.android.launchiteasy.providers
 
+import com.sherepenko.android.launchiteasy.AppConstants
 import com.sherepenko.android.launchiteasy.api.OpenWeatherApi
 import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.WeatherItem
@@ -14,7 +15,7 @@ interface WeatherDataSource {
 
 class WeatherLocalDataSource(
     database: AppDatabase,
-    private val forecastsCount: Int
+    private val forecastsCount: Int = AppConstants.WEATHER_FORECASTS_LIMIT
 ) : WeatherDataSource {
 
     private val weatherDao = database.getWeatherDao()

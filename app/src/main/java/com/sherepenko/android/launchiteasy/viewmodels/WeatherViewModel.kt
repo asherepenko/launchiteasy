@@ -7,17 +7,8 @@ import com.sherepenko.android.launchiteasy.data.WeatherItem
 import com.sherepenko.android.launchiteasy.repositories.WeatherRepository
 
 class WeatherViewModel(
-    private val repository: WeatherRepository
-) : BaseViewModel() {
-
-    override fun onCleared() {
-        super.onCleared()
-        repository.dispose()
-    }
-
-    override fun forceUpdate() {
-        repository.forceUpdate()
-    }
+    repository: WeatherRepository
+) : BaseViewModel<WeatherRepository>(repository) {
 
     fun getCurrentWeather(): LiveData<Resource<WeatherItem>> =
         repository.getCurrentWeather()

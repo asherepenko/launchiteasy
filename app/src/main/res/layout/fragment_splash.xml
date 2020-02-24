@@ -39,21 +39,12 @@
             app:layout_constraintGuide_end="@dimen/content_guideline_bottom" />
 
     <TextView
-            android:id="@+id/appLogoView"
-            style="@style/Base.Theme.App.TextAppearance.AppLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_logo"
-            app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
-            app:layout_constraintTop_toTopOf="@+id/contentTopGuideline" />
-
-    <TextView
             android:id="@+id/appMottoView"
             style="@style/Base.Theme.App.TextAppearance.AppMotto"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:text="@string/app_motto"
+            android:transitionName="@string/app_motto_transition"
             app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
             app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
             app:layout_constraintTop_toTopOf="@+id/contentTopGuideline"

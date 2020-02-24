@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.switchMap
 import com.sherepenko.android.launchiteasy.data.AppItem
 import com.sherepenko.android.launchiteasy.data.Resource
-import com.sherepenko.android.launchiteasy.livedata.AppStateLiveData
 import com.sherepenko.android.launchiteasy.providers.AppsLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.AppsRemoteDataSource
 
@@ -14,13 +13,13 @@ abstract class AppsRepository : BaseRepository() {
 }
 
 class AppsRepositoryImpl(
+    private val appStateRepository: AppStateRepository,
     private val localDataSource: AppsLocalDataSource,
-    private val remoteDataSource: AppsRemoteDataSource,
-    private val appStateDataSource: AppStateLiveData
+    private val remoteDataSource: AppsRemoteDataSource
 ) : AppsRepository() {
 
     override fun getInstalledApps(): LiveData<Resource<List<AppItem>>> =
-        appStateDataSource.switchMap {
+        appStateRepository.getAppState().switchMap {
             getInstalledApps(it)
         }
 

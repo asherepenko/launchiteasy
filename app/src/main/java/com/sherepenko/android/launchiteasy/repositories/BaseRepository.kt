@@ -4,12 +4,12 @@ import androidx.lifecycle.MutableLiveData
 
 abstract class BaseRepository {
 
-    protected val updateChannel = MutableLiveData<Boolean>(true)
-
-    open fun dispose() {
-    }
+    protected val forceUpdateChannel = MutableLiveData<Boolean>(false)
 
     fun forceUpdate() {
-        updateChannel.postValue(true)
+        forceUpdateChannel.postValue(true)
+    }
+
+    open fun dispose() {
     }
 }

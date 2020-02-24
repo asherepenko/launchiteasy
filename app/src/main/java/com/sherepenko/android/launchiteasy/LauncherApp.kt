@@ -17,11 +17,18 @@ import com.sherepenko.android.launchiteasy.providers.AppsLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.AppsRemoteDataSource
 import com.sherepenko.android.launchiteasy.providers.WeatherLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.WeatherRemoteDataSource
+import com.sherepenko.android.launchiteasy.repositories.AppStateRepository
+import com.sherepenko.android.launchiteasy.repositories.AppStateRepositoryImpl
 import com.sherepenko.android.launchiteasy.repositories.AppsRepository
 import com.sherepenko.android.launchiteasy.repositories.AppsRepositoryImpl
+import com.sherepenko.android.launchiteasy.repositories.ConnectivityRepository
+import com.sherepenko.android.launchiteasy.repositories.ConnectivityRepositoryImpl
+import com.sherepenko.android.launchiteasy.repositories.LocationRepository
+import com.sherepenko.android.launchiteasy.repositories.LocationRepositoryImpl
 import com.sherepenko.android.launchiteasy.repositories.WeatherRepository
 import com.sherepenko.android.launchiteasy.repositories.WeatherRepositoryImpl
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
+import com.sherepenko.android.launchiteasy.viewmodels.ConnectivityViewModel
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -95,28 +102,46 @@ class LauncherApp : Application() {
 
     private val repositoryModule = module {
         single {
-            ConnectivityLiveData(get())
+            ConnectivityRepositoryImpl(
+                ConnectivityLiveData(get())
+            ) as ConnectivityRepository
+        }
+
+        single {
+            LocationRepositoryImpl(
+                LocationLiveData(get())
+            ) as LocationRepository
         }
 
         single {
             WeatherRepositoryImpl(
-                WeatherLocalDataSource(get(), AppConstants.WEATHER_FORECASTS_LIMIT),
-                WeatherRemoteDataSource(get()),
-                LocationLiveData(get()),
-                get()
+                get(),
+                get(),
+                WeatherLocalDataSource(get()),
+                WeatherRemoteDataSource(get())
             ) as WeatherRepository
         }
 
         single {
-            AppsRepositoryImpl(
-                AppsLocalDataSource(get()),
-                AppsRemoteDataSource(get()),
+            AppStateRepositoryImpl(
                 AppStateLiveData(get())
+            ) as AppStateRepository
+        }
+
+        single {
+            AppsRepositoryImpl(
+                get(),
+                AppsLocalDataSource(get()),
+                AppsRemoteDataSource(get())
             ) as AppsRepository
         }
     }
 
     private val viewModelModule = module {
+        viewModel {
+            ConnectivityViewModel(get())
+        }
+
         viewModel {
             AppsViewModel(get())
         }

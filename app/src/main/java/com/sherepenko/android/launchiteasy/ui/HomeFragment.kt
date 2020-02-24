@@ -5,11 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.AlarmClock
+import android.text.format.DateFormat
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
-import com.google.android.material.snackbar.Snackbar
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
@@ -29,14 +29,12 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 
-class HomeFragment : BaseFragment(R.layout.fragment_home) {
+class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     private val weatherViewModel: WeatherViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupConnectionStateHandler(view)
 
         setupSwipeRefreshLayout()
 
@@ -68,21 +66,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         setupAlarmClock()
     }
 
-    private fun setupConnectionStateHandler(view: View) {
-        val snackbar = Snackbar.make(view, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
-        snackbar.setAction(R.string.action_dismiss) {
-            snackbar.hideSnackbar()
-        }
-
-        weatherViewModel.getConnectionState().observe(viewLifecycleOwner, Observer { isConnected ->
-            if (isConnected) {
-                snackbar.hideSnackbar()
-            } else {
-                snackbar.showSnackbar()
-            }
-        })
-    }
-
     private fun setupSwipeRefreshLayout() {
         swipeRefreshLayout.apply {
             setColorSchemeResources(
@@ -103,8 +86,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         if (alarmManager.nextAlarmClock != null) {
             val nextAlarm = alarmManager.nextAlarmClock.toLocalDateTime()
-            nextAlarmView.text = nextAlarm
-                .format(DateTimeFormatter.ofPattern("E HH:mm"))
+            nextAlarmView.text = nextAlarm.formatAlarmDateTime()
             nextAlarmView.visibility = View.VISIBLE
         } else {
             nextAlarmView.visibility = View.GONE
@@ -192,18 +174,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         })
     }
 
-    private fun Snackbar.showSnackbar() {
-        if (!this@showSnackbar.isShownOrQueued) {
-            this@showSnackbar.show()
-        }
-    }
-
-    private fun Snackbar.hideSnackbar() {
-        if (this@hideSnackbar.isShownOrQueued) {
-            this@hideSnackbar.dismiss()
-        }
-    }
-
     private fun AlarmManager.AlarmClockInfo.toLocalDateTime(): LocalDateTime =
         LocalDateTime.ofInstant(Instant.ofEpochMilli(triggerTime), ZoneId.systemDefault())
+
+    private fun LocalDateTime.formatAlarmDateTime(): String =
+        format(
+            if (DateFormat.is24HourFormat(requireActivity())) {
+                DateTimeFormatter.ofPattern("E HH:mm")
+            } else {
+                DateTimeFormatter.ofPattern("E hh:mm a")
+            }
+        )
 }

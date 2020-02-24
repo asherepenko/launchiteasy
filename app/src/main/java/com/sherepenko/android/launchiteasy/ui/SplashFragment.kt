@@ -7,8 +7,10 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.sherepenko.android.launchiteasy.R
+import kotlinx.android.synthetic.main.fragment_splash.appMottoView
 import kotlinx.coroutines.delay
 
 class SplashFragment : BaseFragment(R.layout.fragment_splash) {
@@ -75,7 +77,10 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
     private fun navigateToHomeFragment() {
         findNavController().navigate(
-            SplashFragmentDirections.toHomeFragment()
+            SplashFragmentDirections.toHomeFragment(),
+            FragmentNavigatorExtras(
+                appMottoView to getString(R.string.app_motto_transition)
+            )
         )
     }
 

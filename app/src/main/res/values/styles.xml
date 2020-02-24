@@ -31,6 +31,8 @@
 
         <item name="android:statusBarColor">@android:color/transparent</item>
 
+        <item name="android:windowContentTransitions">true</item>
+
         <item name="textAppearanceHeadline1">@style/Base.Theme.App.TextAppearance.Headline1</item>
         <item name="textAppearanceHeadline2">@style/Base.Theme.App.TextAppearance.Headline2</item>
         <item name="textAppearanceHeadline3">@style/Base.Theme.App.TextAppearance.Headline3</item>

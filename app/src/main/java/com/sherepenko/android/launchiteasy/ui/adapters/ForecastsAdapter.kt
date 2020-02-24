@@ -35,7 +35,8 @@ class ForecastsAdapter :
     }
 
     private fun Instant.format(): String =
-        LocalDateTime.ofInstant(this@format, ZoneId.systemDefault()).format(
-            DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
-        )
+        LocalDateTime.ofInstant(this@format, ZoneId.systemDefault())
+            .format(
+                DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+            )
 }

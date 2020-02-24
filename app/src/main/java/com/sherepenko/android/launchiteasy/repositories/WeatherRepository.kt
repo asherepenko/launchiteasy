@@ -7,8 +7,6 @@ import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.data.WeatherItem
-import com.sherepenko.android.launchiteasy.livedata.ConnectivityLiveData
-import com.sherepenko.android.launchiteasy.livedata.LocationLiveData
 import com.sherepenko.android.launchiteasy.providers.WeatherLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.WeatherRemoteDataSource
 import java.util.concurrent.TimeUnit
@@ -22,10 +20,10 @@ abstract class WeatherRepository : BaseRepository() {
 }
 
 class WeatherRepositoryImpl(
+    private val connectivityRepository: ConnectivityRepository,
+    private val locationRepository: LocationRepository,
     private val localDataSource: WeatherLocalDataSource,
-    private val remoteDataSource: WeatherRemoteDataSource,
-    private val locationDataSource: LocationLiveData,
-    private val connectivityDataSource: ConnectivityLiveData
+    private val remoteDataSource: WeatherRemoteDataSource
 ) : WeatherRepository() {
 
     companion object {
@@ -37,18 +35,18 @@ class WeatherRepositoryImpl(
     }
 
     override fun getCurrentWeather(): LiveData<Resource<WeatherItem>> =
-        updateChannel.switchMap {
-            connectivityDataSource.switchMap { isConnected ->
-                locationDataSource.switchMap { lastLocation ->
+        forceUpdateChannel.switchMap {
+            connectivityRepository.getConnectionState().switchMap { isConnected ->
+                locationRepository.getLastKnownLocation().switchMap { lastLocation ->
                     getCurrentWeather(isConnected, lastLocation)
                 }
             }
         }
 
     override fun getWeatherForecasts(): LiveData<Resource<List<ForecastItem>>> =
-        updateChannel.switchMap {
-            connectivityDataSource.switchMap { isConnected ->
-                locationDataSource.switchMap { lastLocation ->
+        forceUpdateChannel.switchMap {
+            connectivityRepository.getConnectionState().switchMap { isConnected ->
+                locationRepository.getLastKnownLocation().switchMap { lastLocation ->
                     getWeatherForecasts(isConnected, lastLocation)
                 }
             }
