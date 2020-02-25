@@ -17,6 +17,8 @@ import org.threeten.bp.format.FormatStyle
 class ForecastsAdapter :
         BaseRecyclerAdapter<ForecastItem, ForecastsAdapter.ViewHolder>() {
 
+    var isMetricSystem: Boolean = true
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflate(R.layout.item_forecast))
 
@@ -29,7 +31,13 @@ class ForecastsAdapter :
                 forecastTimeView.text = item.timestamp.format()
                 forecastIconView.text = item.condition.icon.glyph
                 forecastTemperatureView.text =
-                    context.getString(R.string.temperature_value, item.temperature.celsius)
+                    context.getString(R.string.temperature_value,
+                        if (isMetricSystem) {
+                            item.temperature.celsius
+                        } else {
+                            item.temperature.fahrenheit
+                        }
+                    )
             }
         }
     }

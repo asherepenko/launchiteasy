@@ -3,7 +3,7 @@ package com.sherepenko.android.launchiteasy.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.sherepenko.android.launchiteasy.ui.MainActivity
+import com.sherepenko.android.launchiteasy.ui.activities.MainActivity
 
 class PackageReplaceReceiver : BroadcastReceiver() {
 

@@ -3,7 +3,6 @@ package com.sherepenko.android.launchiteasy
 import android.app.Application
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import androidx.work.WorkManager
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -27,6 +26,7 @@ import com.sherepenko.android.launchiteasy.repositories.LocationRepository
 import com.sherepenko.android.launchiteasy.repositories.LocationRepositoryImpl
 import com.sherepenko.android.launchiteasy.repositories.WeatherRepository
 import com.sherepenko.android.launchiteasy.repositories.WeatherRepositoryImpl
+import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
 import com.sherepenko.android.launchiteasy.viewmodels.ConnectivityViewModel
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
@@ -49,11 +49,10 @@ class LauncherApp : Application() {
 
     private val appModule = module {
         single {
-            PreferenceManager.getDefaultSharedPreferences(get())
-        }
-
-        single {
-            WorkManager.getInstance(get())
+            PreferenceHelper(
+                get(),
+                PreferenceManager.getDefaultSharedPreferences(get())
+            )
         }
     }
 

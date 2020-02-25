@@ -8,7 +8,7 @@
 
     <fragment
             android:id="@+id/splashFragment"
-            android:name="com.sherepenko.android.launchiteasy.ui.SplashFragment"
+            android:name="com.sherepenko.android.launchiteasy.ui.fragments.SplashFragment"
             tools:layout="@layout/fragment_splash">
 
         <action
@@ -23,7 +23,7 @@
 
     <fragment
             android:id="@+id/homeFragment"
-            android:name="com.sherepenko.android.launchiteasy.ui.HomeFragment"
+            android:name="com.sherepenko.android.launchiteasy.ui.fragments.HomeFragment"
             tools:layout="@layout/fragment_home">
 
         <action
@@ -34,11 +34,35 @@
                 app:exitAnim="@anim/nav_default_exit_anim"
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim"
                 app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+                android:id="@+id/toSettingsFragment"
+                app:destination="@+id/settingsFragment"
+                app:launchSingleTop="true"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
             android:id="@+id/launcherFragment"
-            android:name="com.sherepenko.android.launchiteasy.ui.LauncherFragment"
-            tools:layout="@layout/fragment_launcher" />
+            android:name="com.sherepenko.android.launchiteasy.ui.fragments.LauncherFragment"
+            tools:layout="@layout/fragment_launcher">
+
+        <action
+                android:id="@+id/toSettingsFragment"
+                app:destination="@+id/settingsFragment"
+                app:launchSingleTop="true"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/settingsFragment"
+            android:name="com.sherepenko.android.launchiteasy.ui.fragments.SettingsFragment"
+            tools:layout="@layout/fragment_settings" />
 
 </navigation>

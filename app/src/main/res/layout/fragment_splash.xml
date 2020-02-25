@@ -6,8 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        tools:context=".ui.SplashFragment">
-
+        tools:context=".ui.fragments.SplashFragment">
 
     <!-- Content guidelines -->
     <androidx.constraintlayout.widget.Guideline

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
         xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
             android:id="@+id/actionAppInfo"
-            android:title="@string/action_app_info" />
-
+            android:title="@string/app_info" />
     <item
             android:id="@+id/actionAppUninstall"
-            android:title="@string/action_app_uninstall" />
-
+            android:title="@string/app_uninstall" />
 </menu>

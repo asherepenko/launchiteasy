@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        tools:context=".ui.LauncherFragment">
+        tools:context=".ui.fragments.LauncherFragment">
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -17,11 +17,10 @@
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/all_apps_toolbar_padding_top"
-                android:paddingBottom="@dimen/all_apps_toolbar_padding_bottom"
+                android:layout_height="@dimen/toolbar_max_height"
                 app:layout_scrollFlags="scroll|snap"
                 app:title="@string/all_apps"
+                app:titleMarginTop="@dimen/all_apps_toolbar_title_margin_top"
                 app:titleTextAppearance="@style/Base.Theme.App.TextAppearance.Headline3" />
 
     </com.google.android.material.appbar.AppBarLayout>

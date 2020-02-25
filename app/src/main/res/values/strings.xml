@@ -2,16 +2,20 @@
 <resources>
     <string name="app_name" translatable="false">Launch it Easy</string>
 
+    <string name="app_logo" translatable="false">li/easy</string>
+
     <string name="app_motto" translatable="false">Launch it Easy</string>
 
     <string name="app_motto_transition" translatable="false">app_motto</string>
 
-    <string name="app_logo" translatable="false">li/easy</string>
+    <string name="dismiss">Dismiss</string>
 
-    <!-- Weather -->
+    <!-- Home Screen -->
     <string name="temperature_value" translatable="false">%1$d°</string>
 
-    <string name="perceived_temperature">Feels like %1$d°</string>
+    <string name="perceived_temperature_metric">Feels like %1$d°C</string>
+
+    <string name="perceived_temperature_imperial">Feels like %1$d°F</string>
 
     <string name="no_temperature" translatable="false">_ _°</string>
 
@@ -19,12 +23,33 @@
 
     <string name="unknown_weather" translatable="false">&#xf07b;</string>
 
-    <!-- Apps screen -->
+    <!-- Launcher Screen -->
     <string name="all_apps">Apps</string>
 
-    <string name="action_app_info">App info</string>
+    <string name="app_info">App info</string>
 
-    <string name="action_app_uninstall">Uninstall</string>
+    <string name="app_uninstall">Uninstall</string>
 
-    <string name="action_dismiss">Dismiss</string>
+    <!-- Settings Screen -->
+    <string name="settings">Settings</string>
+
+    <string name="weather_category_title">Weather</string>
+    <string name="apps_category_title">Applications</string>
+
+    <string name="temperature_unit_key" translatable="false">temperature_unit</string>
+    <string name="temperature_unit_title">Temperature units</string>
+
+    <string-array name="temperature_unit_entries">
+        <item>Celsius - °C</item>
+        <item>Fahrenheit - °F</item>
+    </string-array>
+
+    <string-array name="temperature_unit_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string name="show_system_apps_key" translatable="false">show_system_apps</string>
+    <string name="show_system_apps_title">System apps</string>
+    <string name="show_system_apps_summary">Display system applications</string>
 </resources>

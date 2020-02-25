@@ -16,11 +16,11 @@
                     android:endX="108.0"
                     android:endY="108.0">
                 <item
-                        android:color="#00c7ab"
+                        android:color="@color/colorSecondary"
                         android:offset="0.0" />
 
                 <item
-                        android:color="#008966"
+                        android:color="@color/colorSecondaryVariant"
                         android:offset="0.95" />
             </gradient>
         </aapt:attr>

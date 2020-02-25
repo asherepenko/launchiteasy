@@ -1,4 +1,4 @@
-package com.sherepenko.android.launchiteasy.ui
+package com.sherepenko.android.launchiteasy.ui.activities
 
 import android.content.Context
 import android.os.Bundle

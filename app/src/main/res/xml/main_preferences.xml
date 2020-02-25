@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/weather_category_title">
+
+        <ListPreference
+            android:key="@string/temperature_unit_key"
+            android:title="@string/temperature_unit_title"
+            android:entries="@array/temperature_unit_entries"
+            android:entryValues="@array/temperature_unit_values"
+            android:defaultValue="0"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/apps_category_title">
+
+        <SwitchPreferenceCompat
+            android:key="@string/show_system_apps_key"
+            android:title="@string/show_system_apps_title"
+            android:summary="@string/show_system_apps_summary"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,4 +1,4 @@
-package com.sherepenko.android.launchiteasy.ui
+package com.sherepenko.android.launchiteasy.ui.fragments
 
 import android.os.Bundle
 import android.view.View
@@ -19,7 +19,7 @@ abstract class ConnectivityAwareFragment(
         super.onViewCreated(view, savedInstanceState)
 
         val snackbar = Snackbar.make(view, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
-        snackbar.setAction(R.string.action_dismiss) {
+        snackbar.setAction(R.string.dismiss) {
             snackbar.hideSnackbar()
         }
 

@@ -1,4 +1,4 @@
-package com.sherepenko.android.launchiteasy.ui
+package com.sherepenko.android.launchiteasy.ui.fragments
 
 import android.app.AlarmManager
 import android.content.Context
@@ -6,13 +6,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.text.format.DateFormat
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.Status
+import com.sherepenko.android.launchiteasy.data.isMetric
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
+import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_home.allAppsButton
 import kotlinx.android.synthetic.main.fragment_home.currentLocationView
@@ -22,8 +28,10 @@ import kotlinx.android.synthetic.main.fragment_home.currentWeatherIconView
 import kotlinx.android.synthetic.main.fragment_home.nextAlarmView
 import kotlinx.android.synthetic.main.fragment_home.perceivedTemperatureView
 import kotlinx.android.synthetic.main.fragment_home.swipeRefreshLayout
+import kotlinx.android.synthetic.main.fragment_home.toolbarView
 import kotlinx.android.synthetic.main.fragment_home.weatherForecastsView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.inject
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
@@ -33,9 +41,12 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     private val weatherViewModel: WeatherViewModel by viewModel()
 
+    private val prefs: PreferenceHelper by inject()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupToolbar()
         setupSwipeRefreshLayout()
 
         setupCurrentWeather()
@@ -64,6 +75,30 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
     override fun onStart() {
         super.onStart()
         setupAlarmClock()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            R.id.actionSettings -> {
+                findNavController().navigate(
+                    HomeFragmentDirections.toSettingsFragment()
+                )
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+
+    private fun setupToolbar() {
+        setHasOptionsMenu(true)
+        if (requireActivity() is AppCompatActivity) {
+            (requireActivity() as AppCompatActivity).setSupportActionBar(toolbarView)
+        }
     }
 
     private fun setupSwipeRefreshLayout() {
@@ -95,6 +130,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     private fun setupCurrentWeather() {
         weatherViewModel.getCurrentWeather().observe(viewLifecycleOwner, Observer {
+            val isMetricSystem = prefs.getTemperatureUnit().isMetric()
             when (it.status) {
                 Status.LOADING -> {
                     it.data?.let { data ->
@@ -104,13 +140,24 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                         currentTemperatureView.text =
                             getString(
                                 R.string.temperature_value,
-                                data.temperature.celsius
+                                if (isMetricSystem) {
+                                    data.temperature.celsius
+                                } else {
+                                    data.temperature.fahrenheit
+                                }
                             )
                         perceivedTemperatureView.text =
-                            getString(
-                                R.string.perceived_temperature,
-                                data.perceivedTemperature.celsius
-                            )
+                            if (isMetricSystem) {
+                                getString(
+                                    R.string.perceived_temperature_metric,
+                                    data.perceivedTemperature.celsius
+                                )
+                            } else {
+                                getString(
+                                    R.string.perceived_temperature_imperial,
+                                    data.perceivedTemperature.fahrenheit
+                                )
+                            }
                         swipeRefreshLayout.isRefreshing = false
                     }
                 }
@@ -121,23 +168,35 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                     currentTemperatureView.text =
                         getString(
                             R.string.temperature_value,
-                            it.data.temperature.celsius
+                            if (isMetricSystem) {
+                                it.data.temperature.celsius
+                            } else {
+                                it.data.temperature.fahrenheit
+                            }
                         )
                     perceivedTemperatureView.text =
-                        getString(
-                            R.string.perceived_temperature,
-                            it.data.perceivedTemperature.celsius
-                        )
+                        if (isMetricSystem) {
+                            getString(
+                                R.string.perceived_temperature_metric,
+                                it.data.perceivedTemperature.celsius
+                            )
+                        } else {
+                            getString(
+                                R.string.perceived_temperature_imperial,
+                                it.data.perceivedTemperature.fahrenheit
+                            )
+                        }
                     swipeRefreshLayout.isRefreshing = false
                 }
                 Status.ERROR -> {
+                    currentLocationView.text = ""
                     currentWeatherIconView.text =
                         getString(R.string.unknown_weather)
                     currentWeatherConditionView.text = ""
                     currentTemperatureView.text =
                         getString(R.string.no_temperature)
-                    swipeRefreshLayout.isRefreshing = false
                     perceivedTemperatureView.text = ""
+                    swipeRefreshLayout.isRefreshing = false
                 }
             }
         })
@@ -153,9 +212,11 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
         }
 
         weatherViewModel.getWeatherForecasts().observe(viewLifecycleOwner, Observer {
+            val isMetricSystem = prefs.getTemperatureUnit().isMetric()
             when (it.status) {
                 Status.LOADING -> {
                     it.data?.let { data ->
+                        forecastsAdapter.isMetricSystem = isMetricSystem
                         forecastsAdapter.items = data
 
                         if (data.isNotEmpty()) {
@@ -164,6 +225,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                     }
                 }
                 Status.SUCCESS -> {
+                    forecastsAdapter.isMetricSystem = isMetricSystem
                     forecastsAdapter.items = it.data!!
                     swipeRefreshLayout.isRefreshing = false
                 }

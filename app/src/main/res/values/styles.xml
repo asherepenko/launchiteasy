@@ -56,14 +56,45 @@
         <item name="shapeAppearanceMediumComponent">@style/Base.Theme.App.ShapeAppearance.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/Base.Theme.App.ShapeAppearance.LargeComponent</item>
 
+        <item name="preferenceTheme">@style/Base.ThemeOverlay.App.Preference</item>
+
         <item name="toolbarStyle">@style/Base.Theme.App.Widget.Toolbar</item>
+
+        <item name="borderlessButtonStyle">@style/Base.Theme.App.Widget.TextButton</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Base.Theme.App.Widget.TextButton.Dialog</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Base.Theme.App.Widget.TextButton.Dialog</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Base.Theme.App.Widget.TextButton.Dialog.Flush</item>
+        <item name="buttonBarButtonStyle">@style/Base.Theme.App.Widget.TextButton.Dialog.Flush</item>
+
         <item name="snackbarStyle">@style/Base.Theme.App.Widget.Snackbar</item>
         <item name="snackbarButtonStyle">@style/Base.Theme.App.Widget.Snackbar.Action</item>
         <item name="snackbarTextViewStyle">@style/Base.Theme.App.Widget.Snackbar.Text</item>
 
-        <item name="android:progressBarStyle">@style/Base.Theme.App.Widget.ProgressBar</item>
-        <item name="android:popupMenuStyle">@style/Base.Theme.App.Widget.PopupMenu</item>
         <item name="android:windowAnimationStyle">@style/Base.Theme.App.Animation.Activity</item>
+        <item name="android:popupMenuStyle">@style/Base.Theme.App.Widget.PopupMenu</item>
+        <item name="android:progressBarStyle">@style/Base.Theme.App.Widget.ProgressBar</item>
+    </style>
+
+    <!-- Animations -->
+    <style name="Base.Theme.App.Animation.Activity" parent="Animation.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowEnterAnimation">@anim/nav_default_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/nav_default_exit_anim</item>
+        <item name="android:activityOpenEnterAnimation">@anim/nav_default_enter_anim</item>
+        <item name="android:activityOpenExitAnimation">@anim/nav_default_exit_anim</item>
+        <item name="android:activityCloseEnterAnimation">@anim/nav_default_pop_enter_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/nav_default_pop_exit_anim</item>
+    </style>
+
+    <!-- Themes -->
+    <style name="Base.ThemeOverlay.App.Preference" parent="PreferenceThemeOverlay">
+        <item name="android:layout">@layout/fragment_settings</item>
+    </style>
+
+    <style name="Base.ThemeOverlay.App.Toolbar" parent="ThemeOverlay.MaterialComponents.Light">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
     </style>
 
     <!-- Headlines -->
@@ -144,28 +175,42 @@
     <style name="Base.Theme.App.Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="contentInsetStart">@dimen/toolbar_content_inset_start</item>
+        <item name="popupTheme">@style/Base.ThemeOverlay.App.Toolbar</item>
+    </style>
+
+    <style name="Base.Theme.App.Widget.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="Base.Theme.App.Widget.TextButton.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="Base.Theme.App.Widget.TextButton.Dialog.Flush" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
+        <item name="android:textColor">?attr/colorSecondary</item>
     </style>
 
     <style name="Base.Theme.App.Widget.Snackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="android:backgroundTint">?attr/colorError</item>
-        <item name="android:textColor">?colorOnError</item>
+        <item name="android:textColor">?attr/colorOnError</item>
     </style>
 
     <style name="Base.Theme.App.Widget.Snackbar.Action" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:textColor">?colorOnError</item>
+        <item name="android:textColor">?attr/colorOnError</item>
     </style>
 
     <style name="Base.Theme.App.Widget.Snackbar.Text" parent="Widget.MaterialComponents.Snackbar.TextView">
-        <item name="android:textColor">?colorOnError</item>
+        <item name="android:textColor">?attr/colorOnError</item>
+    </style>
+
+    <style name="Base.Theme.App.Widget.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:dropDownHorizontalOffset">-4dp</item>
+        <item name="android:dropDownVerticalOffset">-4dp</item>
     </style>
 
     <style name="Base.Theme.App.Widget.ProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:indeterminate">true</item>
-    </style>
-
-    <style name="Base.Theme.App.Widget.PopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
-        <item name="android:dropDownHorizontalOffset">-4dp</item>
-        <item name="android:dropDownVerticalOffset">-4dp</item>
     </style>
 
     <style name="Base.Theme.App.Widget.WeatherIconView" parent="Widget.AppCompat.TextView">
@@ -173,6 +218,7 @@
         <item name="fontPath">fonts/WeatherIcons-regular.ttf</item>
     </style>
 
+    <!-- Custom styles -->
     <style name="Base.Theme.App.TextAppearance.AppMotto" parent="Base.Theme.App.TextAppearance.Headline2">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="fontFamily">sans-serif-thin</item>
@@ -180,20 +226,10 @@
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="Base.Theme.App.TextAppearance.AppLogo" parent="Widget.AppCompat.TextView">
+    <style name="Base.Theme.App.TextAppearance.AppLogo" parent="">
         <item name="android:typeface">monospace</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">?attr/colorSecondary</item>
-        <item name="android:textAlignment">center</item>
-    </style>
-
-    <style name="Base.Theme.App.Animation.Activity" parent="Animation.MaterialComponents.BottomSheetDialog">
-        <item name="android:windowEnterAnimation">@anim/nav_default_enter_anim</item>
-        <item name="android:windowExitAnimation">@anim/nav_default_exit_anim</item>
-        <item name="android:activityOpenEnterAnimation">@anim/nav_default_enter_anim</item>
-        <item name="android:activityOpenExitAnimation">@anim/nav_default_exit_anim</item>
-        <item name="android:activityCloseEnterAnimation">@anim/nav_default_pop_enter_anim</item>
-        <item name="android:activityCloseExitAnimation">@anim/nav_default_pop_exit_anim</item>
     </style>
 
 </resources>

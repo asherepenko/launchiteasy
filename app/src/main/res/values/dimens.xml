@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <dimen name="small_component_corner_size">50%</dimen>
+    <dimen name="small_component_corner_size">50%p</dimen>
     <dimen name="medium_component_corner_size">16dp</dimen>
     <dimen name="large_component_corner_size">20dp</dimen>
 
@@ -21,6 +20,7 @@
     <dimen name="content_guideline_bottom">16dp</dimen>
 
     <dimen name="toolbar_content_inset_start">32dp</dimen>
+    <dimen name="toolbar_max_height">108dp</dimen>
 
     <dimen name="app_item_width">108dp</dimen>
     <dimen name="app_item_padding_horizontal">8dp</dimen>
@@ -53,7 +53,7 @@
     <dimen name="all_apps_button_icon_size">36dp</dimen>
     <dimen name="all_apps_button_elevation">4dp</dimen>
 
-    <dimen name="all_apps_toolbar_padding_top">16dp</dimen>
     <dimen name="all_apps_toolbar_padding_bottom">20dp</dimen>
+    <dimen name="all_apps_toolbar_title_margin_top">16dp</dimen>
 
 </resources>

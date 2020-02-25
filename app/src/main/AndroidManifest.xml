@@ -25,7 +25,7 @@
             android:value="false" />
 
         <activity
-                android:name=".ui.MainActivity"
+                android:name=".ui.activities.MainActivity"
                 android:launchMode="singleTask"
                 android:screenOrientation="sensorPortrait"
                 tools:ignore="LockedOrientationActivity">

@@ -1,4 +1,4 @@
-package com.sherepenko.android.launchiteasy.ui
+package com.sherepenko.android.launchiteasy.ui.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
