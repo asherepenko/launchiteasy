@@ -179,7 +179,7 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.3.1")
 }
 
-tasks.withType < KotlinCompile > {
+tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "1.8"
     }
