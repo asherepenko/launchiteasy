@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.livedata.LocationLiveData
 
-abstract class LocationRepository : BaseRepository() {
+abstract class LocationRepository : BaseRepository {
 
     abstract fun getLastKnownLocation(): LiveData<LocationItem>
 }

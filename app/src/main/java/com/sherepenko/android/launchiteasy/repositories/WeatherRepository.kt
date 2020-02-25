@@ -2,17 +2,19 @@ package com.sherepenko.android.launchiteasy.repositories
 
 import android.location.Location
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.data.WeatherItem
+import com.sherepenko.android.launchiteasy.livedata.Event
 import com.sherepenko.android.launchiteasy.providers.WeatherLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.WeatherRemoteDataSource
 import java.util.concurrent.TimeUnit
 import org.threeten.bp.Instant
 
-abstract class WeatherRepository : BaseRepository() {
+abstract class WeatherRepository : BaseRepository {
 
     abstract fun getCurrentWeather(): LiveData<Resource<WeatherItem>>
 
@@ -27,33 +29,45 @@ class WeatherRepositoryImpl(
 ) : WeatherRepository() {
 
     companion object {
-        private const val MAX_DISTANCE = 2500.0f // In metres
+        private const val MAX_DISTANCE = 10000.0f // In metres
 
-        private val WEATHER_MAX_STALE_TIME = TimeUnit.MINUTES.toMillis(20)
+        private val WEATHER_MAX_STALE_TIME = TimeUnit.MINUTES.toMillis(30)
 
         private val FORECAST_MIN_STALE_TIME = TimeUnit.HOURS.toMillis(24)
     }
 
+    private val currentWeatherUpdateEvent = MutableLiveData<Event<Boolean>>(Event(false))
+
+    private val weatherForecastsUpdateEvent = MutableLiveData<Event<Boolean>>(Event(false))
+
     override fun getCurrentWeather(): LiveData<Resource<WeatherItem>> =
-        forceUpdateChannel.switchMap {
-            connectivityRepository.getConnectionState().switchMap { isConnected ->
+        connectivityRepository.getConnectionState().switchMap { isConnected ->
+            currentWeatherUpdateEvent.switchMap { event ->
+                val forceUpdate = event.getContentIfNotHandled(false)!!
                 locationRepository.getLastKnownLocation().switchMap { lastLocation ->
-                    getCurrentWeather(isConnected, lastLocation)
+                    getCurrentWeather(isConnected, forceUpdate, lastLocation)
                 }
             }
         }
 
     override fun getWeatherForecasts(): LiveData<Resource<List<ForecastItem>>> =
-        forceUpdateChannel.switchMap {
-            connectivityRepository.getConnectionState().switchMap { isConnected ->
+        connectivityRepository.getConnectionState().switchMap { isConnected ->
+            weatherForecastsUpdateEvent.switchMap { event ->
+                val forceUpdate = event.getContentIfNotHandled(false)!!
                 locationRepository.getLastKnownLocation().switchMap { lastLocation ->
-                    getWeatherForecasts(isConnected, lastLocation)
+                    getWeatherForecasts(isConnected, forceUpdate, lastLocation)
                 }
             }
         }
 
+    override fun forceUpdate() {
+        currentWeatherUpdateEvent.postValue(Event(true))
+        weatherForecastsUpdateEvent.postValue(Event(true))
+    }
+
     private fun getCurrentWeather(
         isConnected: Boolean,
+        forceUpdate: Boolean,
         lastLocation: LocationItem
     ): LiveData<Resource<WeatherItem>> =
         object : RemoteBoundResource<WeatherItem, WeatherItem>() {
@@ -77,15 +91,16 @@ class WeatherRepositoryImpl(
                 data
 
             override fun shouldFetchRemoteData(data: WeatherItem?): Boolean =
-                isConnected &&
+                isConnected && (forceUpdate ||
                     data?.let {
                         it.sinceLastUpdateMilli() > WEATHER_MAX_STALE_TIME ||
                             it.location.distanceTo(lastLocation) > MAX_DISTANCE
-                    } ?: isConnected
+                    } ?: isConnected)
         }.asLiveData()
 
     private fun getWeatherForecasts(
         isConnected: Boolean,
+        forceUpdate: Boolean,
         lastLocation: LocationItem
     ): LiveData<Resource<List<ForecastItem>>> =
         object : RemoteBoundResource<List<ForecastItem>, List<ForecastItem>>() {
@@ -109,12 +124,12 @@ class WeatherRepositoryImpl(
                 data
 
             override fun shouldFetchRemoteData(data: List<ForecastItem>?): Boolean =
-                isConnected &&
+                isConnected && (forceUpdate ||
                     data?.let {
                         it.isEmpty() ||
                             it.last().tillNextUpdateMilli() < FORECAST_MIN_STALE_TIME ||
                             it.last().location.distanceTo(lastLocation) > MAX_DISTANCE
-                    } ?: isConnected
+                    } ?: isConnected)
         }.asLiveData()
 
     private fun WeatherItem.sinceLastUpdateMilli() =

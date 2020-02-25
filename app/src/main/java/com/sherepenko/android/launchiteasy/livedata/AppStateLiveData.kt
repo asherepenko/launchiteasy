@@ -5,19 +5,26 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.lifecycle.LiveData
+import com.sherepenko.android.launchiteasy.data.AppState
 
 class AppStateLiveData(
     private val context: Context
-) : LiveData<Boolean>() {
+) : LiveData<Event<AppState>>() {
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
-                Intent.ACTION_PACKAGE_ADDED,
-                Intent.ACTION_PACKAGE_CHANGED,
-                Intent.ACTION_PACKAGE_REMOVED,
+                Intent.ACTION_PACKAGE_ADDED -> {
+                    postValue(Event(AppState.ADDED))
+                }
+                Intent.ACTION_PACKAGE_CHANGED -> {
+                    postValue(Event(AppState.CHANGED))
+                }
+                Intent.ACTION_PACKAGE_REMOVED -> {
+                    postValue(Event(AppState.REMOVED))
+                }
                 Intent.ACTION_PACKAGE_REPLACED -> {
-                    postValue(true)
+                    postValue(Event(AppState.REPLACED))
                 }
                 else -> {
                     // ignore
@@ -35,7 +42,7 @@ class AppStateLiveData(
     }
 
     init {
-        postValue(false)
+        postValue(Event(AppState.INITIAL))
     }
 
     override fun onActive() {
