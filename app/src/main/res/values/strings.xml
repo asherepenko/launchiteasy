@@ -6,8 +6,6 @@
 
     <string name="app_motto" translatable="false">Launch it Easy</string>
 
-    <string name="app_motto_transition" translatable="false">app_motto</string>
-
     <string name="dismiss">Dismiss</string>
 
     <!-- Home Screen -->

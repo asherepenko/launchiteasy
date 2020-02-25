@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.sherepenko.android.launchiteasy.R
@@ -45,9 +46,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
             R.id.actionSettings -> {
-                findNavController().navigate(
-                    LauncherFragmentDirections.toSettingsFragment()
-                )
+                findNavController().navigateToSettingsFragment()
                 true
             }
             else -> {
@@ -154,5 +153,9 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                 }
             }
         })
+    }
+
+    private fun NavController.navigateToSettingsFragment() {
+        navigate(LauncherFragmentDirections.toSettingsFragment())
     }
 }

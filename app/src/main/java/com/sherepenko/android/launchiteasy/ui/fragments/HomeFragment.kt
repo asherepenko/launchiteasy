@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.sherepenko.android.launchiteasy.R
@@ -66,9 +67,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
         }
 
         allAppsButton.setOnClickListener {
-            findNavController().navigate(
-                HomeFragmentDirections.toLauncherFragment()
-            )
+            findNavController().navigateToLauncherFragment()
         }
     }
 
@@ -84,9 +83,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
             R.id.actionSettings -> {
-                findNavController().navigate(
-                    HomeFragmentDirections.toSettingsFragment()
-                )
+                findNavController().navigateToSettingsFragment()
                 true
             }
             else -> {
@@ -234,6 +231,14 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                 }
             }
         })
+    }
+
+    private fun NavController.navigateToLauncherFragment() {
+        navigate(HomeFragmentDirections.toLauncherFragment())
+    }
+
+    private fun NavController.navigateToSettingsFragment() {
+        navigate(HomeFragmentDirections.toSettingsFragment())
     }
 
     private fun AlarmManager.AlarmClockInfo.toLocalDateTime(): LocalDateTime =
