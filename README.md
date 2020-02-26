@@ -2,7 +2,7 @@
 
 **Yet Another Launcher**
 
-Sample launcher application with a concise home screen, list of installed apps, and OpenWeather API integration.
+Sample application with a concise home screen, list of installed apps, and OpenWeather API integration.
 
 ### Features
 1. Current time and next alarm
