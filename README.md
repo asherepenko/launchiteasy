@@ -18,15 +18,26 @@ Sample application with a concise home screen, list of installed apps, and OpenW
 4. Settings screen
 
 ### User Interface
+<p align="center">
+    <b>Home Screen</b>
+</p>
 
-**Home Screen**
+<p align="center">
+    <img src="images/home.png" width="400px" />
+</p>
 
-<img src="images/home.png" width="400px" />
+<p align="center">
+    <b>Apps Screen</b>
+</p>
 
-**Apps Screen**
+<p align="center">
+    <img src="images/apps.png" width="400px" />
+</p>
 
-<img src="images/apps.png" width="400px" />
+<p align="center">
+    <b>Settings Screen</b>
+</p>
 
-**Settings Screen**
-
-<img src="images/settings.png" width="400px" />
+<p align="center">
+    <img src="images/settings.png" width="400px" />
+</p>
