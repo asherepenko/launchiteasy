@@ -116,12 +116,12 @@ ktlint {
     }
 }
 
-if (playstorePropertiesFile.exists()) {
-    val playstoreProperties = Properties().apply {
-        load(FileInputStream(playstorePropertiesFile))
-    }
+play {
+    if (playstorePropertiesFile.exists()) {
+        val playstoreProperties = Properties().apply {
+            load(FileInputStream(playstorePropertiesFile))
+        }
 
-    play {
         serviceAccountCredentials = rootProject.file(
             playstoreProperties.getProperty("playstore.credentials")
         )
@@ -129,6 +129,8 @@ if (playstorePropertiesFile.exists()) {
         releaseStatus = "inProgress"
         userFraction = 0.5
         defaultToAppBundles = true
+    } else {
+        isEnabled = false
     }
 }
 
