@@ -9,6 +9,6 @@ class AppsViewModel(
     private val repository: AppsRepository
 ) : BaseViewModel<AppsRepository>(repository) {
 
-    fun getInstalledApps(): LiveData<Resource<List<AppItem>>> =
-        repository.getInstalledApps()
+    fun getInstalledApps(showSystemApps: Boolean = true): LiveData<Resource<List<AppItem>>> =
+        repository.getInstalledApps(showSystemApps)
 }

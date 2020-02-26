@@ -116,33 +116,28 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             adapter = appsAdapter
         }
 
-        appsViewModel.getInstalledApps().observe(viewLifecycleOwner, Observer {
-            val showSystemApps = prefs.showSystemApps()
-            when (it.status) {
-                Status.LOADING -> {
-                    it.data?.let { data ->
-                        appsAdapter.items = data.filter { app ->
-                            showSystemApps || !app.isSystem
-                        }
-
-                        if (data.isNotEmpty()) {
-                            loadingView.visibility = View.GONE
+        appsViewModel.getInstalledApps(prefs.showSystemApps())
+            .observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        it.data?.let { data ->
+                            appsAdapter.items = data
+                            if (data.isNotEmpty()) {
+                                loadingView.visibility = View.GONE
+                            }
                         }
                     }
-                }
-                Status.SUCCESS -> {
-                    checkNotNull(it.data)
-                    appsView.setItemViewCacheSize(it.data.size)
-                    appsAdapter.items = it.data.filter { app ->
-                        showSystemApps || !app.isSystem
+                    Status.SUCCESS -> {
+                        checkNotNull(it.data)
+                        appsView.setItemViewCacheSize(it.data.size)
+                        appsAdapter.items = it.data
+                        loadingView.visibility = View.GONE
                     }
-                    loadingView.visibility = View.GONE
+                    Status.ERROR -> {
+                        loadingView.visibility = View.GONE
+                    }
                 }
-                Status.ERROR -> {
-                    loadingView.visibility = View.GONE
-                }
-            }
-        })
+            })
     }
 
     private fun NavController.navigateToSettingsFragment() {

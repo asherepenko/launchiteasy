@@ -10,7 +10,7 @@ import com.sherepenko.android.launchiteasy.providers.AppsRemoteDataSource
 
 abstract class AppsRepository : BaseRepository {
 
-    abstract fun getInstalledApps(): LiveData<Resource<List<AppItem>>>
+    abstract fun getInstalledApps(showSystemApps: Boolean): LiveData<Resource<List<AppItem>>>
 }
 
 class AppsRepositoryImpl(
@@ -19,19 +19,24 @@ class AppsRepositoryImpl(
     private val remoteDataSource: AppsRemoteDataSource
 ) : AppsRepository() {
 
-    override fun getInstalledApps(): LiveData<Resource<List<AppItem>>> =
+    override fun getInstalledApps(showSystemApps: Boolean): LiveData<Resource<List<AppItem>>> =
         appStateRepository.getAppState().switchMap { event ->
             val appState = event.getContentIfNotHandled(AppState.INITIAL)!!
-            getInstalledApps(appState)
+            getInstalledApps(showSystemApps, appState)
         }
 
-    private fun getInstalledApps(appState: AppState): LiveData<Resource<List<AppItem>>> =
+    private fun getInstalledApps(
+        showSystemApps: Boolean,
+        appState: AppState
+    ): LiveData<Resource<List<AppItem>>> =
         object : RemoteBoundResource<List<AppItem>, List<AppItem>>() {
             override suspend fun getRemoteData(): List<AppItem> =
                 remoteDataSource.getInstalledApps()
 
             override suspend fun getLocalData(): List<AppItem> =
-                localDataSource.getInstalledApps()
+                localDataSource.getInstalledApps().filter {
+                    showSystemApps || !it.isSystem
+                }
 
             override suspend fun saveLocally(data: List<AppItem>) {
                 localDataSource.saveInstalledApps(data)
