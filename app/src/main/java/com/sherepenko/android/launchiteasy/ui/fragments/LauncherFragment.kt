@@ -20,6 +20,8 @@ import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.ui.adapters.AppsAdapter
 import com.sherepenko.android.launchiteasy.ui.adapters.OnItemClickListener
 import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
+import com.sherepenko.android.launchiteasy.utils.launchActivity
+import com.sherepenko.android.launchiteasy.utils.launchActivityIfResolved
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
 import kotlinx.android.synthetic.main.fragment_launcher.appsView
 import kotlinx.android.synthetic.main.fragment_launcher.loadingView
@@ -69,10 +71,8 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                 val packageName = appsAdapter.getPackageName(position)
 
                 requireActivity().packageManager.getLaunchIntentForPackage(packageName)?.let {
-                    startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                    requireActivity().overridePendingTransition(
-                        R.anim.nav_default_enter_anim,
-                        R.anim.nav_default_exit_anim
+                    requireActivity().launchActivity(
+                        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                 }
             }
@@ -86,30 +86,19 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                     setOnMenuItemClickListener {
                         when (it.itemId) {
                             R.id.actionAppInfo -> {
-                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    .setData(Uri.parse("package:$packageName"))
-
-                                intent.resolveActivity(requireActivity().packageManager)?.let {
-                                    startActivity(intent)
-                                    requireActivity().overridePendingTransition(
-                                        R.anim.nav_default_enter_anim,
-                                        R.anim.nav_default_exit_anim
-                                    )
-                                }
+                                requireActivity().launchActivityIfResolved(
+                                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        .setData(Uri.parse("package:$packageName"))
+                                )
                                 true
                             }
                             R.id.actionAppUninstall -> {
-                                val intent = Intent(Intent.ACTION_DELETE)
-                                    .setData(Uri.parse("package:$packageName"))
-
-                                intent.resolveActivity(requireActivity().packageManager)?.let {
-                                    startActivity(intent)
-                                    requireActivity().overridePendingTransition(
-                                        R.anim.nav_default_enter_anim,
-                                        R.anim.nav_default_exit_anim
-                                    )
-                                }
+                                requireActivity().launchActivityIfResolved(
+                                    Intent(Intent.ACTION_DELETE)
+                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        .setData(Uri.parse("package:$packageName"))
+                                )
                                 true
                             }
                             else -> {

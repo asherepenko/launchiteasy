@@ -20,6 +20,7 @@ import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.data.isMetric
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
 import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
+import com.sherepenko.android.launchiteasy.utils.launchActivityIfResolved
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_home.allAppsButton
 import kotlinx.android.synthetic.main.fragment_home.currentLocationView
@@ -54,16 +55,10 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
         setupWeatherForecasts()
 
         nextAlarmView.setOnClickListener {
-            val intent = Intent(AlarmClock.ACTION_SHOW_ALARMS)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
-            intent.resolveActivity(requireActivity().packageManager)?.let {
-                startActivity(intent)
-                requireActivity().overridePendingTransition(
-                    R.anim.nav_default_enter_anim,
-                    R.anim.nav_default_exit_anim
-                )
-            }
+            requireActivity().launchActivityIfResolved(
+                Intent(AlarmClock.ACTION_SHOW_ALARMS)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
         }
 
         allAppsButton.setOnClickListener {

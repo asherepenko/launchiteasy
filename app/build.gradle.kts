@@ -6,6 +6,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
+    id("com.github.triplet.play") version "2.7.1"
     id("org.jlleitschuh.gradle.ktlint") version "9.0.0"
     kotlin("android")
     kotlin("android.extensions")
@@ -15,8 +16,9 @@ plugins {
 val archivesBaseName = "launchiteasy"
 val buildVersion = BuildVersion.parse(rootProject.file("version"))
 
-val keystorePropertiesFile = rootProject.file("keystore.properties")
 val localPropertiesFile = rootProject.file("local.properties")
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val playstorePropertiesFile = rootProject.file("playstore.properties")
 
 android {
     compileSdkVersion(29)
@@ -82,10 +84,10 @@ android {
                     load(FileInputStream(keystorePropertiesFile))
                 }
 
-                storeFile = rootProject.file(keystoreProperties.getProperty("keystore.sign.file"))
-                storePassword = keystoreProperties.getProperty("keystore.sign.password")
-                keyAlias = keystoreProperties.getProperty("keystore.sign.key.alias")
-                keyPassword = keystoreProperties.getProperty("keystore.sign.key.password")
+                storeFile = rootProject.file(keystoreProperties.getProperty("keystore.upload.file"))
+                storePassword = keystoreProperties.getProperty("keystore.upload.password")
+                keyAlias = keystoreProperties.getProperty("keystore.upload.key.alias")
+                keyPassword = keystoreProperties.getProperty("keystore.upload.key.password")
             }
         }
     }
@@ -111,6 +113,22 @@ ktlint {
     reporters {
         reporter(ReporterType.PLAIN)
         reporter(ReporterType.CHECKSTYLE)
+    }
+}
+
+if (playstorePropertiesFile.exists()) {
+    val playstoreProperties = Properties().apply {
+        load(FileInputStream(playstorePropertiesFile))
+    }
+
+    play {
+        serviceAccountCredentials = rootProject.file(
+            playstoreProperties.getProperty("playstore.credentials")
+        )
+        track = "alpha"
+        releaseStatus = "inProgress"
+        userFraction = 0.5
+        defaultToAppBundles = true
     }
 }
 
