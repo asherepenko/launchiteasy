@@ -1,6 +1,7 @@
 # Launch it Easy
 
 **Yet Another Launcher**
+
 Sample launcher application with a concise home screen, list of installed apps, and OpenWeather API integration.
 
 ### Features
@@ -11,7 +12,7 @@ Sample launcher application with a concise home screen, list of installed apps, 
 3. Installed apps list with filtering option
 4. Preference screen
 
-#### UI
+### User Interface
 
 **Home Screen**
 
