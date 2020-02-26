@@ -4,15 +4,14 @@ import android.content.Context
 import android.location.Geocoder
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.data.WeatherItem
 import com.sherepenko.android.launchiteasy.repositories.LocationRepository
 import com.sherepenko.android.launchiteasy.repositories.WeatherRepository
-import kotlinx.coroutines.Dispatchers
 import java.util.Locale
+import kotlinx.coroutines.Dispatchers
 
 class WeatherViewModel(
     private val context: Context,

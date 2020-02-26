@@ -3,9 +3,9 @@ package com.sherepenko.android.launchiteasy.api
 import com.sherepenko.android.launchiteasy.AppConstants
 import com.sherepenko.android.launchiteasy.api.json.CurrentWeatherResponse
 import com.sherepenko.android.launchiteasy.api.json.WeatherForecastResponse
+import java.util.Locale
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.util.Locale
 
 interface OpenWeatherApi {
 
