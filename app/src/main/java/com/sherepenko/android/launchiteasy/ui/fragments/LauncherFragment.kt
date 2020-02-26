@@ -131,7 +131,8 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                     }
                 }
                 Status.SUCCESS -> {
-                    appsView.setItemViewCacheSize(it.data!!.size)
+                    checkNotNull(it.data)
+                    appsView.setItemViewCacheSize(it.data.size)
                     appsAdapter.items = it.data.filter { app ->
                         showSystemApps || !app.isSystem
                     }

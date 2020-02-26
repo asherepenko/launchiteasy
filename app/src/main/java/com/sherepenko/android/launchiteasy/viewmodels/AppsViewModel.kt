@@ -6,7 +6,7 @@ import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.repositories.AppsRepository
 
 class AppsViewModel(
-    repository: AppsRepository
+    private val repository: AppsRepository
 ) : BaseViewModel<AppsRepository>(repository) {
 
     fun getInstalledApps(): LiveData<Resource<List<AppItem>>> =

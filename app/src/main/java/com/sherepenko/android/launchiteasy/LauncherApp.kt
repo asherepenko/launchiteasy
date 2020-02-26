@@ -146,7 +146,7 @@ class LauncherApp : Application() {
         }
 
         viewModel {
-            WeatherViewModel(get())
+            WeatherViewModel(get(), get(), get())
         }
     }
 

@@ -5,15 +5,19 @@ import com.sherepenko.android.launchiteasy.repositories.BaseRepository
 import org.koin.core.KoinComponent
 
 abstract class BaseViewModel<R : BaseRepository>(
-    protected val repository: R
+    private vararg val repositories: R
 ) : ViewModel(), KoinComponent {
 
     override fun onCleared() {
         super.onCleared()
-        repository.dispose()
+        repositories.forEach {
+            it.dispose()
+        }
     }
 
     open fun forceUpdate() {
-        repository.forceUpdate()
+        repositories.forEach {
+            it.forceUpdate()
+        }
     }
 }

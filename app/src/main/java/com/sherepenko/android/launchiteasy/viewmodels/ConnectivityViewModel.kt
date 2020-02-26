@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.sherepenko.android.launchiteasy.repositories.ConnectivityRepository
 
 class ConnectivityViewModel(
-    repository: ConnectivityRepository
+    private val repository: ConnectivityRepository
 ) : BaseViewModel<ConnectivityRepository>(repository) {
 
     fun getConnectionState(): LiveData<Boolean> =

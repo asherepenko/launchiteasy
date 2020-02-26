@@ -52,6 +52,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
         setupSwipeRefreshLayout()
 
         setupCurrentWeather()
+        setupCurrentLocation()
         setupWeatherForecasts()
 
         nextAlarmView.setOnClickListener {
@@ -120,13 +121,28 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
         }
     }
 
+    private fun setupCurrentLocation() {
+        weatherViewModel.getCurrentLocationName().observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+                    // ignore
+                }
+                Status.SUCCESS -> {
+                    currentLocationView.text = it.data!!
+                }
+                Status.ERROR -> {
+                    currentLocationView.text = ""
+                }
+            }
+        })
+    }
+
     private fun setupCurrentWeather() {
         weatherViewModel.getCurrentWeather().observe(viewLifecycleOwner, Observer {
             val isMetricSystem = prefs.getTemperatureUnit().isMetric()
             when (it.status) {
                 Status.LOADING -> {
                     it.data?.let { data ->
-                        currentLocationView.text = data.location.name
                         currentWeatherIconView.text = data.condition.icon.glyph
                         currentWeatherConditionView.text = data.condition.name
                         currentTemperatureView.text =
@@ -154,7 +170,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                     }
                 }
                 Status.SUCCESS -> {
-                    currentLocationView.text = it.data!!.location.name
+                    checkNotNull(it.data)
                     currentWeatherIconView.text = it.data.condition.icon.glyph
                     currentWeatherConditionView.text = it.data.condition.name
                     currentTemperatureView.text =
@@ -181,7 +197,6 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                     swipeRefreshLayout.isRefreshing = false
                 }
                 Status.ERROR -> {
-                    currentLocationView.text = ""
                     currentWeatherIconView.text =
                         getString(R.string.unknown_weather)
                     currentWeatherConditionView.text = ""
@@ -217,8 +232,9 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                     }
                 }
                 Status.SUCCESS -> {
+                    checkNotNull(it.data)
                     forecastsAdapter.isMetricSystem = isMetricSystem
-                    forecastsAdapter.items = it.data!!
+                    forecastsAdapter.items = it.data
                     swipeRefreshLayout.isRefreshing = false
                 }
                 Status.ERROR -> {
