@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="app/src/main/logo-playstore.png" width="64px" />
+</p>
+
 # Launch it Easy
 
 **Yet Another Launcher**
