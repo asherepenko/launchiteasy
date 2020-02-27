@@ -130,7 +130,6 @@
                     style="@style/Base.Theme.App.Widget.WeatherIconView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/current_date_margin_top"
                     android:textSize="@dimen/current_weather_icon_size"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"

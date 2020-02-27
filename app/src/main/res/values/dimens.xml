@@ -38,7 +38,6 @@
     <dimen name="current_date_margin_top">4dp</dimen>
 
     <dimen name="current_weather_icon_size">72sp</dimen>
-    <dimen name="current_weather_icon_margin_top">8dp</dimen>
 
     <dimen name="current_temperature_margin_start">24dp</dimen>
     <dimen name="current_temperature_margin_top">4dp</dimen>
@@ -53,7 +52,6 @@
     <dimen name="all_apps_button_icon_size">36dp</dimen>
     <dimen name="all_apps_button_elevation">4dp</dimen>
 
-    <dimen name="all_apps_toolbar_padding_bottom">20dp</dimen>
     <dimen name="all_apps_toolbar_title_margin_top">16dp</dimen>
 
 </resources>
