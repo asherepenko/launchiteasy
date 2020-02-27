@@ -1,12 +1,14 @@
-<p align="center">
-    <img src="app/src/main/logo-playstore.png" width="64px" />
-</p>
-
 # Launch it Easy
+
+![CircleCI](https://circleci.com/gh/asherepenko/launchiteasy.svg?style=svg&circle-token=9d39fddaddad3536601814fbed8a2ffbcce72ece)
 
 **Yet Another Launcher**
 
 Sample application with a concise home screen, list of installed apps, and OpenWeather API integration.
+
+<p align="center">
+    <img src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" width="250px" />
+</p>
 
 ### Features
 

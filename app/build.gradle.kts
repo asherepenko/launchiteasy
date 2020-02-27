@@ -51,7 +51,11 @@ android {
                 "\"${localProperties.getProperty("openweather.apiKey", "")}\""
             )
         } else {
-            buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"\"")
+            buildConfigField(
+                "String",
+                "OPEN_WEATHER_API_KEY",
+                "\"${System.getenv("OPEN_WEATHER_API_KEY")}\""
+            )
         }
 
         buildConfigField("int", "WEATHER_FORECASTS_LIMIT", "12")
@@ -88,6 +92,18 @@ android {
                 storePassword = keystoreProperties.getProperty("keystore.upload.password")
                 keyAlias = keystoreProperties.getProperty("keystore.upload.key.alias")
                 keyPassword = keystoreProperties.getProperty("keystore.upload.key.password")
+            } else if (!System.getenv("KEYSTORE_FILE").isNullOrEmpty()) {
+                storeFile = rootProject.file(System.getenv("KEYSTORE_FILE"))
+                storePassword = System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("KEYSTORE_KEY_ALIAS")
+                keyPassword = System.getenv("KEYSTORE_KEY_PASSWORD")
+            } else {
+                val debugSigningConfig = getByName("debug")
+
+                storeFile = debugSigningConfig.storeFile
+                storePassword = debugSigningConfig.storePassword
+                keyAlias = debugSigningConfig.keyAlias
+                keyPassword = debugSigningConfig.keyPassword
             }
         }
     }
@@ -99,8 +115,8 @@ android {
             signingConfig = signingConfigs.getByName("release")
 
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
@@ -125,6 +141,12 @@ play {
         serviceAccountCredentials = rootProject.file(
             playstoreProperties.getProperty("playstore.credentials")
         )
+        track = "alpha"
+        releaseStatus = "inProgress"
+        userFraction = 0.5
+        defaultToAppBundles = true
+    } else if (!System.getenv("PLAYSTORE_CREDENTIALS").isNullOrEmpty()) {
+        serviceAccountCredentials = rootProject.file(System.getenv("PLAYSTORE_CREDENTIALS"))
         track = "alpha"
         releaseStatus = "inProgress"
         userFraction = 0.5
