@@ -6,8 +6,11 @@ orbs:
 jobs:
   build:
     executor: android/android
+
+    environment:
+      JVM_OPTS: -Xmx3g
         
     steps:
       - checkout
       - run:
-          command: ./gradlew build
+          command: ./gradlew check
