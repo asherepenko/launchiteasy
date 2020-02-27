@@ -15,6 +15,7 @@ jobs:
       - run:
           name: Setup environment
           command: |
+            echo $PLAYSTORE_CREDENTIALS
             gpg --passphrase "$GPG_KEY" --pinentry-mode loopback --output "upload-keystore.jks" --decrypt "upload-keystore.jks.gpg"
             gpg --passphrase "$GPG_KEY" --pinentry-mode loopback --output "publish-key.json" --decrypt "publish-key.json.gpg"
       - run:
