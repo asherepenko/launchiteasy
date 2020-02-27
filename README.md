@@ -1,7 +1,3 @@
-<p align="center">
-    <img src="app/src/main/logo-playstore.png" width="64px" />
-</p>
-
 # Launch it Easy
 
 ![CircleCI](https://circleci.com/gh/asherepenko/launchiteasy.svg?style=svg&circle-token=9d39fddaddad3536601814fbed8a2ffbcce72ece)
