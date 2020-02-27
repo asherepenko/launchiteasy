@@ -9,6 +9,9 @@
 
 -renamesourcefileattribute SourceFile
 
+# JSR 305
+-dontwarn javax.annotation.**
+
 # Kotlin
 -keep class kotlin.reflect.** {
     *;
@@ -50,4 +53,8 @@
 
 -dontwarn com.fasterxml.jackson.databind.**
 
+# OkHttp
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+# Fragments
 -keepnames class * extends androidx.fragment.app.Fragment
