@@ -29,27 +29,13 @@ jobs:
             - ~/.android/cache
             - ~/.gradle
       - run:
-          name: Build Artifacts
-          command: ./gradlew build --stacktrace
-
-  test:
-    executor: android/android
-
-    environment:
-      JVM_OPTS: -Xmx3200m
-
-    steps:
-      - checkout
-      - run:
-          name: Setup environment
-          command: |
-            gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "upload-keystore.jks" --decrypt "upload-keystore.jks.gpg"
-            gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "publish-key.json" --decrypt "publish-key.json.gpg"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}
-      - run:
-          name: Run Tests and Checks
+          name: Run Tests
           command: ./gradlew check --stacktrace
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_test_results:
+          path: app/build/test-results
 
   deploy:
     executor: android/android
@@ -72,10 +58,9 @@ jobs:
 
 workflows:
   version: 2
-  build-test-deploy:
+  build-and-deploy:
     jobs:
       - build
-      - test
       - deploy:
           requires:
             - build
