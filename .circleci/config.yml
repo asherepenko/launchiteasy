@@ -22,6 +22,11 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle.kts" }}-{{ checksum  "app/build.gradle.kts" }}
       - run:
+          name: Setup environment
+          command: |
+            gpg --passphrase "$GPG_KEY" --pinentry-mode loopback upload-keystore.jks.gpg
+            gpg --passphrase "$GPG_KEY" --pinentry-mode loopback publish-key.json.gpg
+      - run:
           name: Run tests and checks
           command: ./gradlew check
       - store_artifacts:
