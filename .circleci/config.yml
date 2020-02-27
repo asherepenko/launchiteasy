@@ -20,7 +20,7 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}
       - run:
-          name: Download dependencies
+          name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:
           key: dependency-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}
@@ -29,7 +29,8 @@ jobs:
             - ~/.android/cache
             - ~/.gradle
       - run:
-          command: ./gradlew build
+          name: Build Artifacts
+          command: ./gradlew build --stacktrace
 
   test:
     executor: android/android
@@ -47,7 +48,8 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}
       - run:
-          command: ./gradlew check
+          name: Run Tests and Checks
+          command: ./gradlew check --stacktrace
 
   deploy:
     executor: android/android
@@ -65,7 +67,18 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}
       - run:
-          command: ./gradlew publishBundle
+          name: Upload to Google Play
+          command: ./gradlew bundleRelease publishBundle --stacktrace
 
-
-
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - build
+      - test
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
