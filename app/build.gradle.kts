@@ -146,7 +146,7 @@ play {
         userFraction = 0.5
         defaultToAppBundles = true
     } else if (!System.getenv("PLAYSTORE_CREDENTIALS").isNullOrEmpty()) {
-        serviceAccountCredentials = rootProject.file("PLAYSTORE_CREDENTIALS")
+        serviceAccountCredentials = rootProject.file(System.getenv("PLAYSTORE_CREDENTIALS"))
         track = "alpha"
         releaseStatus = "inProgress"
         userFraction = 0.5
