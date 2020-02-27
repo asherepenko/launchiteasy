@@ -4,6 +4,8 @@
 
 # Launch it Easy
 
+![CircleCI](https://circleci.com/gh/asherepenko/launchiteasy.svg?style=svg&circle-token=9d39fddaddad3536601814fbed8a2ffbcce72ece)
+
 **Yet Another Launcher**
 
 Sample application with a concise home screen, list of installed apps, and OpenWeather API integration.
