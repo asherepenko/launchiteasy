@@ -142,13 +142,15 @@ play {
             playstoreProperties.getProperty("playstore.credentials")
         )
         track = "alpha"
-        releaseStatus = "inProgress"
+        releaseStatus = "draft"
         userFraction = 0.5
         defaultToAppBundles = true
     } else if (!System.getenv("PLAYSTORE_CREDENTIALS").isNullOrEmpty()) {
-        serviceAccountCredentials = rootProject.file(System.getenv("PLAYSTORE_CREDENTIALS"))
+        serviceAccountCredentials = rootProject.file(
+            System.getenv("PLAYSTORE_CREDENTIALS")
+        )
         track = "alpha"
-        releaseStatus = "inProgress"
+        releaseStatus = "draft"
         userFraction = 0.5
         defaultToAppBundles = true
     } else {
