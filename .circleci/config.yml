@@ -15,6 +15,7 @@ jobs:
       - run:
           name: Setup environment
           command: |
+            gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "app/google-services.json" --decrypt "app/google-services.json.gpg"
             gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "upload-keystore.jks" --decrypt "upload-keystore.jks.gpg"
             gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "publish-key.json" --decrypt "publish-key.json.gpg"
       - restore_cache:
@@ -48,6 +49,7 @@ jobs:
       - run:
           name: Setup environment
           command: |
+            gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "app/google-services.json" --decrypt "app/google-services.json.gpg"
             gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "upload-keystore.jks" --decrypt "upload-keystore.jks.gpg"
             gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "publish-key.json" --decrypt "publish-key.json.gpg"
       - restore_cache:
