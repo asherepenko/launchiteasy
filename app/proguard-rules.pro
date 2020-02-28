@@ -56,5 +56,8 @@
 # OkHttp
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
 
+# Activities
+-keepnames class * extends androidx.fragment.app.FragmentActivity
+
 # Fragments
 -keepnames class * extends androidx.fragment.app.Fragment
