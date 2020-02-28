@@ -20,13 +20,13 @@ abstract class BaseFragment(
     ): View? =
         inflater.inflate(contentLayoutRes, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupAnalytics()
+    override fun onResume() {
+        super.onResume()
+        setCurrentScreen()
     }
 
-    private fun setupAnalytics() {
+    private fun setCurrentScreen() {
         FirebaseAnalytics.getInstance(requireActivity())
-            .setCurrentScreen(requireActivity(), javaClass.simpleName, javaClass.simpleName)
+            .setCurrentScreen(requireActivity(), javaClass.simpleName, null)
     }
 }
