@@ -7,7 +7,9 @@
 Sample application with a concise home screen, list of installed apps, and OpenWeather API integration.
 
 <p align="center">
-    <img src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" href="#" width="250px" />
+    <a href="#">
+        <img src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" width="250px" />
+    </a>
 </p>
 
 ### Features
