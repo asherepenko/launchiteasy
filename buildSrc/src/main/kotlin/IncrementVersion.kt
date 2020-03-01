@@ -9,6 +9,7 @@ enum class Increment {
 }
 
 abstract class IncrementVersion : DefaultTask() {
+
     @get:Input
     abstract var increment: Increment
 
