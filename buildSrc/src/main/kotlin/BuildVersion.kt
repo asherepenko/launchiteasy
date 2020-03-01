@@ -73,11 +73,15 @@ class BuildVersion(private val versionFile: File) {
 
     fun incrementMajor() {
         major++
+        minor = 0
+        patch = 0
+
         versionFile.writeText(versionName)
     }
 
     fun incrementMinor() {
         minor++
+        patch = 0
 
         if (minor >= 1000) {
             major++

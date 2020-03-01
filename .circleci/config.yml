@@ -1,19 +1,16 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@0.2.0
+  android: circleci/android@0.2.1
 
 jobs:
   build:
-    executor: android/android
-
     environment:
       JVM_OPTS: -Xmx3200m
 
     steps:
-      - checkout
       - run:
-          name: Setup environment
+          name: Setup Environment
           command: |
             gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "app/google-services.json" --decrypt "app/google-services.json.gpg"
             gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "upload-keystore.jks" --decrypt "upload-keystore.jks.gpg"
@@ -32,6 +29,9 @@ jobs:
       - run:
           name: Run Tests
           command: ./gradlew check --stacktrace
+      - run:
+          name: Build Release Bundle
+          command: ./gradlew bundleRelease --stacktrace
       - store_artifacts:
           path: app/build/reports
           destination: reports
@@ -39,15 +39,14 @@ jobs:
           path: app/build/test-results
 
   deploy:
-    executor: android/android
-
-    environment:
-      JVM_OPTS: -Xmx3200m
+    executor:
+      name: android
 
     steps:
       - checkout
+      - accept-licenses
       - run:
-          name: Setup environment
+          name: Setup Environment
           command: |
             gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "app/google-services.json" --decrypt "app/google-services.json.gpg"
             gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "upload-keystore.jks" --decrypt "upload-keystore.jks.gpg"
@@ -56,7 +55,7 @@ jobs:
           key: dependency-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}
       - run:
           name: Upload to Google Play
-          command: ./gradlew bundleRelease publishBundle --stacktrace
+          command: ./gradlew publishBundle --stacktrace
 
 workflows:
   version: 2
