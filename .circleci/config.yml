@@ -5,10 +5,13 @@ orbs:
 
 jobs:
   build:
+    executor: android/android
+
     environment:
       JVM_OPTS: -Xmx3200m
 
     steps:
+      - checkout
       - run:
           name: Setup Environment
           command: |
@@ -39,12 +42,10 @@ jobs:
           path: app/build/test-results
 
   deploy:
-    executor:
-      name: android
+    executor: android/android
 
     steps:
       - checkout
-      - accept-licenses
       - run:
           name: Setup Environment
           command: |
