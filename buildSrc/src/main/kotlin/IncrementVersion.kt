@@ -18,7 +18,7 @@ abstract class IncrementVersion : DefaultTask() {
 
     @TaskAction
     fun increment() {
-        println("Increment ${increment.name.toLowerCase(Locale.getDefault())} version...")
+        println("Incrementing ${increment.name} version...")
 
         val prevVersionCode = version.versionCode
         val prevVersionName = version.versionName
