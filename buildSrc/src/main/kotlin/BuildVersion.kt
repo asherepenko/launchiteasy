@@ -1,12 +1,12 @@
 import java.io.File
 import java.lang.IllegalArgumentException
 
-data class BuildVersion(
-    val major: Int = 1,
-    val minor: Int = 0,
-    val patch: Int = 0,
-    val preRelease: String? = null,
-    val buildMetadata: String? = null
+class BuildVersion(
+    private val major: Int = 1,
+    private val minor: Int = 0,
+    private val patch: Int = 0,
+    private val preRelease: String? = null,
+    private val buildMetadata: String? = null
 ) {
     companion object {
 
