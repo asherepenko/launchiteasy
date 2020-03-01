@@ -14,7 +14,7 @@ plugins {
 }
 
 val archivesBaseName = "launchiteasy"
-val buildVersion = BuildVersion.parse(rootProject.file("version"))
+val buildVersion = BuildVersion(rootProject.file("version"))
 
 val localPropertiesFile = rootProject.file("local.properties")
 val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -223,9 +223,26 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.3.1")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "1.8"
+tasks {
+    withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+
+    val incrementMajor by registering(IncrementVersion::class) {
+        increment = Increment.MAJOR
+        version = buildVersion
+    }
+
+    val incrementMinor by registering(IncrementVersion::class) {
+        increment = Increment.MINOR
+        version = buildVersion
+    }
+
+    val incrementPatch by registering(IncrementVersion::class) {
+        increment = Increment.PATCH
+        version = buildVersion
     }
 }
 

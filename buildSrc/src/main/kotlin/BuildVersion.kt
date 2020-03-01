@@ -2,14 +2,9 @@ import java.io.File
 import java.lang.IllegalArgumentException
 
 class BuildVersion(
-    private val major: Int = 1,
-    private val minor: Int = 0,
-    private val patch: Int = 0,
-    private val preRelease: String? = null,
-    private val buildMetadata: String? = null
+    private val versionFile: File
 ) {
     companion object {
-
         private val VERSION_PATTERN = Regex(
             """(0|[1-9]\d*)?(?:\.)?(0|[1-9]\d*)?(?:\.)?(0|[1-9]\d*)?(?:-([\dA-z\-]+(?:\.[\dA-z\-]+)*))?(?:\+([\dA-z\-]+(?:\.[\dA-z\-]+)*))?"""
         )
@@ -21,30 +16,33 @@ class BuildVersion(
         private val BUILD_METADATA_PATTERN = Regex(
             """[\dA-z\-]+(?:\.[\dA-z\-]+)*"""
         )
-
-        @JvmStatic
-        fun parse(versionText: String): BuildVersion {
-            val result = VERSION_PATTERN.matchEntire(versionText)
-                ?: throw IllegalArgumentException("Unable to parse build version: $versionText")
-            return BuildVersion(
-                major = result.groupValues[1].toInt(),
-                minor = result.groupValues[2].toInt(),
-                patch = result.groupValues[3].toInt(),
-                preRelease = if (result.groupValues[4].isEmpty()) null else result.groupValues[4],
-                buildMetadata = if (result.groupValues[5].isEmpty()) null else result.groupValues[5]
-            )
-        }
-
-        @JvmStatic
-        fun parse(versionFile: File): BuildVersion =
-            if (versionFile.exists() && versionFile.canRead()) {
-                parse(versionFile.readText())
-            } else {
-                throw IllegalArgumentException("Unable to read version file: ${versionFile.path}")
-            }
     }
 
+    private var major: Int
+
+    private var minor: Int
+
+    private var patch: Int
+
+    private val preRelease: String?
+
+    private val buildMetadata: String?
+
     init {
+        if (versionFile.exists() && versionFile.canRead()) {
+            val versionText = versionFile.readText()
+            val result = VERSION_PATTERN.matchEntire(versionText)
+                ?: throw IllegalArgumentException("Unable to parse build version: $versionText")
+
+            major = result.groupValues[1].toInt()
+            minor = result.groupValues[2].toInt()
+            patch = result.groupValues[3].toInt()
+            preRelease = if (result.groupValues[4].isEmpty()) null else result.groupValues[4]
+            buildMetadata = if (result.groupValues[5].isEmpty()) null else result.groupValues[5]
+        } else {
+            throw IllegalArgumentException("Unable to read version file: ${versionFile.path}")
+        }
+
         require(major >= 0) { "Major version must be a positive number" }
         require(minor >= 0) { "Minor version must be a positive number" }
         require(patch >= 0) { "Patch version must be a positive number" }
@@ -59,17 +57,46 @@ class BuildVersion(
         }
     }
 
-    val versionCode: Int = major * 10000 + minor * 1000 + patch
+    val versionCode: Int
+        get() = major * 10000 + minor * 1000 + patch
 
-    val versionName: String = buildString {
-        append("$major.$minor.$patch")
+    val versionName: String
+        get() = buildString {
+            append("$major.$minor.$patch")
 
-        preRelease?.let {
-            append("-$it")
+            preRelease?.let {
+                append("-$it")
+            }
+
+            buildMetadata?.let {
+                append("+$it")
+            }
         }
 
-        buildMetadata?.let {
-            append("+$it")
+    fun incrementMajor() {
+        major++
+        versionFile.writeText(versionName)
+    }
+
+    fun incrementMinor() {
+        minor++
+
+        if (minor >= 1000) {
+            major++
+            minor = 0
         }
+
+        versionFile.writeText(versionName)
+    }
+
+    fun incrementPatch() {
+        patch++
+
+        if (patch >= 1000) {
+            minor++
+            patch = 0
+        }
+
+        versionFile.writeText(versionName)
     }
 }
