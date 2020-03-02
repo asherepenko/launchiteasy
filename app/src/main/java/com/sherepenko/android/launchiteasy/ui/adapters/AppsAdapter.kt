@@ -3,6 +3,7 @@ package com.sherepenko.android.launchiteasy.ui.adapters
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import com.bumptech.glide.Glide
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.AppItem
 import com.sherepenko.android.launchiteasy.utils.inflate
@@ -51,9 +52,9 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
 
         override fun bindItem(item: AppItem) {
             itemView.apply {
-                appIconView.setImageDrawable(
-                    context.packageManager.getApplicationIcon(item.packageName)
-                )
+                Glide.with(context)
+                    .load(context.packageManager.getApplicationIcon(item.packageName))
+                    .into(appIconView)
                 appLabelView.text = item.label
             }
         }
