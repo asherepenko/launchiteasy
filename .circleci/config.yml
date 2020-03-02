@@ -30,14 +30,17 @@ jobs:
             - ~/.android/cache
             - ~/.gradle
       - run:
-          name: Run Tests
+          name: Run Checks and Tests
           command: ./gradlew check --stacktrace
       - run:
-          name: Build Release Bundle
-          command: ./gradlew bundleRelease --stacktrace
+          name: Build Debug APK
+          command: ./gradlew assembleDebug --stacktrace
       - store_artifacts:
           path: app/build/reports
           destination: reports
+      - store_artifacts:
+          path: app/build/outputs/apk
+          destination: apks
       - store_test_results:
           path: app/build/test-results
 
@@ -54,6 +57,9 @@ jobs:
             gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "publish-key.json" --decrypt "publish-key.json.gpg"
       - restore_cache:
           key: dependency-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}
+      - run:
+          name: Prepare Release Bundle
+          command: ./gradlew bundleRelease --stacktrace
       - run:
           name: Upload to Google Play
           command: ./gradlew publishBundle --stacktrace
