@@ -44,6 +44,32 @@ jobs:
       - store_test_results:
           path: app/build/test-results
 
+  increment:
+    executor: android/android
+
+    environment:
+      JVM_OPTS: -Xmx3200m
+
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "6d:72:29:06:13:e6:c8:26:56:e2:b7:0f:1e:ce:4f:0e"
+      - checkout
+      - run:
+          name: Setup Environment
+          command: |
+            gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "app/google-services.json" --decrypt "app/google-services.json.gpg"
+            gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "upload-keystore.jks" --decrypt "upload-keystore.jks.gpg"
+            gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "publish-key.json" --decrypt "publish-key.json.gpg"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}
+      - run:
+          name: Increment App Version
+          command: |
+            ./gradlew incrementPatch
+            git commit -a -m "[ci skip] Set next dev version"
+            git push
+
   deploy:
     executor: android/android
 
@@ -66,15 +92,18 @@ jobs:
       - run:
           name: Upload to Google Play
           command: ./gradlew publishBundle --stacktrace
-      - run:
-          name: Increment App Version
-          command: |
-            ./gradlew incrementPatch
-            git commit -a -m "[ci skip] Set next dev version"
-            git push
 
 workflows:
   version: 2
+  build-and-increment:
+    jobs:
+      - build
+      - increment:
+          requires:
+            - build
+          filters:
+            branches:
+              only: develop
   build-and-deploy:
     jobs:
       - build
