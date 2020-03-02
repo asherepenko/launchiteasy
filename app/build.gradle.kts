@@ -6,7 +6,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "2.7.1"
+    id("com.github.triplet.play") version "2.7.2"
     id("org.jlleitschuh.gradle.ktlint") version "9.0.0"
     kotlin("android")
     kotlin("android.extensions")
