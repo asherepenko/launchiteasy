@@ -66,6 +66,12 @@ jobs:
       - run:
           name: Upload to Google Play
           command: ./gradlew publishBundle --stacktrace
+      - run:
+          name: Increment App Version
+          command: |
+            ./gradlew incrementPatch
+            git commit -a -m "[ci skip] Set next dev version"
+            git push
 
 workflows:
   version: 2

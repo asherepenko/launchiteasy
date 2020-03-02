@@ -141,18 +141,16 @@ play {
         serviceAccountCredentials = rootProject.file(
             playstoreProperties.getProperty("playstore.credentials")
         )
+        defaultToAppBundles = true
         track = "alpha"
         releaseStatus = "draft"
-        userFraction = 0.5
-        defaultToAppBundles = true
     } else if (!System.getenv("PLAYSTORE_CREDENTIALS").isNullOrEmpty()) {
         serviceAccountCredentials = rootProject.file(
             System.getenv("PLAYSTORE_CREDENTIALS")
         )
+        defaultToAppBundles = true
         track = "alpha"
         releaseStatus = "draft"
-        userFraction = 0.5
-        defaultToAppBundles = true
     } else {
         isEnabled = false
     }
