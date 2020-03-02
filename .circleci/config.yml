@@ -47,6 +47,9 @@ jobs:
   deploy:
     executor: android/android
 
+    environment:
+      JVM_OPTS: -Xmx3200m
+
     steps:
       - checkout
       - run:
