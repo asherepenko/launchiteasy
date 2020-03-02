@@ -64,7 +64,7 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}
       - run:
-          name: Increment App Version
+          name: Increment Build Version
           command: |
             ./gradlew incrementPatch
             git commit -a -m "[ci skip] Set next dev version"
@@ -95,7 +95,7 @@ jobs:
 
 workflows:
   version: 2
-  build-and-increment:
+  build-and-deploy:
     jobs:
       - build
       - increment:
@@ -104,9 +104,6 @@ workflows:
           filters:
             branches:
               only: develop
-  build-and-deploy:
-    jobs:
-      - build
       - deploy:
           requires:
             - build
