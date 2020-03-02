@@ -9,6 +9,8 @@ enum class Increment {
 }
 
 abstract class IncrementVersion : DefaultTask() {
+    @get:Input
+    var prodRelease: Boolean = false
 
     @get:Input
     abstract var increment: Increment
@@ -22,6 +24,10 @@ abstract class IncrementVersion : DefaultTask() {
 
         val prevVersionCode = version.versionCode
         val prevVersionName = version.versionName
+
+        if (prodRelease) {
+            version.prepareProdRelease()
+        }
 
         when (increment) {
             Increment.MAJOR -> {

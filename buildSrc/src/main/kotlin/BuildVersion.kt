@@ -22,9 +22,9 @@ class BuildVersion(private val versionFile: File) {
 
     private var patch: Int
 
-    private val preRelease: String?
+    private var preRelease: String?
 
-    private val buildMetadata: String?
+    private var buildMetadata: String?
 
     init {
         if (versionFile.exists() && versionFile.canRead()) {
@@ -51,7 +51,7 @@ class BuildVersion(private val versionFile: File) {
         }
 
         buildMetadata?.let {
-            require(buildMetadata.matches(BUILD_METADATA_PATTERN)) { "Build metadata is not valid" }
+            require(it.matches(BUILD_METADATA_PATTERN)) { "Build metadata is not valid" }
         }
     }
 
@@ -70,6 +70,12 @@ class BuildVersion(private val versionFile: File) {
                 append("+$it")
             }
         }
+
+    // Trim pre-release and build metadata
+    fun prepareProdRelease() {
+        preRelease = null
+        buildMetadata = null
+    }
 
     fun incrementMajor() {
         major++
