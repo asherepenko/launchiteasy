@@ -25,6 +25,10 @@ class AppsRepositoryImpl(
             getInstalledApps(showSystemApps, appState)
         }
 
+    override fun forceUpdate() {
+        appStateRepository.forceUpdate()
+    }
+
     private fun getInstalledApps(
         showSystemApps: Boolean,
         appState: AppState
@@ -34,9 +38,10 @@ class AppsRepositoryImpl(
                 remoteDataSource.getInstalledApps()
 
             override suspend fun getLocalData(): List<AppItem> =
-                localDataSource.getInstalledApps().filter {
-                    showSystemApps || !it.isSystem
-                }
+                localDataSource.getInstalledApps()
+                    .filter {
+                        showSystemApps || !it.isSystem
+                    }
 
             override suspend fun saveLocally(data: List<AppItem>) {
                 localDataSource.saveInstalledApps(data)

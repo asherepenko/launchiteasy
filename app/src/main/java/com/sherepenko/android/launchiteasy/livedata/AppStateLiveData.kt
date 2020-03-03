@@ -4,12 +4,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.sherepenko.android.launchiteasy.data.AppState
 
 class AppStateLiveData(
     private val context: Context
-) : LiveData<Event<AppState>>() {
+) : MutableLiveData<Event<AppState>>() {
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -42,7 +42,7 @@ class AppStateLiveData(
     }
 
     init {
-        postValue(Event(AppState.INITIAL))
+        postValue(Event(AppState.CHANGED))
     }
 
     override fun onActive() {

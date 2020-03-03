@@ -1,9 +1,12 @@
 package com.sherepenko.android.launchiteasy.ui.adapters
 
+import android.content.Context
+import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.bumptech.glide.Glide
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.AppItem
 import com.sherepenko.android.launchiteasy.utils.inflate
@@ -52,11 +55,17 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
 
         override fun bindItem(item: AppItem) {
             itemView.apply {
-                Glide.with(context)
-                    .load(context.packageManager.getApplicationIcon(item.packageName))
-                    .into(appIconView)
+                appIconView.setImageDrawable(item.getApplicationIcon(context))
                 appLabelView.text = item.label
             }
         }
     }
+
+    fun AppItem.getApplicationIcon(context: Context): Drawable? =
+        try {
+            context.packageManager.getApplicationIcon(packageName)
+        } catch (e: PackageManager.NameNotFoundException) {
+            FirebaseCrashlytics.getInstance().recordException(e)
+            null
+        }
 }
