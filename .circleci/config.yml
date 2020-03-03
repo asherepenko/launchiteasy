@@ -69,7 +69,7 @@ jobs:
             ./gradlew incrementPatch
             git config user.email "bot@circleci.com"
             git config user.name "Circle CI"
-            git commit -a -m "[ci skip] Set next dev version"
+            git commit -a -m "Set next dev version [ci skip]"
             git push
 
   deploy:
