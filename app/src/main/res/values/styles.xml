@@ -203,10 +203,9 @@
         <item name="android:textColor">?attr/colorOnError</item>
     </style>
 
-    <style name="Base.Theme.App.Widget.PopupMenu" parent="Widget.AppCompat.PopupMenu">
-        <item name="android:textAllCaps">true</item>
-        <item name="android:dropDownHorizontalOffset">-4dp</item>
-        <item name="android:dropDownVerticalOffset">-4dp</item>
+    <style name="Base.Theme.App.Widget.PopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:dropDownHorizontalOffset">16dp</item>
+        <item name="android:dropDownVerticalOffset">-16dp</item>
     </style>
 
     <style name="Base.Theme.App.Widget.ProgressBar" parent="Widget.AppCompat.ProgressBar">

@@ -158,10 +158,10 @@ play {
 
 val glideVersion = "4.11.0"
 val jacksonVersion = "2.10.2"
-val koinVersion = "2.1.0"
+val koinVersion = "2.1.3"
 val ktxVersion = "1.2.0"
 val lifecycleVersion = "2.2.0"
-val navigationVersion = "2.3.0-alpha02"
+val navigationVersion = "2.3.0-alpha03"
 val okHttpVersion = "4.4.0"
 val retrofitVersion = "2.7.1"
 val roomVersion = "2.2.3"
