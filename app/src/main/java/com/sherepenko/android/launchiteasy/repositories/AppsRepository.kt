@@ -39,9 +39,11 @@ class AppsRepositoryImpl(
 
             override suspend fun getLocalData(): List<AppItem> =
                 localDataSource.getInstalledApps()
+                    .asSequence()
                     .filter {
                         showSystemApps || !it.isSystem
                     }
+                    .toList()
 
             override suspend fun saveLocally(data: List<AppItem>) {
                 localDataSource.saveInstalledApps(data)
