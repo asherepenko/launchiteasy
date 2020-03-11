@@ -18,6 +18,6 @@ class AppStateRepositoryImpl(
         appStateLiveData
 
     override fun forceUpdate() {
-        appStateLiveData.postValue(Event(AppState.CHANGED))
+        appStateLiveData.postValue(Event(AppState.UPDATED))
     }
 }

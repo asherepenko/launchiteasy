@@ -18,13 +18,13 @@ class AppStateLiveData(
                     postValue(Event(AppState.ADDED))
                 }
                 Intent.ACTION_PACKAGE_CHANGED -> {
-                    postValue(Event(AppState.CHANGED))
+                    postValue(Event(AppState.UPDATED))
                 }
                 Intent.ACTION_PACKAGE_REMOVED -> {
                     postValue(Event(AppState.REMOVED))
                 }
                 Intent.ACTION_PACKAGE_REPLACED -> {
-                    postValue(Event(AppState.REPLACED))
+                    postValue(Event(AppState.UPDATED))
                 }
                 else -> {
                     // ignore
@@ -42,7 +42,7 @@ class AppStateLiveData(
     }
 
     init {
-        postValue(Event(AppState.CHANGED))
+        postValue(Event(AppState.UPDATED))
     }
 
     override fun onActive() {
