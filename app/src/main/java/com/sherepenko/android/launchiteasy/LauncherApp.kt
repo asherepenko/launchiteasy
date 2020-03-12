@@ -25,6 +25,7 @@ import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
 import com.sherepenko.android.launchiteasy.viewmodels.ConnectivityViewModel
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
