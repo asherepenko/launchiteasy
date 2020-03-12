@@ -158,10 +158,9 @@ play {
 
 val glideVersion = "4.11.0"
 val jacksonVersion = "2.10.2"
-val koinVersion = "2.1.0"
-val ktxVersion = "1.2.0"
+val koinVersion = "2.1.3"
 val lifecycleVersion = "2.2.0"
-val navigationVersion = "2.3.0-alpha02"
+val navigationVersion = "2.3.0-alpha03"
 val okHttpVersion = "4.4.0"
 val retrofitVersion = "2.7.1"
 val roomVersion = "2.2.3"
@@ -174,8 +173,8 @@ dependencies {
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("androidx.collection:collection-ktx:1.1.0")
-    implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
+    implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.fragment:fragment-ktx:1.2.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -187,7 +186,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.1.0")
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01")
     implementation("androidx.work:work-runtime-ktx:$workVersion")
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
@@ -199,7 +198,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics:17.2.3")
     implementation("com.google.firebase:firebase-config-ktx:19.1.2")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta01")
-    implementation("com.google.firebase:firebase-messaging:20.1.1")
+    implementation("com.google.firebase:firebase-messaging:20.1.2")
     implementation("com.google.firebase:firebase-perf:19.0.5")
     implementation("com.jakewharton.threetenabp:threetenabp:1.2.2")
     implementation("com.jakewharton.timber:timber:4.7.1")

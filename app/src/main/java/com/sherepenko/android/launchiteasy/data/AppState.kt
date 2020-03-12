@@ -4,6 +4,5 @@ enum class AppState {
     INITIAL,
     ADDED,
     REMOVED,
-    REPLACED,
-    CHANGED
+    UPDATED
 }

@@ -22,56 +22,29 @@ object OpenWeatherIconMapper {
     private const val MIST_DAY = "50d"
     private const val MIST_NIGHT = "50n"
 
+    private val UNKNOWN_WEATHER = WeatherIcon(0xf07b.toChar().toString())
+
+    private val weatherIcons = mapOf(
+        CLEAR_SKY_DAY to WeatherIcon(0xf00d.toChar().toString()),
+        CLEAR_SKY_NIGHT to WeatherIcon(0xf02e.toChar().toString()),
+        FEW_CLOUDS_DAY to WeatherIcon(0xf002.toChar().toString()),
+        FEW_CLOUDS_NIGHT to WeatherIcon(0xf086.toChar().toString()),
+        SCATTERED_CLOUDS_DAY to WeatherIcon(0xf041.toChar().toString()),
+        SCATTERED_CLOUDS_NIGHT to WeatherIcon(0xf041.toChar().toString()),
+        BROKEN_CLOUDS_DAY to WeatherIcon(0xf013.toChar().toString()),
+        BROKEN_CLOUDS_NIGHT to WeatherIcon(0xf013.toChar().toString()),
+        SHOWER_RAIN_DAY to WeatherIcon(0xf019.toChar().toString()),
+        SHOWER_RAIN_NIGHT to WeatherIcon(0xf019.toChar().toString()),
+        RAIN_DAY to WeatherIcon(0xf008.toChar().toString()),
+        RAIN_NIGHT to WeatherIcon(0xf036.toChar().toString()),
+        THUNDERSTORM_DAY to WeatherIcon(0xf00e.toChar().toString()),
+        THUNDERSTORM_NIGHT to WeatherIcon(0xf03a.toChar().toString()),
+        SNOW_DAY to WeatherIcon(0xf076.toChar().toString()),
+        SNOW_NIGHT to WeatherIcon(0xf076.toChar().toString()),
+        MIST_DAY to WeatherIcon(0xf003.toChar().toString()),
+        MIST_NIGHT to WeatherIcon(0xf04a.toChar().toString())
+    )
+
     fun toWeatherIcon(openWeatherIcon: String): WeatherIcon =
-        when (openWeatherIcon) {
-            CLEAR_SKY_DAY -> {
-                WeatherIcon(0xf00d.toChar().toString())
-            }
-            CLEAR_SKY_NIGHT -> {
-                WeatherIcon(0xf02e.toChar().toString())
-            }
-            FEW_CLOUDS_DAY -> {
-                WeatherIcon(0xf002.toChar().toString())
-            }
-            FEW_CLOUDS_NIGHT -> {
-                WeatherIcon(0xf086.toChar().toString())
-            }
-            SCATTERED_CLOUDS_DAY,
-            SCATTERED_CLOUDS_NIGHT -> {
-                WeatherIcon(0xf041.toChar().toString())
-            }
-            BROKEN_CLOUDS_DAY,
-            BROKEN_CLOUDS_NIGHT -> {
-                WeatherIcon(0xf013.toChar().toString())
-            }
-            SHOWER_RAIN_DAY,
-            SHOWER_RAIN_NIGHT -> {
-                WeatherIcon(0xf019.toChar().toString())
-            }
-            RAIN_DAY -> {
-                WeatherIcon(0xf008.toChar().toString())
-            }
-            RAIN_NIGHT -> {
-                WeatherIcon(0xf036.toChar().toString())
-            }
-            THUNDERSTORM_DAY -> {
-                WeatherIcon(0xf00e.toChar().toString())
-            }
-            THUNDERSTORM_NIGHT -> {
-                WeatherIcon(0xf03a.toChar().toString())
-            }
-            SNOW_DAY,
-            SNOW_NIGHT -> {
-                WeatherIcon(0xf076.toChar().toString())
-            }
-            MIST_DAY -> {
-                WeatherIcon(0xf003.toChar().toString())
-            }
-            MIST_NIGHT -> {
-                WeatherIcon(0xf04a.toChar().toString())
-            }
-            else -> {
-                WeatherIcon(0xf07b.toChar().toString())
-            }
-        }
+        weatherIcons[openWeatherIcon] ?: UNKNOWN_WEATHER
 }

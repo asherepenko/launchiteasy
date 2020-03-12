@@ -103,13 +103,13 @@ class LauncherApp : Application() {
         single {
             ConnectivityRepositoryImpl(
                 ConnectivityLiveData(get())
-            ) as ConnectivityRepository
+            )
         }
 
         single {
             LocationRepositoryImpl(
                 LocationLiveData(get())
-            ) as LocationRepository
+            )
         }
 
         single {
@@ -118,13 +118,13 @@ class LauncherApp : Application() {
                 get(),
                 WeatherLocalDataSource(get()),
                 WeatherRemoteDataSource(get())
-            ) as WeatherRepository
+            )
         }
 
         single {
             AppStateRepositoryImpl(
                 AppStateLiveData(get())
-            ) as AppStateRepository
+            )
         }
 
         single {
@@ -132,7 +132,7 @@ class LauncherApp : Application() {
                 get(),
                 AppsLocalDataSource(get()),
                 AppsRemoteDataSource(get())
-            ) as AppsRepository
+            )
         }
     }
 
