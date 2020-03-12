@@ -7,7 +7,7 @@
 Sample application with a concise home screen, list of installed apps, and OpenWeather API integration.
 
 <p align="center">
-    <a href="#">
+    <a href="https://play.google.com/store/apps/details?id=com.sherepenko.android.launchiteasy" target="_blank">
         <img src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" width="250px" />
     </a>
 </p>
