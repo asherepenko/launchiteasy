@@ -13,41 +13,26 @@ import com.sherepenko.android.launchiteasy.utils.inflate
 import kotlinx.android.synthetic.main.item_app.view.appIconView
 import kotlinx.android.synthetic.main.item_app.view.appLabelView
 
-class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
+class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    override var items: List<AppItem> = listOf()
-        set(newItems) {
-            val oldItems = field
-            field = newItems
-            notifyItemsChanged(oldItems, field)
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AppItem>() {
+            override fun areItemsTheSame(oldItem: AppItem, newItem: AppItem): Boolean =
+                oldItem.packageName == newItem.packageName
+
+            override fun areContentsTheSame(oldItem: AppItem, newItem: AppItem): Boolean =
+                oldItem == newItem
         }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflate(R.layout.item_app))
 
     override fun getItemId(position: Int): Long =
-        items[position].packageName.hashCode().toLong()
+        getPackageName(position).hashCode().toLong()
 
     fun getPackageName(position: Int): String =
-        items[position].packageName
-
-    private fun notifyItemsChanged(oldItems: List<AppItem>, newItems: List<AppItem>) {
-        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-            override fun getOldListSize(): Int =
-                oldItems.size
-
-            override fun getNewListSize(): Int =
-                newItems.size
-
-            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                oldItems[oldItemPosition].packageName == newItems[newItemPosition].packageName
-
-            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                oldItems[oldItemPosition] == newItems[newItemPosition]
-        })
-
-        diffResult.dispatchUpdatesTo(this@AppsAdapter)
-    }
+        getItem(position).packageName
 
     inner class ViewHolder(
         itemView: View

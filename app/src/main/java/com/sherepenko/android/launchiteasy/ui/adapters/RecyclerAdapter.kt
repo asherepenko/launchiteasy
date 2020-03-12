@@ -1,6 +1,8 @@
 package com.sherepenko.android.launchiteasy.ui.adapters
 
 import android.view.View
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 interface OnItemClickListener {
@@ -11,27 +13,36 @@ interface OnItemClickListener {
 }
 
 abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerViewHolder<T>>(
-    items: List<T> = listOf(),
+    diffCallback: DiffUtil.ItemCallback<T>,
     var itemClickListener: OnItemClickListener? = null
-) : RecyclerView.Adapter<VH>(),
+) : ListAdapter<T, VH>(diffCallback),
     OnItemClickListener {
-
-    open var items: List<T> = items
-        set(newItems) {
-            field = newItems
-            notifyDataSetChanged()
-        }
 
     init {
         this@BaseRecyclerAdapter.setHasStableIds(true)
     }
 
-    override fun onBindViewHolder(holder: VH, position: Int) =
-        holder.bindItem(items[position])
+    private var rootView: RecyclerView? = null
 
-    override fun getItemCount(): Int = items.size
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        rootView = recyclerView
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        rootView = null
+    }
+
+    override fun onBindViewHolder(holder: VH, position: Int) =
+        holder.bindItem(getItem(position))
 
     override fun getItemId(position: Int): Long = position.toLong()
+
+    override fun onCurrentListChanged(previousList: List<T>, currentList: List<T>) {
+        super.onCurrentListChanged(previousList, currentList)
+        rootView?.requestLayout()
+    }
 
     override fun onItemClick(view: View, position: Int, id: Long) {
         itemClickListener?.onItemClick(view, position, id)

@@ -224,7 +224,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                 Status.LOADING -> {
                     it.data?.let { data ->
                         forecastsAdapter.isMetricSystem = isMetricSystem
-                        forecastsAdapter.items = data
+                        forecastsAdapter.submitList(data)
 
                         if (data.isNotEmpty()) {
                             swipeRefreshLayout.isRefreshing = false
@@ -234,7 +234,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                 Status.SUCCESS -> {
                     checkNotNull(it.data)
                     forecastsAdapter.isMetricSystem = isMetricSystem
-                    forecastsAdapter.items = it.data
+                    forecastsAdapter.submitList(it.data)
                     swipeRefreshLayout.isRefreshing = false
                 }
                 Status.ERROR -> {

@@ -2,6 +2,7 @@ package com.sherepenko.android.launchiteasy.ui.adapters
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.utils.inflate
@@ -15,7 +16,17 @@ import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
 class ForecastsAdapter :
-        BaseRecyclerAdapter<ForecastItem, ForecastsAdapter.ViewHolder>() {
+        BaseRecyclerAdapter<ForecastItem, ForecastsAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ForecastItem>() {
+            override fun areItemsTheSame(oldItem: ForecastItem, newItem: ForecastItem): Boolean =
+                oldItem.timestamp == newItem.timestamp
+
+            override fun areContentsTheSame(oldItem: ForecastItem, newItem: ForecastItem): Boolean =
+                oldItem == newItem
+        }
+    }
 
     var isMetricSystem: Boolean = true
 

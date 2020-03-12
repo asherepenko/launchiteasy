@@ -121,7 +121,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                 when (it.status) {
                     Status.LOADING -> {
                         it.data?.let { data ->
-                            appsAdapter.items = data
+                            appsAdapter.submitList(data)
                             if (data.isNotEmpty()) {
                                 loadingView.visibility = View.GONE
                             }
@@ -130,7 +130,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                     Status.SUCCESS -> {
                         checkNotNull(it.data)
                         appsView.setItemViewCacheSize(it.data.size)
-                        appsAdapter.items = it.data
+                        appsAdapter.submitList(it.data)
                         loadingView.visibility = View.GONE
                     }
                     Status.ERROR -> {
