@@ -16,15 +16,10 @@ import com.sherepenko.android.launchiteasy.providers.AppsLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.AppsRemoteDataSource
 import com.sherepenko.android.launchiteasy.providers.WeatherLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.WeatherRemoteDataSource
-import com.sherepenko.android.launchiteasy.repositories.AppStateRepository
 import com.sherepenko.android.launchiteasy.repositories.AppStateRepositoryImpl
-import com.sherepenko.android.launchiteasy.repositories.AppsRepository
 import com.sherepenko.android.launchiteasy.repositories.AppsRepositoryImpl
-import com.sherepenko.android.launchiteasy.repositories.ConnectivityRepository
 import com.sherepenko.android.launchiteasy.repositories.ConnectivityRepositoryImpl
-import com.sherepenko.android.launchiteasy.repositories.LocationRepository
 import com.sherepenko.android.launchiteasy.repositories.LocationRepositoryImpl
-import com.sherepenko.android.launchiteasy.repositories.WeatherRepository
 import com.sherepenko.android.launchiteasy.repositories.WeatherRepositoryImpl
 import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
