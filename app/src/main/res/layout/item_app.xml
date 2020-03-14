@@ -6,10 +6,8 @@
         android:layout_width="@dimen/app_item_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingStart="@dimen/app_item_padding_horizontal"
-        android:paddingEnd="@dimen/app_item_padding_horizontal"
-        android:paddingTop="@dimen/app_item_padding_vertical"
-        android:paddingBottom="@dimen/app_item_padding_vertical"
+        android:paddingHorizontal="@dimen/app_item_padding_horizontal"
+        android:paddingVertical="@dimen/app_item_padding_vertical"
         android:background="?attr/selectableItemBackgroundBorderless">
 
     <ImageView

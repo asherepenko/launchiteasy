@@ -6,10 +6,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingStart="@dimen/forecast_item_padding_horizontal"
-        android:paddingEnd="@dimen/forecast_item_padding_horizontal"
-        android:paddingTop="@dimen/forecast_item_padding_vertical"
-        android:paddingBottom="@dimen/forecast_item_padding_vertical">
+        android:paddingHorizontal="@dimen/forecast_item_padding_horizontal"
+        android:paddingVertical="@dimen/forecast_item_padding_vertical">
 
     <TextView
             android:id="@+id/forecastTimeView"
@@ -28,8 +26,7 @@
             style="@style/Base.Theme.App.Widget.WeatherIconView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/forecast_item_icon_margin_vertical"
-            android:layout_marginBottom="@dimen/forecast_item_icon_margin_vertical"
+            android:layout_marginVertical="@dimen/forecast_item_icon_margin_vertical"
             android:textSize="@dimen/forecast_item_icon_font_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

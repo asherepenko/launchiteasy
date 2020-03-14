@@ -32,8 +32,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/app_list_margin_start"
             android:layout_marginEnd="@dimen/app_list_margin_end"
-            android:paddingStart="@dimen/app_list_padding_horizontal"
-            android:paddingEnd="@dimen/app_list_padding_horizontal"
+            android:paddingHorizontal="@dimen/app_list_padding_horizontal"
             android:orientation="vertical"
             android:scrollbars="vertical"
             android:scrollbarStyle="outsideOverlay"
@@ -47,10 +46,8 @@
             android:id="@+id/loadingView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_margin_horizontal"
-            android:layout_marginEnd="@dimen/default_margin_horizontal"
-            android:layout_marginTop="@dimen/default_margin_vertical"
-            android:layout_marginBottom="@dimen/default_margin_vertical"
+            android:layout_marginHorizontal="@dimen/default_margin_horizontal"
+            android:layout_marginVerical="@dimen/default_margin_vertical"
             android:layout_gravity="center" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
