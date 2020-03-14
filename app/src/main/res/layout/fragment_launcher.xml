@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_margin_horizontal"
-            android:layout_marginVerical="@dimen/default_margin_vertical"
+            android:layout_marginVertical="@dimen/default_margin_vertical"
             android:layout_gravity="center" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
