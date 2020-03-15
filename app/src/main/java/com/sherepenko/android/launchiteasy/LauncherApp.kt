@@ -30,6 +30,10 @@ import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
 import com.sherepenko.android.launchiteasy.viewmodels.ConnectivityViewModel
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
+import io.github.inflationx.calligraphy3.CalligraphyConfig
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor
+import io.github.inflationx.viewpump.ViewPump
+import io.github.inflationx.viewpump.addInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -156,6 +160,17 @@ class LauncherApp : Application() {
         AndroidThreeTen.init(this@LauncherApp)
 
         Timber.plant(Timber.DebugTree())
+
+        ViewPump.init(
+            ViewPump.builder()
+                .addInterceptor(
+                    CalligraphyInterceptor(
+                        CalligraphyConfig.Builder()
+                            .build()
+                    )
+                )
+                .build()
+        )
 
         startKoin {
             androidLogger()
