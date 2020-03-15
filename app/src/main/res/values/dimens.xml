@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="headline1_font_size">96sp</dimen>
+    <dimen name="headline2_font_size">60sp</dimen>
+    <dimen name="headline3_font_size">48sp</dimen>
+    <dimen name="headline4_font_size">34sp</dimen>
+    <dimen name="headline5_font_size">24sp</dimen>
+    <dimen name="headline6_font_size">20sp</dimen>
+
+    <dimen name="subtitle1_font_size">18sp</dimen>
+    <dimen name="subtitle2_font_size">16sp</dimen>
+
+    <dimen name="body1_font_size">16sp</dimen>
+    <dimen name="body2_font_size">14sp</dimen>
+
+    <dimen name="button_font_size">14sp</dimen>
+
+    <dimen name="caption_font_size">12sp</dimen>
+
+    <dimen name="overline_font_size">10sp</dimen>
+
     <dimen name="small_component_corner_size">50%p</dimen>
     <dimen name="medium_component_corner_size">16dp</dimen>
     <dimen name="large_component_corner_size">20dp</dimen>
@@ -10,20 +29,26 @@
     <dimen name="default_padding_horizontal">8dp</dimen>
     <dimen name="default_padding_vertical">8dp</dimen>
 
-    <dimen name="default_drawable_padding">8dp</dimen>
+    <dimen name="default_drawable_padding">@dimen/default_padding_horizontal</dimen>
+
+    <dimen name="default_font_size">@dimen/body2_font_size</dimen>
 
     <dimen name="default_fading_edge_length">24dp</dimen>
 
-    <dimen name="content_guideline_start">16dp</dimen>
-    <dimen name="content_guideline_end">16dp</dimen>
-    <dimen name="content_guideline_top">16dp</dimen>
-    <dimen name="content_guideline_bottom">16dp</dimen>
+    <dimen name="content_guideline_start">@dimen/default_margin_horizontal</dimen>
+    <dimen name="content_guideline_end">@dimen/default_margin_horizontal</dimen>
+    <dimen name="content_guideline_top">@dimen/default_margin_vertical</dimen>
+    <dimen name="content_guideline_bottom">@dimen/default_margin_vertical</dimen>
 
     <dimen name="toolbar_content_inset_start">32dp</dimen>
     <dimen name="toolbar_max_height">108dp</dimen>
 
+    <dimen name="toolbar_font_size">16sp</dimen>
+
+    <dimen name="app_logo_font_size">16sp</dimen>
+
     <dimen name="app_item_width">108dp</dimen>
-    <dimen name="app_item_padding_horizontal">8dp</dimen>
+    <dimen name="app_item_padding_horizontal">@dimen/default_padding_horizontal</dimen>
     <dimen name="app_item_padding_vertical">16dp</dimen>
 
     <dimen name="app_item_icon_width">56dp</dimen>
@@ -35,15 +60,23 @@
     <dimen name="app_list_margin_end">4dp</dimen>
     <dimen name="app_list_padding_horizontal">4dp</dimen>
 
+    <item format="float" name="current_time_bias_vertical" type="dimen">0.1</item>
+
     <dimen name="current_date_margin_top">4dp</dimen>
 
-    <dimen name="current_weather_icon_size">72sp</dimen>
+    <dimen name="current_location_margin_top">@dimen/default_margin_vertical</dimen>
 
     <dimen name="current_temperature_margin_start">24dp</dimen>
     <dimen name="current_temperature_margin_top">4dp</dimen>
 
+    <dimen name="current_temperature_font_size">@dimen/headline2_font_size</dimen>
+
+    <dimen name="current_weather_icon_font_size">72sp</dimen>
+
+    <dimen name="forecast_margin_vertical">@dimen/default_margin_vertical</dimen>
+
     <dimen name="forecast_item_padding_horizontal">14dp</dimen>
-    <dimen name="forecast_item_padding_vertical">8dp</dimen>
+    <dimen name="forecast_item_padding_vertical">@dimen/default_padding_vertical</dimen>
 
     <dimen name="forecast_item_icon_margin_vertical">4dp</dimen>
     <dimen name="forecast_item_icon_font_size">36sp</dimen>
@@ -52,6 +85,6 @@
     <dimen name="all_apps_button_icon_size">36dp</dimen>
     <dimen name="all_apps_button_elevation">4dp</dimen>
 
-    <dimen name="all_apps_toolbar_title_margin_top">16dp</dimen>
+    <dimen name="all_apps_toolbar_title_margin_top">@dimen/default_margin_vertical</dimen>
 
 </resources>

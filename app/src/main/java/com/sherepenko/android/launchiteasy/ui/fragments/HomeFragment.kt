@@ -236,7 +236,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     private fun setWeatherForecasts(items: List<ForecastItem>) {
         forecastsAdapter.isMetricSystem = prefs.getTemperatureUnit().isMetric()
-        forecastsAdapter.items = items ?: listOf()
+        forecastsAdapter.items = items
     }
 
     private fun NavController.navigateToLauncherFragment() {
