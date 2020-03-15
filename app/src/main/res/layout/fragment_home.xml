@@ -75,15 +75,28 @@
                     style="@style/Base.Theme.App.TextAppearance.Headline1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:format12Hour="hh:mm a"
+                    android:format12Hour="hh:mm"
                     android:format24Hour="HH:mm"
                     app:layout_constraintVertical_bias="0.1"
+                    app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintVertical_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
-                    app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
+                    app:layout_constraintEnd_toStartOf="@id/currentTimeAmPmView"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/currentDateView"
                     tools:text="13:01" />
+
+            <TextClock
+                    android:id="@+id/currentTimeAmPmView"
+                    style="@style/Base.Theme.App.TextAppearance.Headline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:format12Hour=" a"
+                    android:format24Hour=""
+                    app:layout_constraintBaseline_toBaselineOf="@+id/currentTimeView"
+                    app:layout_constraintStart_toEndOf="@+id/currentTimeView"
+                    app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
+                    tools:text="am" />
 
             <TextClock
                     android:id="@+id/currentDateView"
