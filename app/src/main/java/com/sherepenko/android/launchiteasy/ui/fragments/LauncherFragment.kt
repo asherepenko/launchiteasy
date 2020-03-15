@@ -35,6 +35,8 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
 
     private val prefs: PreferenceHelper by inject()
 
+    private lateinit var appsAdapter: AppsAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
@@ -64,7 +66,8 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
     }
 
     private fun setupInstalledApps() {
-        val appsAdapter = AppsAdapter()
+        appsAdapter = AppsAdapter()
+
         appsAdapter.itemClickListener = object :
             OnItemClickListener {
             override fun onItemClick(view: View, position: Int, id: Long) {
@@ -121,7 +124,9 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                 when (it.status) {
                     Status.LOADING -> {
                         it.data?.let { data ->
-                            appsAdapter.submitList(data)
+                            appsView.setItemViewCacheSize(data.size)
+                            appsAdapter.items = data
+
                             if (data.isNotEmpty()) {
                                 loadingView.visibility = View.GONE
                             }
@@ -130,7 +135,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                     Status.SUCCESS -> {
                         checkNotNull(it.data)
                         appsView.setItemViewCacheSize(it.data.size)
-                        appsAdapter.submitList(it.data)
+                        appsAdapter.items = it.data
                         loadingView.visibility = View.GONE
                     }
                     Status.ERROR -> {

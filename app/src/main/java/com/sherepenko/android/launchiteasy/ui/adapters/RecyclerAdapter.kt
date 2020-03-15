@@ -1,8 +1,6 @@
 package com.sherepenko.android.launchiteasy.ui.adapters
 
 import android.view.View
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 interface OnItemClickListener {
@@ -13,36 +11,28 @@ interface OnItemClickListener {
 }
 
 abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerViewHolder<T>>(
-    diffCallback: DiffUtil.ItemCallback<T>,
+    items: List<T> = listOf(),
     var itemClickListener: OnItemClickListener? = null
-) : ListAdapter<T, VH>(diffCallback),
+) : RecyclerView.Adapter<VH>(),
     OnItemClickListener {
+
+    var items: List<T> = items
+        set(newItems) {
+            val oldItems = field
+            field = newItems
+            notifyItemsChanged(oldItems, field)
+        }
 
     init {
         this@BaseRecyclerAdapter.setHasStableIds(true)
     }
 
-    private var rootView: RecyclerView? = null
-
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
-        rootView = recyclerView
-    }
-
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView)
-        rootView = null
-    }
-
     override fun onBindViewHolder(holder: VH, position: Int) =
         holder.bindItem(getItem(position))
 
-    override fun getItemId(position: Int): Long = position.toLong()
+    override fun getItemCount(): Int = items.size
 
-    override fun onCurrentListChanged(previousList: List<T>, currentList: List<T>) {
-        super.onCurrentListChanged(previousList, currentList)
-        rootView?.requestLayout()
-    }
+    override fun getItemId(position: Int): Long = position.toLong()
 
     override fun onItemClick(view: View, position: Int, id: Long) {
         itemClickListener?.onItemClick(view, position, id)
@@ -50,6 +40,13 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerViewHolder<T>>(
 
     override fun onItemLongClick(view: View, position: Int, id: Long) {
         itemClickListener?.onItemLongClick(view, position, id)
+    }
+
+    open fun getItem(position: Int) =
+        items[position]
+
+    open fun notifyItemsChanged(oldItems: List<T>, newItems: List<T>) {
+        notifyDataSetChanged()
     }
 }
 
