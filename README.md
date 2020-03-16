@@ -9,7 +9,7 @@ Sample application with a concise home screen, list of installed apps, and OpenW
 
 <p align="center">
     <a href="https://play.google.com/store/apps/details?id=com.sherepenko.android.launchiteasy" target="_blank">
-        <img src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" width="250px" />
+        <img src="images/google-play-badge.png" width="250px" />
     </a>
 </p>
 
@@ -26,12 +26,12 @@ Sample application with a concise home screen, list of installed apps, and OpenW
 
 **Home Screen**
 
-<img src="images/home.png" width="400px" />
+<img src="images/home-screen.png" width="400px" />
 
 **Apps Screen**
 
-<img src="images/apps.png" width="400px" />
+<img src="images/apps-screen.png" width="400px" />
 
 **Settings Screen**
 
-<img src="images/settings.png" width="400px" />
+<img src="images/settings-screen.png" width="400px" />
