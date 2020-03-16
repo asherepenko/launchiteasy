@@ -1,5 +1,6 @@
 # Launch it Easy
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![CircleCI](https://circleci.com/gh/asherepenko/launchiteasy.svg?style=svg&circle-token=9d39fddaddad3536601814fbed8a2ffbcce72ece)](https://circleci.com/gh/asherepenko/launchiteasy)
 
 **Yet Another Launcher**
