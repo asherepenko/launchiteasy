@@ -5,6 +5,7 @@ import com.sherepenko.android.launchiteasy.api.OpenWeatherApi
 import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.WeatherItem
 import com.sherepenko.android.launchiteasy.data.db.AppDatabase
+import timber.log.Timber
 
 interface WeatherDataSource {
 
@@ -43,12 +44,20 @@ class WeatherLocalDataSource(
 class WeatherRemoteDataSource(private val weatherApi: OpenWeatherApi) :
     WeatherDataSource {
 
-    override suspend fun getCurrentWeather(latitude: Double, longitude: Double): WeatherItem =
-        weatherApi.getCurrentWeatherByLocation(latitude, longitude).currentWeather
+    companion object {
+        private const val TAG = "WeatherData"
+    }
+
+    override suspend fun getCurrentWeather(latitude: Double, longitude: Double): WeatherItem {
+        Timber.tag(TAG).d("Fetch current weather by location: [$latitude, $longitude]")
+        return weatherApi.getCurrentWeatherByLocation(latitude, longitude).currentWeather
+    }
 
     override suspend fun getWeatherForecasts(
         latitude: Double,
         longitude: Double
-    ): List<ForecastItem> =
-        weatherApi.getWeatherForecastsByLocation(latitude, longitude).weatherForecasts
+    ): List<ForecastItem> {
+        Timber.tag(TAG).i("Fetch weather forecasts by location: [$latitude, $longitude]")
+        return weatherApi.getWeatherForecastsByLocation(latitude, longitude).weatherForecasts
+    }
 }

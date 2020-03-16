@@ -3,7 +3,9 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.App" parent="Base.Theme.App">
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
     </style>
 
     <style name="Base.Theme.App" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -241,6 +243,12 @@
         <item name="android:textSize">@dimen/app_logo_font_size</item>
         <item name="android:textColor">?attr/colorSecondary</item>
     </style>
+
+    <style name="Base.Theme.App.TextAppearance.CurrentTime" parent="Base.Theme.App.TextAppearance.Headline1">
+        <item name="android:textSize">@dimen/current_time_font_size</item>
+    </style>
+
+    <style name="Base.Theme.App.TextAppearance.CurrentTimeAmPm" parent="Base.Theme.App.TextAppearance.Headline3" />
 
     <style name="Base.Theme.App.TextAppearance.CurrentTemperature" parent="Base.Theme.App.TextAppearance.Headline2">
         <item name="android:textSize">@dimen/current_temperature_font_size</item>

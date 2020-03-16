@@ -28,8 +28,13 @@ import kotlinx.android.synthetic.main.fragment_launcher.loadingView
 import kotlinx.android.synthetic.main.fragment_launcher.toolbarView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.inject
+import timber.log.Timber
 
 class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
+
+    companion object {
+        private const val TAG = "LauncherFragment"
+    }
 
     private val appsViewModel: AppsViewModel by viewModel()
 
@@ -72,6 +77,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             OnItemClickListener {
             override fun onItemClick(view: View, position: Int, id: Long) {
                 val packageName = appsAdapter.getPackageName(position)
+                Timber.tag(TAG).i("Launching package: $packageName")
 
                 requireActivity().packageManager.getLaunchIntentForPackage(packageName)?.let {
                     requireActivity().launchActivity(
@@ -86,9 +92,12 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                 PopupMenu(requireActivity(), view, Gravity.TOP).apply {
                     inflate(R.menu.app_details_menu)
 
+                    Timber.tag(TAG).d("Show details menu for: $packageName")
+
                     setOnMenuItemClickListener {
                         when (it.itemId) {
                             R.id.actionAppInfo -> {
+                                Timber.tag(TAG).i("Info action called for: $packageName")
                                 requireActivity().launchActivityIfResolved(
                                     Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -97,6 +106,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                                 true
                             }
                             R.id.actionAppUninstall -> {
+                                Timber.tag(TAG).i("Delete action called for: $packageName")
                                 requireActivity().launchActivityIfResolved(
                                     Intent(Intent.ACTION_DELETE)
                                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

@@ -40,8 +40,13 @@ import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
+import timber.log.Timber
 
 class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
+
+    companion object {
+        private const val TAG = "HomeFragment"
+    }
 
     private val weatherViewModel: WeatherViewModel by viewModel()
 
@@ -118,6 +123,8 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
         if (alarmManager.nextAlarmClock != null) {
             val nextAlarm = alarmManager.nextAlarmClock.toLocalDateTime()
+            Timber.tag(TAG).i("Next alarm time: $nextAlarm")
+
             nextAlarmView.text = nextAlarm.formatAlarmDateTime()
             nextAlarmView.visibility = View.VISIBLE
         } else {
@@ -132,7 +139,8 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                     // ignore
                 }
                 Status.SUCCESS -> {
-                    currentLocationView.text = it.data!!
+                    checkNotNull(it.data)
+                    currentLocationView.text = it.data
                 }
                 Status.ERROR -> {
                     currentLocationView.text = ""

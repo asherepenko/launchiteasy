@@ -6,6 +6,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import timber.log.Timber
 
 abstract class BaseActivity(@LayoutRes private val contentLayoutRes: Int) : AppCompatActivity() {
 
@@ -24,6 +25,7 @@ abstract class BaseActivity(@LayoutRes private val contentLayoutRes: Int) : AppC
     }
 
     private fun setCurrentScreen() {
+        Timber.d("Current activity: ${javaClass.simpleName}")
         FirebaseAnalytics.getInstance(this@BaseActivity)
             .setCurrentScreen(this@BaseActivity, javaClass.simpleName, null)
     }

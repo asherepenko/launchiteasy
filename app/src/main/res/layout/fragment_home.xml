@@ -72,7 +72,7 @@
             <!-- Clock widget -->
             <TextClock
                     android:id="@+id/currentTimeView"
-                    style="@style/Base.Theme.App.TextAppearance.Headline1"
+                    style="@style/Base.Theme.App.TextAppearance.CurrentTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:format12Hour="hh:mm"
@@ -88,7 +88,7 @@
 
             <TextClock
                     android:id="@+id/currentTimeAmPmView"
-                    style="@style/Base.Theme.App.TextAppearance.Headline3"
+                    style="@style/Base.Theme.App.TextAppearance.CurrentTimeAmPm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:format12Hour=" a"
