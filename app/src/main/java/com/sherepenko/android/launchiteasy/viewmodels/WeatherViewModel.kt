@@ -10,9 +10,9 @@ import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.data.WeatherItem
 import com.sherepenko.android.launchiteasy.repositories.LocationRepository
 import com.sherepenko.android.launchiteasy.repositories.WeatherRepository
+import java.io.IOException
 import java.util.Locale
 import kotlinx.coroutines.Dispatchers
-import java.io.IOException
 
 class WeatherViewModel(
     private val context: Context,
