@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
 import org.koin.core.KoinComponent
+import timber.log.Timber
 
 abstract class BaseFragment(
     @LayoutRes private val contentLayoutRes: Int
@@ -26,6 +27,7 @@ abstract class BaseFragment(
     }
 
     private fun setCurrentScreen() {
+        Timber.d("Current fragment: ${javaClass.simpleName}")
         FirebaseAnalytics.getInstance(requireActivity())
             .setCurrentScreen(requireActivity(), javaClass.simpleName, null)
     }

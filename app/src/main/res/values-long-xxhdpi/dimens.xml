@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="subtitle1_font_size">18sp</dimen>
+    <dimen name="subtitle2_font_size">16sp</dimen>
+
+    <dimen name="app_item_width">102dp</dimen>
+
+    <dimen name="app_item_icon_width">56dp</dimen>
+    <dimen name="app_item_icon_height">56dp</dimen>
+
+    <item format="float" name="current_time_bias_vertical" type="dimen">0.1</item>
+
+    <dimen name="current_time_font_size">@dimen/headline1_font_size</dimen>
+
+    <dimen name="current_temperature_font_size">@dimen/headline2_font_size</dimen>
+
+    <dimen name="forecast_margin_vertical">@dimen/default_margin_vertical</dimen>
+
+    <dimen name="forecast_item_icon_font_size">36sp</dimen>
+
+</resources>

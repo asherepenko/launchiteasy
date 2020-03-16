@@ -26,6 +26,8 @@ internal abstract class RemoteBoundResource<LocalDataType, RemoteDataType> {
 
             if (shouldFetchRemoteData(localData)) {
                 try {
+                    Timber.tag(TAG).d("Fetching remote data...")
+
                     val remoteData = getRemoteData()
 
                     Timber.tag(TAG).d("Remote data loaded successfully")
@@ -58,7 +60,7 @@ internal abstract class RemoteBoundResource<LocalDataType, RemoteDataType> {
                     )
                 )
 
-                Timber.tag(TAG).i("SUCCESS: Return data from local DB without update")
+                Timber.tag(TAG).i("SUCCESS: Return data from local DB without fetching remote")
             }
         }
 

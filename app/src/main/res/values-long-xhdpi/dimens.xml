@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="headline1_font_size">96sp</dimen>
+    <dimen name="headline2_font_size">60sp</dimen>
+    <dimen name="headline3_font_size">48sp</dimen>
+    <dimen name="headline4_font_size">34sp</dimen>
+    <dimen name="headline5_font_size">24sp</dimen>
+    <dimen name="headline6_font_size">20sp</dimen>
+
+    <dimen name="body1_font_size">16sp</dimen>
+    <dimen name="body2_font_size">14sp</dimen>
+
+    <dimen name="toolbar_max_height">108dp</dimen>
+
+    <dimen name="app_item_width">96dp</dimen>
+
+    <dimen name="app_item_icon_width">52dp</dimen>
+    <dimen name="app_item_icon_height">52dp</dimen>
+
+    <dimen name="current_time_font_size">80sp</dimen>
+
+    <dimen name="current_location_margin_top">@dimen/default_margin_vertical</dimen>
+
+    <dimen name="current_temperature_font_size">52sp</dimen>
+
+    <dimen name="current_weather_icon_font_size">72sp</dimen>
+
+    <dimen name="forecast_item_icon_font_size">32sp</dimen>
+
+</resources>

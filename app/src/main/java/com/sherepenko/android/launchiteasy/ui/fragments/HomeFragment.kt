@@ -16,7 +16,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.sherepenko.android.launchiteasy.R
+import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.Status
+import com.sherepenko.android.launchiteasy.data.WeatherItem
 import com.sherepenko.android.launchiteasy.data.isMetric
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
 import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
@@ -38,12 +40,19 @@ import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
+import timber.log.Timber
 
 class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
+
+    companion object {
+        private const val TAG = "HomeFragment"
+    }
 
     private val weatherViewModel: WeatherViewModel by viewModel()
 
     private val prefs: PreferenceHelper by inject()
+
+    private lateinit var forecastsAdapter: ForecastsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -114,6 +123,8 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
         if (alarmManager.nextAlarmClock != null) {
             val nextAlarm = alarmManager.nextAlarmClock.toLocalDateTime()
+            Timber.tag(TAG).i("Next alarm time: $nextAlarm")
+
             nextAlarmView.text = nextAlarm.formatAlarmDateTime()
             nextAlarmView.visibility = View.VISIBLE
         } else {
@@ -128,7 +139,8 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                     // ignore
                 }
                 Status.SUCCESS -> {
-                    currentLocationView.text = it.data!!
+                    checkNotNull(it.data)
+                    currentLocationView.text = it.data
                 }
                 Status.ERROR -> {
                     currentLocationView.text = ""
@@ -139,70 +151,30 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     private fun setupCurrentWeather() {
         weatherViewModel.getCurrentWeather().observe(viewLifecycleOwner, Observer {
-            val isMetricSystem = prefs.getTemperatureUnit().isMetric()
             when (it.status) {
                 Status.LOADING -> {
                     it.data?.let { data ->
-                        currentWeatherIconView.text = data.condition.icon.glyph
-                        currentWeatherConditionView.text = data.condition.name
-                        currentTemperatureView.text =
-                            getString(
-                                R.string.temperature_value,
-                                if (isMetricSystem) {
-                                    data.temperature.celsius
-                                } else {
-                                    data.temperature.fahrenheit
-                                }
-                            )
-                        perceivedTemperatureView.text =
-                            if (isMetricSystem) {
-                                getString(
-                                    R.string.perceived_temperature_metric,
-                                    data.perceivedTemperature.celsius
-                                )
-                            } else {
-                                getString(
-                                    R.string.perceived_temperature_imperial,
-                                    data.perceivedTemperature.fahrenheit
-                                )
-                            }
+                        setCurrentWeather(data)
                         swipeRefreshLayout.isRefreshing = false
                     }
                 }
                 Status.SUCCESS -> {
                     checkNotNull(it.data)
-                    currentWeatherIconView.text = it.data.condition.icon.glyph
-                    currentWeatherConditionView.text = it.data.condition.name
-                    currentTemperatureView.text =
-                        getString(
-                            R.string.temperature_value,
-                            if (isMetricSystem) {
-                                it.data.temperature.celsius
-                            } else {
-                                it.data.temperature.fahrenheit
-                            }
-                        )
-                    perceivedTemperatureView.text =
-                        if (isMetricSystem) {
-                            getString(
-                                R.string.perceived_temperature_metric,
-                                it.data.perceivedTemperature.celsius
-                            )
-                        } else {
-                            getString(
-                                R.string.perceived_temperature_imperial,
-                                it.data.perceivedTemperature.fahrenheit
-                            )
-                        }
+                    setCurrentWeather(it.data)
                     swipeRefreshLayout.isRefreshing = false
                 }
                 Status.ERROR -> {
-                    currentWeatherIconView.text =
-                        getString(R.string.unknown_weather)
-                    currentWeatherConditionView.text = ""
-                    currentTemperatureView.text =
-                        getString(R.string.no_temperature)
-                    perceivedTemperatureView.text = ""
+                    if (it.data != null) {
+                        setCurrentWeather(it.data)
+                    } else {
+                        currentWeatherIconView.text =
+                            getString(R.string.unknown_weather)
+                        currentWeatherConditionView.text = ""
+                        currentTemperatureView.text =
+                            getString(R.string.no_temperature)
+                        perceivedTemperatureView.text = ""
+                    }
+
                     swipeRefreshLayout.isRefreshing = false
                 }
             }
@@ -210,7 +182,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
     }
 
     private fun setupWeatherForecasts() {
-        val forecastsAdapter = ForecastsAdapter()
+        forecastsAdapter = ForecastsAdapter()
 
         weatherForecastsView.apply {
             setHasFixedSize(true)
@@ -219,12 +191,10 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
         }
 
         weatherViewModel.getWeatherForecasts().observe(viewLifecycleOwner, Observer {
-            val isMetricSystem = prefs.getTemperatureUnit().isMetric()
             when (it.status) {
                 Status.LOADING -> {
                     it.data?.let { data ->
-                        forecastsAdapter.isMetricSystem = isMetricSystem
-                        forecastsAdapter.submitList(data)
+                        setWeatherForecasts(it.data)
 
                         if (data.isNotEmpty()) {
                             swipeRefreshLayout.isRefreshing = false
@@ -233,15 +203,48 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                 }
                 Status.SUCCESS -> {
                     checkNotNull(it.data)
-                    forecastsAdapter.isMetricSystem = isMetricSystem
-                    forecastsAdapter.submitList(it.data)
+                    setWeatherForecasts(it.data)
                     swipeRefreshLayout.isRefreshing = false
                 }
                 Status.ERROR -> {
+                    setWeatherForecasts(it.data ?: listOf())
                     swipeRefreshLayout.isRefreshing = false
                 }
             }
         })
+    }
+
+    private fun setCurrentWeather(item: WeatherItem) {
+        val isMetricSystem = prefs.getTemperatureUnit().isMetric()
+
+        currentWeatherIconView.text = item.condition.icon.glyph
+        currentWeatherConditionView.text = item.condition.name
+        currentTemperatureView.text =
+            getString(
+                R.string.temperature_value,
+                if (isMetricSystem) {
+                    item.temperature.celsius
+                } else {
+                    item.temperature.fahrenheit
+                }
+            )
+        perceivedTemperatureView.text =
+            if (isMetricSystem) {
+                getString(
+                    R.string.perceived_temperature_metric,
+                    item.perceivedTemperature.celsius
+                )
+            } else {
+                getString(
+                    R.string.perceived_temperature_imperial,
+                    item.perceivedTemperature.fahrenheit
+                )
+            }
+    }
+
+    private fun setWeatherForecasts(items: List<ForecastItem>) {
+        forecastsAdapter.isMetricSystem = prefs.getTemperatureUnit().isMetric()
+        forecastsAdapter.items = items
     }
 
     private fun NavController.navigateToLauncherFragment() {

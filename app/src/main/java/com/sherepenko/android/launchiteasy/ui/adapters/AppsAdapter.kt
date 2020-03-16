@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.sherepenko.android.launchiteasy.R
@@ -13,7 +14,7 @@ import com.sherepenko.android.launchiteasy.utils.inflate
 import kotlinx.android.synthetic.main.item_app.view.appIconView
 import kotlinx.android.synthetic.main.item_app.view.appLabelView
 
-class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>(DIFF_CALLBACK) {
+class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AppItem>() {
@@ -25,11 +26,23 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>(DIFF_CA
         }
     }
 
+    private val listDiffer = AsyncListDiffer(this, DIFF_CALLBACK)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflate(R.layout.item_app))
 
+    override fun getItemCount(): Int =
+        listDiffer.currentList.size
+
     override fun getItemId(position: Int): Long =
         getPackageName(position).hashCode().toLong()
+
+    override fun getItem(position: Int): AppItem =
+        listDiffer.currentList[position]
+
+    override fun notifyItemsChanged(oldItems: List<AppItem>, newItems: List<AppItem>) {
+        listDiffer.submitList(newItems)
+    }
 
     fun getPackageName(position: Int): String =
         getItem(position).packageName

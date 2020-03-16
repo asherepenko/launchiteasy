@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="subtitle1_font_size">18sp</dimen>
+    <dimen name="subtitle2_font_size">16sp</dimen>
+
+    <dimen name="app_item_width">96dp</dimen>
+
+    <dimen name="app_item_icon_width">56dp</dimen>
+    <dimen name="app_item_icon_height">56dp</dimen>
+
+    <dimen name="current_time_font_size">86sp</dimen>
+
+    <dimen name="current_temperature_font_size">56sp</dimen>
+
+    <dimen name="forecast_item_icon_font_size">34sp</dimen>
+
+</resources>
