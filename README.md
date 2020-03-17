@@ -8,7 +8,7 @@
 Sample application with a concise home screen, list of installed apps, and OpenWeather API integration.
 
 <p align="center">
-    <a href="https://play.google.com/store/apps/details?id=com.sherepenko.android.launchiteasy" target="_blank">
+    <a href="https://play.google.com/store/apps/details?id=com.sherepenko.android.launchiteasy">
         <img src="images/google-play-badge.png" width="250px" />
     </a>
 </p>
@@ -24,14 +24,26 @@ Sample application with a concise home screen, list of installed apps, and OpenW
 
 ### User Interface
 
+**Splash Screen**
+
+<p align="center">
+    <img src="images/Splash-screen.png" width="400px" />
+</p>
+
 **Home Screen**
 
-<img src="images/home-screen.png" width="400px" />
+<p align="center">
+    <img src="images/home-screen.png" width="400px" />
+</p>
 
 **Apps Screen**
 
-<img src="images/apps-screen.png" width="400px" />
+<p align="center">
+    <img src="images/apps-screen.png" width="400px" />
+</p>
 
 **Settings Screen**
 
-<img src="images/settings-screen.png" width="400px" />
+<p align="center">
+    <img src="images/settings-screen.png" width="400px" />
+</p>
