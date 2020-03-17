@@ -26,12 +26,18 @@ Sample application with a concise home screen, list of installed apps, and OpenW
 
 **Home Screen**
 
-<img src="images/home-screen.png" width="400px" />
+<p align="center">
+    <img src="images/home-screen.png" width="400px" />
+</p>
 
 **Apps Screen**
 
-<img src="images/apps-screen.png" width="400px" />
+<p align="center">
+    <img src="images/apps-screen.png" width="400px" />
+</p>
 
 **Settings Screen**
 
-<img src="images/settings-screen.png" width="400px" />
+<p align="center">
+    <img src="images/settings-screen.png" width="400px" />
+</p>
