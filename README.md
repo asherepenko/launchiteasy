@@ -27,7 +27,7 @@ Sample application with a concise home screen, list of installed apps, and OpenW
 **Splash Screen**
 
 <p align="center">
-    <img src="images/Splash-screen.png" width="400px" />
+    <img src="images/splash-screen.png" width="400px" />
 </p>
 
 **Home Screen**
