@@ -103,39 +103,39 @@ class LauncherApp : Application() {
     }
 
     private val repositoryModule = module {
-        single {
+        single<ConnectivityRepository> {
             ConnectivityRepositoryImpl(
                 ConnectivityLiveData(get())
-            ) as ConnectivityRepository
+            )
         }
 
-        single {
+        single<LocationRepository> {
             LocationRepositoryImpl(
                 LocationLiveData(get())
-            ) as LocationRepository
+            )
         }
 
-        single {
+        single<WeatherRepository> {
             WeatherRepositoryImpl(
                 get(),
                 get(),
                 WeatherLocalDataSource(get()),
                 WeatherRemoteDataSource(get())
-            ) as WeatherRepository
+            )
         }
 
-        single {
+        single<AppStateRepository> {
             AppStateRepositoryImpl(
                 AppStateLiveData(get())
-            ) as AppStateRepository
+            )
         }
 
-        single {
+        single<AppsRepository> {
             AppsRepositoryImpl(
                 get(),
                 AppsLocalDataSource(get()),
                 AppsRemoteDataSource(get())
-            ) as AppsRepository
+            )
         }
     }
 

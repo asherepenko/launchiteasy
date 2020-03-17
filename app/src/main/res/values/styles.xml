@@ -4,7 +4,6 @@
 
     <style name="Theme.App" parent="Base.Theme.App">
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
     </style>
 
@@ -32,6 +31,7 @@
         <item name="colorOnBackground">@color/colorOnBackground</item>
 
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
 
         <item name="android:windowContentTransitions">true</item>
 
