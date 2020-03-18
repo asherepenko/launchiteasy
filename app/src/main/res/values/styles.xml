@@ -194,15 +194,15 @@
     </style>
 
     <style name="Base.Theme.App.Widget.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textColor">@color/button_text_color_selector</item>
     </style>
 
     <style name="Base.Theme.App.Widget.TextButton.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textColor">@color/button_text_color_selector</item>
     </style>
 
     <style name="Base.Theme.App.Widget.TextButton.Dialog.Flush" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
-        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textColor">@color/button_text_color_selector</item>
     </style>
 
     <style name="Base.Theme.App.Widget.Snackbar" parent="Widget.MaterialComponents.Snackbar">
