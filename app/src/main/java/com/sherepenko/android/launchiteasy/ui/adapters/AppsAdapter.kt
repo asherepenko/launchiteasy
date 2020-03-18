@@ -7,16 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.AppItem
 import com.sherepenko.android.launchiteasy.utils.inflate
 import kotlinx.android.synthetic.main.item_app.view.appIconView
 import kotlinx.android.synthetic.main.item_app.view.appLabelView
+import timber.log.Timber
 
 class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
 
     companion object {
+        private const val TAG = "AppsAdapter"
+
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AppItem>() {
             override fun areItemsTheSame(oldItem: AppItem, newItem: AppItem): Boolean =
                 oldItem.packageName == newItem.packageName
@@ -63,7 +65,7 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
         try {
             context.packageManager.getApplicationIcon(packageName)
         } catch (e: PackageManager.NameNotFoundException) {
-            FirebaseCrashlytics.getInstance().recordException(e)
+            Timber.tag(TAG).e(e, "$packageName not found")
             null
         }
 }
