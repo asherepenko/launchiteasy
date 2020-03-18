@@ -50,14 +50,12 @@ android {
                 "OPEN_WEATHER_API_KEY",
                 "\"${localProperties.getProperty("openweather.apiKey", "")}\""
             )
-        } else if (!System.getenv("OPEN_WEATHER_API_KEY").isNullOrEmpty()) {
+        } else {
             buildConfigField(
                 "String",
                 "OPEN_WEATHER_API_KEY",
                 "\"${System.getenv("OPEN_WEATHER_API_KEY")}\""
             )
-        } else {
-            buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"\"")
         }
 
         buildConfigField("int", "WEATHER_FORECASTS_LIMIT", "12")
