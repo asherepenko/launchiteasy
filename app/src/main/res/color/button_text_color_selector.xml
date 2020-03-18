@@ -5,18 +5,18 @@
             android:state_checked="true"
             android:state_enabled="true"
             android:alpha="1.00"
-            android:color="?attr/colorSecondary" />
+            android:color="?colorSecondary" />
     <item
             android:state_checkable="true"
             android:state_checked="false"
             android:state_enabled="true"
             android:alpha="0.60"
-            android:color="?attr/colorSecondary" />
+            android:color="?colorSecondary" />
     <item
             android:state_enabled="true"
             android:alpha="1.00"
-            android:color="?attr/colorSecondary" />
+            android:color="?colorSecondary" />
     <item
             android:alpha="0.38"
-            android:color="?attr/colorOnSurface" />
+            android:color="?colorOnSurface" />
 </selector>

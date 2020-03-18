@@ -33,7 +33,7 @@
         <item name="android:windowBackground">@color/colorBackground</item>
 
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:navigationBarColor">?colorPrimary</item>
 
         <item name="android:windowContentTransitions">true</item>
 
@@ -188,7 +188,7 @@
 
     <!-- Widgets -->
     <style name="Base.Theme.App.Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:minHeight">?actionBarSize</item>
         <item name="contentInsetStart">@dimen/toolbar_content_inset_start</item>
         <item name="popupTheme">@style/Base.ThemeOverlay.App.Toolbar</item>
     </style>
@@ -206,16 +206,16 @@
     </style>
 
     <style name="Base.Theme.App.Widget.Snackbar" parent="Widget.MaterialComponents.Snackbar">
-        <item name="android:backgroundTint">?attr/colorError</item>
-        <item name="android:textColor">?attr/colorOnError</item>
+        <item name="android:backgroundTint">?colorError</item>
+        <item name="android:textColor">?colorOnError</item>
     </style>
 
     <style name="Base.Theme.App.Widget.Snackbar.Action" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:textColor">?attr/colorOnError</item>
+        <item name="android:textColor">?colorOnError</item>
     </style>
 
     <style name="Base.Theme.App.Widget.Snackbar.Text" parent="Widget.MaterialComponents.Snackbar.TextView">
-        <item name="android:textColor">?attr/colorOnError</item>
+        <item name="android:textColor">?colorOnError</item>
     </style>
 
     <style name="Base.Theme.App.Widget.PopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
@@ -236,14 +236,14 @@
     <style name="Base.Theme.App.TextAppearance.AppMotto" parent="Base.Theme.App.TextAppearance.Headline2">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="fontFamily">sans-serif-thin</item>
-        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textColor">?colorSecondary</item>
         <item name="android:textAlignment">center</item>
     </style>
 
     <style name="Base.Theme.App.TextAppearance.AppLogo" parent="">
         <item name="android:typeface">monospace</item>
         <item name="android:textSize">@dimen/app_logo_font_size</item>
-        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textColor">?colorSecondary</item>
     </style>
 
     <style name="Base.Theme.App.TextAppearance.CurrentTime" parent="Base.Theme.App.TextAppearance.Headline1">
