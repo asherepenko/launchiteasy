@@ -53,7 +53,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "6e:ff:48:30:a5:cd:94:0a:7f:d8:e0:8b:86:48:23:ce"
+            - "6d:72:29:06:13:e6:c8:26:56:e2:b7:0f:1e:ce:4f:0e"
       - checkout
       - run:
           name: Setup Environment
