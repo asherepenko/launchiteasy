@@ -8,7 +8,6 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.sherepenko.android.launchiteasy.BuildConfig
 import com.sherepenko.android.launchiteasy.data.LocationItem
 import java.util.concurrent.TimeUnit
@@ -54,8 +53,8 @@ class LocationLiveData(
             }
         }
 
-        locationProviderClient.lastLocation.addOnFailureListener { error ->
-            FirebaseCrashlytics.getInstance().recordException(error)
+        locationProviderClient.lastLocation.addOnFailureListener {
+            Timber.tag(TAG).e(it, "Unable to get last known location")
         }
     }
 

@@ -1,11 +1,13 @@
 package com.sherepenko.android.launchiteasy
 
 import android.app.Application
+import android.util.Log
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.sherepenko.android.launchiteasy.api.OpenWeatherApi
 import com.sherepenko.android.launchiteasy.data.db.AppDatabase
@@ -158,8 +160,20 @@ class LauncherApp : Application() {
 
         AndroidThreeTen.init(this@LauncherApp)
 
-        Timber.plant(Timber.DebugTree())
+        setupTimber()
+        setupCalligraphy()
+        setupKoin()
+    }
 
+    private fun setupTimber() {
+        Timber.plant(CrashlyticsTree())
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+    }
+
+    private fun setupCalligraphy() {
         ViewPump.init(
             ViewPump.builder()
                 .addInterceptor(
@@ -170,7 +184,9 @@ class LauncherApp : Application() {
                 )
                 .build()
         )
+    }
 
+    private fun setupKoin() {
         startKoin {
             androidLogger()
             androidContext(this@LauncherApp)
@@ -187,3 +203,20 @@ class LauncherApp : Application() {
 
 @GlideModule
 class LauncherAppGlideModule : AppGlideModule()
+
+internal class CrashlyticsTree : Timber.Tree() {
+
+    override fun isLoggable(tag: String?, priority: Int): Boolean =
+        priority == Log.WARN || priority == Log.ERROR || priority == Log.ASSERT
+
+    override fun log(priority: Int, tag: String?, message: String, throwable: Throwable?) {
+        FirebaseCrashlytics.getInstance().apply {
+            log(message)
+
+            throwable?.let {
+                recordException(it)
+                sendUnsentReports()
+            }
+        }
+    }
+}

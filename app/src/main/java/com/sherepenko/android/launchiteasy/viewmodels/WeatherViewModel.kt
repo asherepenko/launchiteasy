@@ -13,6 +13,7 @@ import com.sherepenko.android.launchiteasy.repositories.WeatherRepository
 import java.io.IOException
 import java.util.Locale
 import kotlinx.coroutines.Dispatchers
+import timber.log.Timber
 
 class WeatherViewModel(
     private val context: Context,
@@ -21,6 +22,7 @@ class WeatherViewModel(
 ) : BaseViewModel<WeatherRepository>(weatherRepository) {
 
     companion object {
+        private const val TAG = "WeatherViewModel"
         private const val UNKNOWN_LOCATION = "Unknown"
     }
 
@@ -35,6 +37,7 @@ class WeatherViewModel(
             liveData(Dispatchers.IO) {
                 emit(Resource.loading())
                 val geocoder = Geocoder(context, Locale.ENGLISH)
+
                 try {
                     val addresses = geocoder.getFromLocation(
                         lastLocation.latitude,
@@ -65,6 +68,8 @@ class WeatherViewModel(
                     emit(
                         Resource.error(e, UNKNOWN_LOCATION)
                     )
+
+                    Timber.tag(TAG).e(e, "Unable to parse current location")
                 }
             }
         }
