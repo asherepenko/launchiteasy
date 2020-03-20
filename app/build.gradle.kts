@@ -143,14 +143,14 @@ play {
         )
         defaultToAppBundles = true
         track = "alpha"
-        releaseStatus = "draft"
+        releaseStatus = "inProgress"
     } else if (!System.getenv("PLAYSTORE_CREDENTIALS").isNullOrEmpty()) {
         serviceAccountCredentials = rootProject.file(
             System.getenv("PLAYSTORE_CREDENTIALS")
         )
         defaultToAppBundles = true
         track = "alpha"
-        releaseStatus = "draft"
+        releaseStatus = "inProgress"
     } else {
         isEnabled = false
     }
