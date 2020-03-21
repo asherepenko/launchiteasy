@@ -7,6 +7,9 @@
     <dimen name="headline5_font_size">24sp</dimen>
     <dimen name="headline6_font_size">20sp</dimen>
 
+    <dimen name="subtitle1_font_size">16sp</dimen>
+    <dimen name="subtitle2_font_size">14sp</dimen>
+
     <dimen name="body1_font_size">16sp</dimen>
     <dimen name="body2_font_size">14sp</dimen>
 
