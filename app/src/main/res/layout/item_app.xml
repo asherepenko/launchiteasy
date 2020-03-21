@@ -8,7 +8,7 @@
         android:layout_gravity="center"
         android:paddingHorizontal="@dimen/app_item_padding_horizontal"
         android:paddingVertical="@dimen/app_item_padding_vertical"
-        android:background="?attr/selectableItemBackgroundBorderless">
+        android:background="?selectableItemBackgroundBorderless">
 
     <ImageView
             android:id="@+id/appIconView"

@@ -12,9 +12,9 @@
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarView"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="?actionBarSize"
             app:title="@string/app_logo"
-            app:titleTextColor="?attr/colorSecondary"
+            app:titleTextColor="?colorSecondary"
             app:titleTextAppearance="@style/Base.Theme.App.TextAppearance.AppLogo"
             app:contentInsetStart="@dimen/default_margin_horizontal"
             app:layout_constraintStart_toStartOf="parent"

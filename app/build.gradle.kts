@@ -143,14 +143,14 @@ play {
         )
         defaultToAppBundles = true
         track = "alpha"
-        releaseStatus = "draft"
+        releaseStatus = "inProgress"
     } else if (!System.getenv("PLAYSTORE_CREDENTIALS").isNullOrEmpty()) {
         serviceAccountCredentials = rootProject.file(
             System.getenv("PLAYSTORE_CREDENTIALS")
         )
         defaultToAppBundles = true
         track = "alpha"
-        releaseStatus = "draft"
+        releaseStatus = "inProgress"
     } else {
         isEnabled = false
     }
@@ -175,7 +175,7 @@ dependencies {
     implementation("androidx.collection:collection-ktx:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
     implementation("androidx.core:core-ktx:1.2.0")
-    implementation("androidx.fragment:fragment-ktx:1.2.2")
+    implementation("androidx.fragment:fragment-ktx:1.2.3")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
@@ -198,9 +198,9 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:17.0.0")
     implementation("com.google.android.material:material:1.2.0-alpha05")
     implementation("com.google.firebase:firebase-analytics:17.2.3")
-    implementation("com.google.firebase:firebase-config-ktx:19.1.2")
-    implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta01")
-    implementation("com.google.firebase:firebase-messaging:20.1.2")
+    implementation("com.google.firebase:firebase-config-ktx:19.1.3")
+    implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta02")
+    implementation("com.google.firebase:firebase-messaging:20.1.3")
     implementation("com.google.firebase:firebase-perf:19.0.5")
     implementation("com.jakewharton.threetenabp:threetenabp:1.2.2")
     implementation("com.jakewharton.timber:timber:4.7.1")
@@ -211,7 +211,7 @@ dependencies {
     implementation("org.koin:koin-androidx-ext:$koinVersion")
     implementation("org.koin:koin-androidx-scope:$koinVersion")
     implementation("org.koin:koin-androidx-viewmodel:$koinVersion")
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13")
     testImplementation("androidx.test:core:1.2.0")
     testImplementation("androidx.test:runner:1.2.0")
     testImplementation("androidx.test.ext:junit:1.1.1")
