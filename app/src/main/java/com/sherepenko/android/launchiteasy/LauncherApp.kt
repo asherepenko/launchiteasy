@@ -135,7 +135,6 @@ class LauncherApp : Application() {
         single<AppsRepository> {
             AppsRepositoryImpl(
                 get(),
-                get(),
                 AppsLocalDataSource(get()),
                 AppsRemoteDataSource(get())
             )
