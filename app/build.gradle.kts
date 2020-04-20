@@ -196,7 +196,7 @@ dependencies {
     implementation("io.github.inflationx:calligraphy3:3.1.1")
     implementation("io.github.inflationx:viewpump:2.0.3")
     implementation("com.google.android.gms:play-services-location:17.0.0")
-    implementation("com.google.android.material:material:1.2.0-alpha05")
+    implementation("com.google.android.material:material:1.2.0-alpha06")
     implementation("com.google.firebase:firebase-analytics:17.3.0")
     implementation("com.google.firebase:firebase-config-ktx:19.1.3")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta03")
