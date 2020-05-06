@@ -99,7 +99,6 @@ class LauncherApp : Application() {
                 AppDatabase::class.java,
                 DB_NAME
             )
-                .fallbackToDestructiveMigration()
                 .build()
         }
     }
