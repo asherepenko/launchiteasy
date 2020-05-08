@@ -157,14 +157,14 @@ play {
 }
 
 val glideVersion = "4.11.0"
-val jacksonVersion = "2.10.3"
+val jacksonVersion = "2.11.0"
 val koinVersion = "2.1.5"
 val lifecycleVersion = "2.2.0"
-val navigationVersion = "2.3.0-alpha05"
-val okHttpVersion = "4.4.0"
+val navigationVersion = "2.3.0-alpha06"
+val okHttpVersion = "4.6.0"
 val retrofitVersion = "2.8.1"
 val roomVersion = "2.2.5"
-val workVersion = "2.3.1"
+val workVersion = "2.3.4"
 
 dependencies {
     kapt("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
