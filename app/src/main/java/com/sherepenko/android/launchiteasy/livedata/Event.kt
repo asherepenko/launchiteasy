@@ -1,5 +1,8 @@
 package com.sherepenko.android.launchiteasy.livedata
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 open class Event<T>(private val content: T) {
@@ -16,3 +19,15 @@ open class Event<T>(private val content: T) {
     fun peekContent(): T =
         content
 }
+
+inline fun <T> LiveData<Event<T>>.observe(
+    owner: LifecycleOwner,
+    crossinline onEventContent: (T) -> Unit
+) = observe(owner, Observer {
+        it?.getContentIfNotHandled()?.let(onEventContent)
+    })
+
+inline fun <T> LiveData<Event<T>>.observeForever(crossinline onEventContent: (T) -> Unit) =
+    observeForever {
+        it?.getContentIfNotHandled()?.let(onEventContent)
+    }
