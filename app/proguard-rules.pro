@@ -54,6 +54,7 @@
 -dontwarn com.fasterxml.jackson.databind.**
 
 # OkHttp
+-dontwarn org.conscrypt.**
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
 
 # Activities
