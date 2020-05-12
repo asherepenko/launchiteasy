@@ -157,7 +157,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/current_temperature_margin_start"
                     android:layout_marginTop="@dimen/current_temperature_margin_top"
-                    app:layout_constraintVertical_chainStyle="packed"
                     app:layout_constraintStart_toEndOf="@+id/currentWeatherIconView"
                     app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
                     app:layout_constraintTop_toBottomOf="@+id/currentLocationView"

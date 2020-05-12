@@ -10,17 +10,17 @@ import retrofit2.http.Query
 interface OpenWeatherApi {
 
     companion object {
-        const val BASE_URL = "https://api.openweathermap.org/data/2.5"
+        const val BASE_URL = "https://api.openweathermap.org/"
     }
 
-    @GET("/weather")
+    @GET("/data/2.5/weather")
     suspend fun getCurrentWeatherByLocationId(
         @Query("id") locationId: Int,
         @Query("lang") language: String = Locale.ENGLISH.language,
         @Query("appId") apiKey: String = AppConstants.OPEN_WEATHER_API_KEY
     ): CurrentWeatherResponse
 
-    @GET("/weather")
+    @GET("/data/2.5/weather")
     suspend fun getCurrentWeatherByLocation(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
@@ -28,14 +28,14 @@ interface OpenWeatherApi {
         @Query("appId") apiKey: String = AppConstants.OPEN_WEATHER_API_KEY
     ): CurrentWeatherResponse
 
-    @GET("/weather")
+    @GET("/data/2.5/weather")
     suspend fun getCurrentWeatherByCity(
         @Query("q") city: String,
         @Query("lang") language: String = Locale.ENGLISH.language,
         @Query("appId") apiKey: String = AppConstants.OPEN_WEATHER_API_KEY
     ): CurrentWeatherResponse
 
-    @GET("/forecast")
+    @GET("/data/2.5/forecast")
     suspend fun getWeatherForecastsByLocationId(
         @Query("id") locationId: Int,
         @Query("cnt") count: Int? = null,
@@ -43,7 +43,7 @@ interface OpenWeatherApi {
         @Query("appId") apiKey: String = AppConstants.OPEN_WEATHER_API_KEY
     ): WeatherForecastResponse
 
-    @GET("/forecast")
+    @GET("/data/2.5/forecast")
     suspend fun getWeatherForecastsByLocation(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
@@ -52,7 +52,7 @@ interface OpenWeatherApi {
         @Query("appId") apiKey: String = AppConstants.OPEN_WEATHER_API_KEY
     ): WeatherForecastResponse
 
-    @GET("/forecast")
+    @GET("/data/2.5/forecast")
     suspend fun getWeatherForecastsByCity(
         @Query("q") city: String,
         @Query("cnt") count: Int? = null,
