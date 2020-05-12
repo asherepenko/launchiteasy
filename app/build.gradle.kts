@@ -157,14 +157,14 @@ play {
 }
 
 val glideVersion = "4.11.0"
-val jacksonVersion = "2.10.2"
-val koinVersion = "2.1.3"
+val jacksonVersion = "2.11.0"
+val koinVersion = "2.1.5"
 val lifecycleVersion = "2.2.0"
-val navigationVersion = "2.3.0-alpha03"
-val okHttpVersion = "4.4.0"
-val retrofitVersion = "2.7.1"
-val roomVersion = "2.2.3"
-val workVersion = "2.3.1"
+val navigationVersion = "2.3.0-alpha06"
+val okHttpVersion = "4.6.0"
+val retrofitVersion = "2.8.1"
+val roomVersion = "2.2.5"
+val workVersion = "2.3.4"
 
 dependencies {
     kapt("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
@@ -173,9 +173,9 @@ dependencies {
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("androidx.collection:collection-ktx:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta5")
     implementation("androidx.core:core-ktx:1.2.0")
-    implementation("androidx.fragment:fragment-ktx:1.2.3")
+    implementation("androidx.fragment:fragment-ktx:1.2.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
@@ -183,10 +183,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$navigationVersion")
     implementation("androidx.navigation:navigation-runtime-ktx:$navigationVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navigationVersion")
-    implementation("androidx.preference:preference-ktx:1.1.0")
+    implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01")
     implementation("androidx.work:work-runtime-ktx:$workVersion")
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
@@ -196,12 +196,12 @@ dependencies {
     implementation("io.github.inflationx:calligraphy3:3.1.1")
     implementation("io.github.inflationx:viewpump:2.0.3")
     implementation("com.google.android.gms:play-services-location:17.0.0")
-    implementation("com.google.android.material:material:1.2.0-alpha05")
-    implementation("com.google.firebase:firebase-analytics:17.2.3")
-    implementation("com.google.firebase:firebase-config-ktx:19.1.3")
-    implementation("com.google.firebase:firebase-crashlytics:17.0.0-beta02")
-    implementation("com.google.firebase:firebase-messaging:20.1.3")
-    implementation("com.google.firebase:firebase-perf:19.0.5")
+    implementation("com.google.android.material:material:1.2.0-alpha06")
+    implementation("com.google.firebase:firebase-analytics:17.4.1")
+    implementation("com.google.firebase:firebase-config-ktx:19.1.4")
+    implementation("com.google.firebase:firebase-crashlytics:17.0.0")
+    implementation("com.google.firebase:firebase-messaging:20.1.7")
+    implementation("com.google.firebase:firebase-perf:19.0.7")
     implementation("com.jakewharton.threetenabp:threetenabp:1.2.2")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
@@ -211,6 +211,7 @@ dependencies {
     implementation("org.koin:koin-androidx-ext:$koinVersion")
     implementation("org.koin:koin-androidx-scope:$koinVersion")
     implementation("org.koin:koin-androidx-viewmodel:$koinVersion")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.3")
     testImplementation("junit:junit:4.13")
     testImplementation("androidx.test:core:1.2.0")
     testImplementation("androidx.test:runner:1.2.0")

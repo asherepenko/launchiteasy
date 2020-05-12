@@ -18,17 +18,9 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
 
     companion object {
         private const val TAG = "AppsAdapter"
-
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AppItem>() {
-            override fun areItemsTheSame(oldItem: AppItem, newItem: AppItem): Boolean =
-                oldItem.packageName == newItem.packageName
-
-            override fun areContentsTheSame(oldItem: AppItem, newItem: AppItem): Boolean =
-                oldItem == newItem
-        }
     }
 
-    private val listDiffer = AsyncListDiffer(this, DIFF_CALLBACK)
+    private val listDiffer = AsyncListDiffer(this, DiffAppItemCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflate(R.layout.item_app))
@@ -68,4 +60,12 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
             Timber.tag(TAG).e(e, "$packageName not found")
             null
         }
+}
+
+private object DiffAppItemCallback : DiffUtil.ItemCallback<AppItem>() {
+    override fun areItemsTheSame(oldItem: AppItem, newItem: AppItem): Boolean =
+        oldItem.packageName == newItem.packageName
+
+    override fun areContentsTheSame(oldItem: AppItem, newItem: AppItem): Boolean =
+        oldItem == newItem
 }

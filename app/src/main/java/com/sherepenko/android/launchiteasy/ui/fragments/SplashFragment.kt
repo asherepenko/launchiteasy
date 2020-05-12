@@ -36,16 +36,11 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
     ) {
         when (requestCode) {
             REQUEST_RUNTIME_PERMISSIONS -> {
-                var permissionsGranted = permissions.size == grantResults.size
-
-                if (permissionsGranted) {
-                    for (grantResult in grantResults) {
-                        if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                            permissionsGranted = false
-                            break
-                        }
+                val permissionsGranted =
+                    permissions.size == grantResults.size &&
+                    grantResults.all {
+                        it == PackageManager.PERMISSION_GRANTED
                     }
-                }
 
                 if (permissionsGranted) {
                     Timber.tag(TAG).i("All requested permissions were GRANTED")
