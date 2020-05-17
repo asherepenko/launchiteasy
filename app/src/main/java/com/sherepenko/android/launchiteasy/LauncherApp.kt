@@ -6,6 +6,8 @@ import androidx.preference.PreferenceManager
 import androidx.room.Room
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
+import com.facebook.stetho.Stetho
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -77,6 +79,7 @@ class LauncherApp : Application() {
                         level = HttpLoggingInterceptor.Level.BODY
                     }
                 )
+                .addNetworkInterceptor(StethoInterceptor())
                 .build()
         }
 
@@ -160,6 +163,7 @@ class LauncherApp : Application() {
         AndroidThreeTen.init(this@LauncherApp)
 
         setupTimber()
+        setupStetho()
         setupCalligraphy()
         setupKoin()
     }
@@ -170,6 +174,10 @@ class LauncherApp : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+    }
+
+    private fun setupStetho() {
+        Stetho.initializeWithDefaults(this@LauncherApp)
     }
 
     private fun setupCalligraphy() {

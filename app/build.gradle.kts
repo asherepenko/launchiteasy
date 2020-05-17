@@ -164,6 +164,7 @@ val navigationVersion = "2.3.0-alpha06"
 val okHttpVersion = "4.6.0"
 val retrofitVersion = "2.8.1"
 val roomVersion = "2.2.5"
+val stethoVersion = "1.5.1"
 val workVersion = "2.3.4"
 
 dependencies {
@@ -188,6 +189,8 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01")
     implementation("androidx.work:work-runtime-ktx:$workVersion")
+    implementation("com.facebook.stetho:stetho:$stethoVersion")
+    implementation("com.facebook.stetho:stetho-okhttp3:$stethoVersion")
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
