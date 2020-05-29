@@ -160,7 +160,7 @@ val glideVersion = "4.11.0"
 val jacksonVersion = "2.11.0"
 val koinVersion = "2.1.5"
 val lifecycleVersion = "2.2.0"
-val navigationVersion = "2.3.0-alpha06"
+val navigationVersion = "2.3.0-beta01"
 val okHttpVersion = "4.6.0"
 val retrofitVersion = "2.8.1"
 val roomVersion = "2.2.5"
@@ -174,8 +174,8 @@ dependencies {
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("androidx.collection:collection-ktx:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta5")
-    implementation("androidx.core:core-ktx:1.2.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta6")
+    implementation("androidx.core:core-ktx:1.3.0")
     implementation("androidx.fragment:fragment-ktx:1.2.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -199,11 +199,11 @@ dependencies {
     implementation("io.github.inflationx:calligraphy3:3.1.1")
     implementation("io.github.inflationx:viewpump:2.0.3")
     implementation("com.google.android.gms:play-services-location:17.0.0")
-    implementation("com.google.android.material:material:1.2.0-alpha06")
-    implementation("com.google.firebase:firebase-analytics:17.4.1")
+    implementation("com.google.android.material:material:1.2.0-beta01")
+    implementation("com.google.firebase:firebase-analytics:17.4.2")
     implementation("com.google.firebase:firebase-config-ktx:19.1.4")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0")
-    implementation("com.google.firebase:firebase-messaging:20.1.7")
+    implementation("com.google.firebase:firebase-messaging:20.2.0")
     implementation("com.google.firebase:firebase-perf:19.0.7")
     implementation("com.jakewharton.threetenabp:threetenabp:1.2.2")
     implementation("com.jakewharton.timber:timber:4.7.1")
