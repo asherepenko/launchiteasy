@@ -13,7 +13,7 @@ import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.data.TemperatureItem
 import com.sherepenko.android.launchiteasy.data.WindItem
 import java.io.IOException
-import org.threeten.bp.Instant
+import java.time.Instant
 
 class WeatherForecastResponseDeserializer : JsonDeserializer<WeatherForecastResponse>() {
 

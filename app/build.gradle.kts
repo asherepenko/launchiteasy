@@ -61,7 +61,13 @@ android {
         buildConfigField("int", "WEATHER_FORECASTS_LIMIT", "12")
     }
 
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+
     compileOptions {
+        coreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -168,6 +174,7 @@ val stethoVersion = "1.5.1"
 val workVersion = "2.3.4"
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.5")
     kapt("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     kapt("com.github.bumptech.glide:compiler:$glideVersion")
@@ -205,7 +212,6 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics:17.0.0")
     implementation("com.google.firebase:firebase-messaging:20.2.0")
     implementation("com.google.firebase:firebase-perf:19.0.7")
-    implementation("com.jakewharton.threetenabp:threetenabp:1.2.2")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")

@@ -24,6 +24,10 @@ import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
 import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.utils.launchActivityIfResolved
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import kotlinx.android.synthetic.main.fragment_home.allAppsButton
 import kotlinx.android.synthetic.main.fragment_home.currentLocationView
 import kotlinx.android.synthetic.main.fragment_home.currentTemperatureView
@@ -36,10 +40,6 @@ import kotlinx.android.synthetic.main.fragment_home.toolbarView
 import kotlinx.android.synthetic.main.fragment_home.weatherForecastsView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.inject
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.format.DateTimeFormatter
 import timber.log.Timber
 
 class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {

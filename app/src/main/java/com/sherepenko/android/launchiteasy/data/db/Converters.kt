@@ -1,7 +1,7 @@
 package com.sherepenko.android.launchiteasy.data.db
 
 import androidx.room.TypeConverter
-import org.threeten.bp.Instant
+import java.time.Instant
 
 object Converters {
     @TypeConverter

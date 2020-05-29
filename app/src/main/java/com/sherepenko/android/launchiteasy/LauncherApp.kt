@@ -10,7 +10,6 @@ import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.jakewharton.threetenabp.AndroidThreeTen
 import com.sherepenko.android.launchiteasy.api.OpenWeatherApi
 import com.sherepenko.android.launchiteasy.data.db.AppDatabase
 import com.sherepenko.android.launchiteasy.livedata.AppStateLiveData
@@ -159,8 +158,6 @@ class LauncherApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        AndroidThreeTen.init(this@LauncherApp)
 
         setupTimber()
         setupStetho()

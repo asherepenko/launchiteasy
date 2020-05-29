@@ -3,7 +3,7 @@ package com.sherepenko.android.launchiteasy.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.threeten.bp.Instant
+import java.time.Instant
 
 @Entity(tableName = "applications")
 data class AppItem(

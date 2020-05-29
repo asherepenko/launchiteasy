@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.utils.inflate
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import kotlinx.android.synthetic.main.item_forecast.view.forecastIconView
 import kotlinx.android.synthetic.main.item_forecast.view.forecastTemperatureView
 import kotlinx.android.synthetic.main.item_forecast.view.forecastTimeView
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.FormatStyle
 
 class ForecastsAdapter : BaseRecyclerAdapter<ForecastItem, ForecastsAdapter.ViewHolder>() {
 

@@ -11,8 +11,8 @@ import com.sherepenko.android.launchiteasy.data.WeatherItem
 import com.sherepenko.android.launchiteasy.livedata.Event
 import com.sherepenko.android.launchiteasy.providers.WeatherLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.WeatherRemoteDataSource
+import java.time.Instant
 import java.util.concurrent.TimeUnit
-import org.threeten.bp.Instant
 
 abstract class WeatherRepository : BaseRepository {
 
