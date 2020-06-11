@@ -7,6 +7,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 plugins {
     id("com.android.application")
     id("com.github.triplet.play") version "2.7.2"
+    id("com.sherepenko.gradle.plugin-build-version") version "0.1.5"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     kotlin("android")
     kotlin("android.extensions")
@@ -14,7 +15,6 @@ plugins {
 }
 
 val archivesBaseName = "launchiteasy"
-val buildVersion = BuildVersion(rootProject.file("version"))
 
 val localPropertiesFile = rootProject.file("local.properties")
 val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -164,11 +164,11 @@ play {
 
 val glideVersion = "4.11.0"
 val jacksonVersion = "2.11.0"
-val koinVersion = "2.1.5"
+val koinVersion = "2.1.6"
 val lifecycleVersion = "2.2.0"
-val navigationVersion = "2.3.0-beta01"
-val okHttpVersion = "4.6.0"
-val retrofitVersion = "2.8.1"
+val navigationVersion = "2.3.0-rc01"
+val okHttpVersion = "4.7.2"
+val retrofitVersion = "2.9.0"
 val roomVersion = "2.2.5"
 val stethoVersion = "1.5.1"
 val workVersion = "2.3.4"
@@ -206,10 +206,10 @@ dependencies {
     implementation("io.github.inflationx:calligraphy3:3.1.1")
     implementation("io.github.inflationx:viewpump:2.0.3")
     implementation("com.google.android.gms:play-services-location:17.0.0")
-    implementation("com.google.android.material:material:1.2.0-beta01")
-    implementation("com.google.firebase:firebase-analytics:17.4.2")
+    implementation("com.google.android.material:material:1.3.0-alpha01")
+    implementation("com.google.firebase:firebase-analytics:17.4.3")
     implementation("com.google.firebase:firebase-config-ktx:19.1.4")
-    implementation("com.google.firebase:firebase-crashlytics:17.0.0")
+    implementation("com.google.firebase:firebase-crashlytics:17.0.1")
     implementation("com.google.firebase:firebase-messaging:20.2.0")
     implementation("com.google.firebase:firebase-perf:19.0.7")
     implementation("com.jakewharton.timber:timber:4.7.1")
@@ -225,7 +225,7 @@ dependencies {
     testImplementation("androidx.test:core:1.2.0")
     testImplementation("androidx.test:runner:1.2.0")
     testImplementation("androidx.test.ext:junit:1.1.1")
-    testImplementation("com.google.truth:truth:0.44")
+    testImplementation("com.google.truth:truth:1.0.1")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     testImplementation("org.koin:koin-test:$koinVersion")
     testImplementation("org.robolectric:robolectric:4.3.1")
@@ -236,21 +236,6 @@ tasks {
         kotlinOptions {
             jvmTarget = "1.8"
         }
-    }
-
-    val incrementMajor by registering(IncrementVersion::class) {
-        increment = Increment.MAJOR
-        version = buildVersion
-    }
-
-    val incrementMinor by registering(IncrementVersion::class) {
-        increment = Increment.MINOR
-        version = buildVersion
-    }
-
-    val incrementPatch by registering(IncrementVersion::class) {
-        increment = Increment.PATCH
-        version = buildVersion
     }
 }
 
