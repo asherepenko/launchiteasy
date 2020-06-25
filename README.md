@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![CircleCI](https://circleci.com/gh/asherepenko/launchiteasy.svg?style=svg&circle-token=9d39fddaddad3536601814fbed8a2ffbcce72ece)](https://circleci.com/gh/asherepenko/launchiteasy)
+[![Latest Version](https://img.shields.io/github/v/tag/asherepenko/launchiteasy?sort=date)](https://github.com/asherepenko/launchiteasy/releases)
 
 **Yet Another Launcher**
 
