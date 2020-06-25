@@ -21,11 +21,11 @@ val keystorePropertiesFile = rootProject.file("keystore.properties")
 val playstorePropertiesFile = rootProject.file("playstore.properties")
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
 
     defaultConfig {
         minSdkVersion(23)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         applicationId = "com.sherepenko.android.launchiteasy"
         versionCode = buildVersion.versionCode
         versionName = buildVersion.versionName
