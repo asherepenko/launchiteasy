@@ -166,7 +166,7 @@ val glideVersion = "4.11.0"
 val jacksonVersion = "2.11.0"
 val koinVersion = "2.1.6"
 val lifecycleVersion = "2.2.0"
-val navigationVersion = "2.3.0-rc01"
+val navigationVersion = "2.3.0"
 val okHttpVersion = "4.7.2"
 val retrofitVersion = "2.9.0"
 val roomVersion = "2.2.5"
@@ -174,16 +174,16 @@ val stethoVersion = "1.5.1"
 val workVersion = "2.3.4"
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.5")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.9")
     kapt("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     kapt("com.github.bumptech.glide:compiler:$glideVersion")
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("androidx.collection:collection-ktx:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta6")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta7")
     implementation("androidx.core:core-ktx:1.3.0")
-    implementation("androidx.fragment:fragment-ktx:1.2.4")
+    implementation("androidx.fragment:fragment-ktx:1.2.5")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
@@ -194,7 +194,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.work:work-runtime-ktx:$workVersion")
     implementation("com.facebook.stetho:stetho:$stethoVersion")
     implementation("com.facebook.stetho:stetho-okhttp3:$stethoVersion")
@@ -209,8 +209,8 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0-alpha01")
     implementation("com.google.firebase:firebase-analytics:17.4.3")
     implementation("com.google.firebase:firebase-config-ktx:19.1.4")
-    implementation("com.google.firebase:firebase-crashlytics:17.0.1")
-    implementation("com.google.firebase:firebase-messaging:20.2.0")
+    implementation("com.google.firebase:firebase-crashlytics:17.1.0")
+    implementation("com.google.firebase:firebase-messaging:20.2.1")
     implementation("com.google.firebase:firebase-perf:19.0.7")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
