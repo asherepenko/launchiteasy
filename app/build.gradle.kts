@@ -7,7 +7,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 plugins {
     id("com.android.application")
     id("com.github.triplet.play") version "2.8.0"
-    id("com.sherepenko.gradle.plugin-build-version") version "0.1.5"
+    id("com.sherepenko.gradle.plugin-build-version") version "0.1.6"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     kotlin("android")
     kotlin("android.extensions")
@@ -181,7 +181,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("androidx.collection:collection-ktx:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta7")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta8")
     implementation("androidx.core:core-ktx:1.3.0")
     implementation("androidx.fragment:fragment-ktx:1.2.5")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
@@ -207,10 +207,10 @@ dependencies {
     implementation("io.github.inflationx:viewpump:2.0.3")
     implementation("com.google.android.gms:play-services-location:17.0.0")
     implementation("com.google.android.material:material:1.3.0-alpha01")
-    implementation("com.google.firebase:firebase-analytics:17.4.3")
-    implementation("com.google.firebase:firebase-config-ktx:19.1.4")
-    implementation("com.google.firebase:firebase-crashlytics:17.1.0")
-    implementation("com.google.firebase:firebase-messaging:20.2.1")
+    implementation("com.google.firebase:firebase-analytics:17.4.4")
+    implementation("com.google.firebase:firebase-config-ktx:19.2.0")
+    implementation("com.google.firebase:firebase-crashlytics:17.1.1")
+    implementation("com.google.firebase:firebase-messaging:20.2.3")
     implementation("com.google.firebase:firebase-perf:19.0.7")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
@@ -243,3 +243,4 @@ apply(plugin = "androidx.navigation.safeargs.kotlin")
 apply(plugin = "com.google.gms.google-services")
 apply(plugin = "com.google.firebase.crashlytics")
 apply(plugin = "com.google.firebase.firebase-perf")
+apply(plugin = "koin")
