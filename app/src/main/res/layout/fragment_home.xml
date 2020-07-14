@@ -9,7 +9,7 @@
         android:animateLayoutChanges="true"
         tools:context=".ui.fragments.HomeFragment">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbarView"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
