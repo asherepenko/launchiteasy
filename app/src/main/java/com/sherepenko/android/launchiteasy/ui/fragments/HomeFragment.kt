@@ -11,7 +11,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -133,7 +132,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
     }
 
     private fun setupCurrentLocation() {
-        weatherViewModel.getCurrentLocationName().observe(viewLifecycleOwner, Observer {
+        weatherViewModel.getCurrentLocationName().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.LOADING -> {
                     // ignore
@@ -150,7 +149,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
     }
 
     private fun setupCurrentWeather() {
-        weatherViewModel.getCurrentWeather().observe(viewLifecycleOwner, Observer {
+        weatherViewModel.getCurrentWeather().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.LOADING -> {
                     it.data?.let { data ->
@@ -190,7 +189,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
             adapter = forecastsAdapter
         }
 
-        weatherViewModel.getWeatherForecasts().observe(viewLifecycleOwner, Observer {
+        weatherViewModel.getWeatherForecasts().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.LOADING -> {
                     it.data?.let { data ->

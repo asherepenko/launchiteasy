@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -129,30 +128,29 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             adapter = appsAdapter
         }
 
-        appsViewModel.getInstalledApps(prefs.showSystemApps())
-            .observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        it.data?.let { data ->
-                            appsView.setItemViewCacheSize(data.size)
-                            appsAdapter.items = data
+        appsViewModel.getInstalledApps(prefs.showSystemApps()).observe(viewLifecycleOwner, {
+            when (it.status) {
+                Status.LOADING -> {
+                    it.data?.let { data ->
+                        appsView.setItemViewCacheSize(data.size)
+                        appsAdapter.items = data
 
-                            if (data.isNotEmpty()) {
-                                loadingView.visibility = View.GONE
-                            }
+                        if (data.isNotEmpty()) {
+                            loadingView.visibility = View.GONE
                         }
                     }
-                    Status.SUCCESS -> {
-                        checkNotNull(it.data)
-                        appsView.setItemViewCacheSize(it.data.size)
-                        appsAdapter.items = it.data
-                        loadingView.visibility = View.GONE
-                    }
-                    Status.ERROR -> {
-                        loadingView.visibility = View.GONE
-                    }
                 }
-            })
+                Status.SUCCESS -> {
+                    checkNotNull(it.data)
+                    appsView.setItemViewCacheSize(it.data.size)
+                    appsAdapter.items = it.data
+                    loadingView.visibility = View.GONE
+                }
+                Status.ERROR -> {
+                    loadingView.visibility = View.GONE
+                }
+            }
+        })
     }
 
     private fun NavController.navigateToSettingsFragment() {
