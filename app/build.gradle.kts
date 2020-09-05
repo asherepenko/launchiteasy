@@ -6,7 +6,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 plugins {
     id("com.android.application")
     id("com.github.triplet.play") version "2.8.0"
-    id("com.sherepenko.gradle.plugin-build-version") version "0.1.6"
+    id("com.sherepenko.gradle.plugin-build-version") version "0.2.1"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     kotlin("android")
     kotlin("android.extensions")
@@ -166,26 +166,26 @@ play {
 }
 
 val glideVersion = "4.11.0"
-val jacksonVersion = "2.11.0"
+val jacksonVersion = "2.11.2"
 val koinVersion = "2.1.6"
 val lifecycleVersion = "2.2.0"
 val navigationVersion = "2.3.0"
-val okHttpVersion = "4.7.2"
+val okHttpVersion = "4.8.1"
 val retrofitVersion = "2.9.0"
 val roomVersion = "2.2.5"
 val stethoVersion = "1.5.1"
 val workVersion = "2.3.4"
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.9")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.10")
     kapt("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     kapt("com.github.bumptech.glide:compiler:$glideVersion")
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
-    implementation("androidx.appcompat:appcompat:1.1.0")
+    implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.collection:collection-ktx:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta8")
-    implementation("androidx.core:core-ktx:1.3.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
+    implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.fragment:fragment-ktx:1.2.5")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -209,11 +209,11 @@ dependencies {
     implementation("io.github.inflationx:calligraphy3:3.1.1")
     implementation("io.github.inflationx:viewpump:2.0.3")
     implementation("com.google.android.gms:play-services-location:17.0.0")
-    implementation("com.google.android.material:material:1.3.0-alpha01")
-    implementation("com.google.firebase:firebase-analytics:17.4.4")
+    implementation("com.google.android.material:material:1.3.0-alpha02")
+    implementation("com.google.firebase:firebase-analytics:17.5.0")
     implementation("com.google.firebase:firebase-config-ktx:19.2.0")
-    implementation("com.google.firebase:firebase-crashlytics:17.1.1")
-    implementation("com.google.firebase:firebase-messaging:20.2.3")
+    implementation("com.google.firebase:firebase-crashlytics:17.2.1")
+    implementation("com.google.firebase:firebase-messaging:20.2.4")
     implementation("com.google.firebase:firebase-perf:19.0.8")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
@@ -225,9 +225,9 @@ dependencies {
     implementation("org.koin:koin-androidx-viewmodel:$koinVersion")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.3")
     testImplementation("junit:junit:4.13")
-    testImplementation("androidx.test:core:1.2.0")
-    testImplementation("androidx.test:runner:1.2.0")
-    testImplementation("androidx.test.ext:junit:1.1.1")
+    testImplementation("androidx.test:core:1.3.0")
+    testImplementation("androidx.test:runner:1.3.0")
+    testImplementation("androidx.test.ext:junit:1.1.2")
     testImplementation("com.google.truth:truth:1.0.1")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     testImplementation("org.koin:koin-test:$koinVersion")
