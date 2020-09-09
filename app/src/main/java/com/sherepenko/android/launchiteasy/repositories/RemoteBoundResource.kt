@@ -8,7 +8,7 @@ import timber.log.Timber
 internal abstract class RemoteBoundResource<LocalDataType, RemoteDataType> {
 
     companion object {
-        private const val TAG = "NetworkBoundResource"
+        private const val TAG = "RemoteBoundResource"
     }
 
     fun asLiveData() =
