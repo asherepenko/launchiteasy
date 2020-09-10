@@ -10,7 +10,7 @@ import timber.log.Timber
 
 class AppStateLiveData(
     private val context: Context
-) : MutableLiveData<Event<AppState>>() {
+) : MutableLiveData<LiveEvent<AppState>>() {
 
     companion object {
         private const val TAG = "AppState"
@@ -21,19 +21,19 @@ class AppStateLiveData(
             when (intent.action) {
                 Intent.ACTION_PACKAGE_ADDED -> {
                     Timber.tag(TAG).i("Newly installed package: ${intent.data}")
-                    postValue(Event(AppState.ADDED))
+                    postValue(LiveEvent(AppState.ADDED))
                 }
                 Intent.ACTION_PACKAGE_CHANGED -> {
                     Timber.tag(TAG).i("Package state changed: ${intent.data}")
-                    postValue(Event(AppState.UPDATED))
+                    postValue(LiveEvent(AppState.UPDATED))
                 }
                 Intent.ACTION_PACKAGE_REMOVED -> {
                     Timber.tag(TAG).i("Package fully removed: ${intent.data}")
-                    postValue(Event(AppState.REMOVED))
+                    postValue(LiveEvent(AppState.REMOVED))
                 }
                 Intent.ACTION_PACKAGE_REPLACED -> {
                     Timber.tag(TAG).i("Package has been replaced: ${intent.data}")
-                    postValue(Event(AppState.UPDATED))
+                    postValue(LiveEvent(AppState.UPDATED))
                 }
                 else -> {
                     // ignore
@@ -51,7 +51,7 @@ class AppStateLiveData(
     }
 
     init {
-        postValue(Event(AppState.UPDATED))
+        postValue(LiveEvent(AppState.UPDATED))
     }
 
     override fun onActive() {

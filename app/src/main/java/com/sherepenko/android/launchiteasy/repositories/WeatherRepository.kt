@@ -8,7 +8,7 @@ import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.LocationItem
 import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.data.WeatherItem
-import com.sherepenko.android.launchiteasy.livedata.Event
+import com.sherepenko.android.launchiteasy.livedata.LiveEvent
 import com.sherepenko.android.launchiteasy.providers.WeatherLocalDataSource
 import com.sherepenko.android.launchiteasy.providers.WeatherRemoteDataSource
 import java.time.Instant
@@ -36,9 +36,9 @@ class WeatherRepositoryImpl(
         private val FORECAST_MIN_STALE_TIME = TimeUnit.HOURS.toMillis(24)
     }
 
-    private val currentWeatherUpdateEvent = MutableLiveData<Event<Boolean>>(Event(false))
+    private val currentWeatherUpdateEvent = MutableLiveData<LiveEvent<Boolean>>(LiveEvent(false))
 
-    private val weatherForecastsUpdateEvent = MutableLiveData<Event<Boolean>>(Event(false))
+    private val weatherForecastsUpdateEvent = MutableLiveData<LiveEvent<Boolean>>(LiveEvent(false))
 
     override fun getCurrentWeather(): LiveData<Resource<WeatherItem>> =
         connectivityRepository.getConnectionState().switchMap { isConnected ->
@@ -61,8 +61,8 @@ class WeatherRepositoryImpl(
         }
 
     override fun forceUpdate() {
-        currentWeatherUpdateEvent.postValue(Event(true))
-        weatherForecastsUpdateEvent.postValue(Event(true))
+        currentWeatherUpdateEvent.postValue(LiveEvent(true))
+        weatherForecastsUpdateEvent.postValue(LiveEvent(true))
     }
 
     private fun getCurrentWeather(
@@ -87,10 +87,10 @@ class WeatherRepositoryImpl(
                 localDataSource.saveCurrentWeather(data)
             }
 
-            override fun toLocalData(data: WeatherItem): WeatherItem =
+            override suspend fun toLocalData(data: WeatherItem): WeatherItem =
                 data
 
-            override fun shouldFetchRemoteData(data: WeatherItem?): Boolean =
+            override suspend fun shouldFetchRemoteData(data: WeatherItem?): Boolean =
                 isConnected && (forceUpdate ||
                     data?.let {
                         it.sinceLastUpdateMilli() > WEATHER_MAX_STALE_TIME ||
@@ -120,10 +120,10 @@ class WeatherRepositoryImpl(
                 localDataSource.saveWeatherForecasts(data)
             }
 
-            override fun toLocalData(data: List<ForecastItem>): List<ForecastItem> =
+            override suspend fun toLocalData(data: List<ForecastItem>): List<ForecastItem> =
                 data
 
-            override fun shouldFetchRemoteData(data: List<ForecastItem>?): Boolean =
+            override suspend fun shouldFetchRemoteData(data: List<ForecastItem>?): Boolean =
                 isConnected && (forceUpdate ||
                     data?.let {
                         it.isEmpty() ||

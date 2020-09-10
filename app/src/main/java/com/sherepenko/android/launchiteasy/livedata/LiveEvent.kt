@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
-open class Event<T>(private val content: T) {
+open class LiveEvent<T>(private val content: T) {
 
     private val handled = AtomicBoolean(false)
 
@@ -20,14 +20,14 @@ open class Event<T>(private val content: T) {
         content
 }
 
-inline fun <T> LiveData<Event<T>>.observe(
+inline fun <T> LiveData<LiveEvent<T>>.observe(
     owner: LifecycleOwner,
     crossinline onEventContent: (T) -> Unit
 ) = observe(owner, Observer {
-        it?.getContentIfNotHandled()?.let(onEventContent)
+        it.getContentIfNotHandled()?.let(onEventContent)
     })
 
-inline fun <T> LiveData<Event<T>>.observeForever(crossinline onEventContent: (T) -> Unit) =
+inline fun <T> LiveData<LiveEvent<T>>.observeForever(crossinline onEventContent: (T) -> Unit) =
     observeForever {
-        it?.getContentIfNotHandled()?.let(onEventContent)
+        it.getContentIfNotHandled()?.let(onEventContent)
     }

@@ -49,10 +49,10 @@ class AppsRepositoryImpl(
                 localDataSource.saveInstalledApps(data)
             }
 
-            override fun toLocalData(data: List<AppItem>): List<AppItem> =
+            override suspend fun toLocalData(data: List<AppItem>): List<AppItem> =
                 data
 
-            override fun shouldFetchRemoteData(data: List<AppItem>?): Boolean =
+            override suspend fun shouldFetchRemoteData(data: List<AppItem>?): Boolean =
                 appState != AppState.INITIAL || data.isNullOrEmpty()
         }.asLiveData()
 }

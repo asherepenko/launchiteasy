@@ -70,7 +70,7 @@ internal abstract class RemoteBoundResource<LocalDataType, RemoteDataType> {
 
     protected abstract suspend fun saveLocally(data: LocalDataType)
 
-    protected abstract fun toLocalData(data: RemoteDataType): LocalDataType
+    protected abstract suspend fun toLocalData(data: RemoteDataType): LocalDataType
 
-    protected abstract fun shouldFetchRemoteData(data: LocalDataType?): Boolean
+    protected abstract suspend fun shouldFetchRemoteData(data: LocalDataType?): Boolean
 }
