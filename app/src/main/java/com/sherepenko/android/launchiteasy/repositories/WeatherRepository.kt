@@ -91,11 +91,12 @@ class WeatherRepositoryImpl(
                 data
 
             override suspend fun shouldFetchRemoteData(data: WeatherItem?): Boolean =
-                isConnected && (forceUpdate ||
-                    data?.let {
+                isConnected && (
+                    forceUpdate || data?.let {
                         it.sinceLastUpdateMilli() > WEATHER_MAX_STALE_TIME ||
                             it.location.distanceTo(lastLocation) > MAX_DISTANCE
-                    } ?: isConnected)
+                    } ?: isConnected
+                    )
         }.asLiveData()
 
     private fun getWeatherForecasts(
@@ -124,12 +125,13 @@ class WeatherRepositoryImpl(
                 data
 
             override suspend fun shouldFetchRemoteData(data: List<ForecastItem>?): Boolean =
-                isConnected && (forceUpdate ||
-                    data?.let {
+                isConnected && (
+                    forceUpdate || data?.let {
                         it.isEmpty() ||
                             it.last().tillNextUpdateMilli() < FORECAST_MIN_STALE_TIME ||
                             it.last().location.distanceTo(lastLocation) > MAX_DISTANCE
-                    } ?: isConnected)
+                    } ?: isConnected
+                    )
         }.asLiveData()
 
     private fun WeatherItem.sinceLastUpdateMilli() =

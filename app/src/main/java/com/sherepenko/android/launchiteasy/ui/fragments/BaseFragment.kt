@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
 import org.koin.core.KoinComponent
@@ -29,6 +30,12 @@ abstract class BaseFragment(
     private fun setCurrentScreen() {
         Timber.d("Current fragment: ${javaClass.simpleName}")
         FirebaseAnalytics.getInstance(requireActivity())
-            .setCurrentScreen(requireActivity(), javaClass.simpleName, null)
+            .logEvent(
+                FirebaseAnalytics.Event.SCREEN_VIEW,
+                bundleOf(
+                    FirebaseAnalytics.Param.SCREEN_NAME to javaClass.simpleName,
+                    FirebaseAnalytics.Param.SCREEN_CLASS to javaClass.canonicalName
+                )
+            )
     }
 }

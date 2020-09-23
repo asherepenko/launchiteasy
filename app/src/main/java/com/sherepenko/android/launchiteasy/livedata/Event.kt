@@ -23,9 +23,12 @@ open class Event<T>(private val content: T) {
 inline fun <T> LiveData<Event<T>>.observe(
     owner: LifecycleOwner,
     crossinline onEventContent: (T) -> Unit
-) = observe(owner, Observer {
+) = observe(
+    owner,
+    Observer {
         it.getContentIfNotHandled()?.let(onEventContent)
-    })
+    }
+)
 
 inline fun <T> LiveData<Event<T>>.observeForever(crossinline onEventContent: (T) -> Unit) =
     observeForever {

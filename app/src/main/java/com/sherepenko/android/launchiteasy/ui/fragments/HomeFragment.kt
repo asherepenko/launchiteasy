@@ -132,52 +132,58 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
     }
 
     private fun setupCurrentLocation() {
-        weatherViewModel.getCurrentLocationName().observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.LOADING -> {
-                    // ignore
-                }
-                Status.SUCCESS -> {
-                    checkNotNull(it.data)
-                    currentLocationView.text = it.data
-                }
-                Status.ERROR -> {
-                    currentLocationView.text = ""
+        weatherViewModel.getCurrentLocationName().observe(
+            viewLifecycleOwner,
+            {
+                when (it.status) {
+                    Status.LOADING -> {
+                        // ignore
+                    }
+                    Status.SUCCESS -> {
+                        checkNotNull(it.data)
+                        currentLocationView.text = it.data
+                    }
+                    Status.ERROR -> {
+                        currentLocationView.text = ""
+                    }
                 }
             }
-        })
+        )
     }
 
     private fun setupCurrentWeather() {
-        weatherViewModel.getCurrentWeather().observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.LOADING -> {
-                    it.data?.let { data ->
-                        setCurrentWeather(data)
+        weatherViewModel.getCurrentWeather().observe(
+            viewLifecycleOwner,
+            {
+                when (it.status) {
+                    Status.LOADING -> {
+                        it.data?.let { data ->
+                            setCurrentWeather(data)
+                            swipeRefreshLayout.isRefreshing = false
+                        }
+                    }
+                    Status.SUCCESS -> {
+                        checkNotNull(it.data)
+                        setCurrentWeather(it.data)
+                        swipeRefreshLayout.isRefreshing = false
+                    }
+                    Status.ERROR -> {
+                        if (it.data != null) {
+                            setCurrentWeather(it.data)
+                        } else {
+                            currentWeatherIconView.text =
+                                getString(R.string.unknown_weather)
+                            currentWeatherConditionView.text = ""
+                            currentTemperatureView.text =
+                                getString(R.string.no_temperature)
+                            perceivedTemperatureView.text = ""
+                        }
+
                         swipeRefreshLayout.isRefreshing = false
                     }
                 }
-                Status.SUCCESS -> {
-                    checkNotNull(it.data)
-                    setCurrentWeather(it.data)
-                    swipeRefreshLayout.isRefreshing = false
-                }
-                Status.ERROR -> {
-                    if (it.data != null) {
-                        setCurrentWeather(it.data)
-                    } else {
-                        currentWeatherIconView.text =
-                            getString(R.string.unknown_weather)
-                        currentWeatherConditionView.text = ""
-                        currentTemperatureView.text =
-                            getString(R.string.no_temperature)
-                        perceivedTemperatureView.text = ""
-                    }
-
-                    swipeRefreshLayout.isRefreshing = false
-                }
             }
-        })
+        )
     }
 
     private fun setupWeatherForecasts() {
@@ -189,28 +195,31 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
             adapter = forecastsAdapter
         }
 
-        weatherViewModel.getWeatherForecasts().observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.LOADING -> {
-                    it.data?.let { data ->
-                        setWeatherForecasts(it.data)
+        weatherViewModel.getWeatherForecasts().observe(
+            viewLifecycleOwner,
+            {
+                when (it.status) {
+                    Status.LOADING -> {
+                        it.data?.let { data ->
+                            setWeatherForecasts(it.data)
 
-                        if (data.isNotEmpty()) {
-                            swipeRefreshLayout.isRefreshing = false
+                            if (data.isNotEmpty()) {
+                                swipeRefreshLayout.isRefreshing = false
+                            }
                         }
                     }
-                }
-                Status.SUCCESS -> {
-                    checkNotNull(it.data)
-                    setWeatherForecasts(it.data)
-                    swipeRefreshLayout.isRefreshing = false
-                }
-                Status.ERROR -> {
-                    setWeatherForecasts(it.data ?: listOf())
-                    swipeRefreshLayout.isRefreshing = false
+                    Status.SUCCESS -> {
+                        checkNotNull(it.data)
+                        setWeatherForecasts(it.data)
+                        swipeRefreshLayout.isRefreshing = false
+                    }
+                    Status.ERROR -> {
+                        setWeatherForecasts(it.data ?: listOf())
+                        swipeRefreshLayout.isRefreshing = false
+                    }
                 }
             }
-        })
+        )
     }
 
     private fun setCurrentWeather(item: WeatherItem) {

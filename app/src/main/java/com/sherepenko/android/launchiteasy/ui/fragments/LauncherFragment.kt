@@ -128,29 +128,32 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             adapter = appsAdapter
         }
 
-        appsViewModel.getInstalledApps(prefs.showSystemApps()).observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.LOADING -> {
-                    it.data?.let { data ->
-                        appsView.setItemViewCacheSize(data.size)
-                        appsAdapter.items = data
+        appsViewModel.getInstalledApps(prefs.showSystemApps()).observe(
+            viewLifecycleOwner,
+            {
+                when (it.status) {
+                    Status.LOADING -> {
+                        it.data?.let { data ->
+                            appsView.setItemViewCacheSize(data.size)
+                            appsAdapter.items = data
 
-                        if (data.isNotEmpty()) {
-                            loadingView.visibility = View.GONE
+                            if (data.isNotEmpty()) {
+                                loadingView.visibility = View.GONE
+                            }
                         }
                     }
-                }
-                Status.SUCCESS -> {
-                    checkNotNull(it.data)
-                    appsView.setItemViewCacheSize(it.data.size)
-                    appsAdapter.items = it.data
-                    loadingView.visibility = View.GONE
-                }
-                Status.ERROR -> {
-                    loadingView.visibility = View.GONE
+                    Status.SUCCESS -> {
+                        checkNotNull(it.data)
+                        appsView.setItemViewCacheSize(it.data.size)
+                        appsAdapter.items = it.data
+                        loadingView.visibility = View.GONE
+                    }
+                    Status.ERROR -> {
+                        loadingView.visibility = View.GONE
+                    }
                 }
             }
-        })
+        )
     }
 
     private fun NavController.navigateToSettingsFragment() {

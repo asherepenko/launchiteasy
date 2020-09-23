@@ -30,7 +30,8 @@ class ForecastsAdapter : BaseRecyclerAdapter<ForecastItem, ForecastsAdapter.View
                 forecastTimeView.text = item.timestamp.format()
                 forecastIconView.text = item.condition.icon.glyph
                 forecastTemperatureView.text =
-                    context.getString(R.string.temperature_value,
+                    context.getString(
+                        R.string.temperature_value,
                         if (isMetricSystem) {
                             item.temperature.celsius
                         } else {

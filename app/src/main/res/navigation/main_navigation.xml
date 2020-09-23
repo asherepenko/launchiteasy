@@ -14,7 +14,6 @@
         <action
                 android:id="@+id/toHomeFragment"
                 app:destination="@+id/homeFragment"
-                app:launchSingleTop="true"
                 app:enterAnim="@anim/nav_default_enter_anim"
                 app:exitAnim="@anim/nav_default_exit_anim"
                 app:popUpTo="@+id/splashFragment"
@@ -29,7 +28,6 @@
         <action
                 android:id="@+id/toLauncherFragment"
                 app:destination="@+id/launcherFragment"
-                app:launchSingleTop="true"
                 app:enterAnim="@anim/nav_default_enter_anim"
                 app:exitAnim="@anim/nav_default_exit_anim"
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -38,7 +36,6 @@
         <action
                 android:id="@+id/toSettingsFragment"
                 app:destination="@+id/settingsFragment"
-                app:launchSingleTop="true"
                 app:enterAnim="@anim/nav_default_enter_anim"
                 app:exitAnim="@anim/nav_default_exit_anim"
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -53,7 +50,6 @@
         <action
                 android:id="@+id/toSettingsFragment"
                 app:destination="@+id/settingsFragment"
-                app:launchSingleTop="true"
                 app:enterAnim="@anim/nav_default_enter_anim"
                 app:exitAnim="@anim/nav_default_exit_anim"
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim"

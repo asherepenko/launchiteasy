@@ -7,7 +7,7 @@ plugins {
     id("com.android.application")
     id("com.github.triplet.play") version "2.8.0"
     id("com.sherepenko.gradle.plugin-build-version") version "0.2.1"
-    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
+    id("org.jlleitschuh.gradle.ktlint") version "9.4.0"
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
@@ -166,15 +166,15 @@ play {
 }
 
 val glideVersion = "4.11.0"
-val jacksonVersion = "2.11.2"
+val jacksonVersion = "2.11.3"
 val koinVersion = "2.1.6"
 val lifecycleVersion = "2.2.0"
 val navigationVersion = "2.3.0"
-val okHttpVersion = "4.8.1"
+val okHttpVersion = "4.9.0"
 val retrofitVersion = "2.9.0"
 val roomVersion = "2.2.5"
 val stethoVersion = "1.5.1"
-val workVersion = "2.3.4"
+val workVersion = "2.4.0"
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.10")
@@ -186,7 +186,7 @@ dependencies {
     implementation("androidx.collection:collection-ktx:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.1")
     implementation("androidx.core:core-ktx:1.3.1")
-    implementation("androidx.fragment:fragment-ktx:1.2.5")
+    implementation("androidx.fragment:fragment-ktx:1.3.0-alpha08")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
