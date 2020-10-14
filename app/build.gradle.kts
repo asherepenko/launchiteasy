@@ -1,3 +1,4 @@
+import com.github.triplet.gradle.androidpublisher.ReleaseStatus
 import java.io.FileInputStream
 import java.util.Properties
 import org.jetbrains.kotlin.config.KotlinCompilerVersion
@@ -5,7 +6,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "2.8.0"
+    id("com.github.triplet.play") version "3.0.0"
     id("com.sherepenko.gradle.plugin-build-version") version "0.2.1"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.0"
     kotlin("android")
@@ -147,21 +148,21 @@ play {
             load(FileInputStream(playstorePropertiesFile))
         }
 
-        serviceAccountCredentials = rootProject.file(
-            playstoreProperties.getProperty("playstore.credentials")
+        serviceAccountCredentials.set(
+            rootProject.file(playstoreProperties.getProperty("playstore.credentials"))
         )
-        defaultToAppBundles = true
-        track = "alpha"
-        releaseStatus = "inProgress"
+        defaultToAppBundles.set(true)
+        track.set("alpha")
+        releaseStatus.set(ReleaseStatus.IN_PROGRESS)
     } else if (!System.getenv("PLAYSTORE_CREDENTIALS").isNullOrEmpty()) {
-        serviceAccountCredentials = rootProject.file(
-            System.getenv("PLAYSTORE_CREDENTIALS")
+        serviceAccountCredentials.set(
+            rootProject.file(System.getenv("PLAYSTORE_CREDENTIALS"))
         )
-        defaultToAppBundles = true
-        track = "alpha"
-        releaseStatus = "inProgress"
+        defaultToAppBundles.set(true)
+        track.set("alpha")
+        releaseStatus.set(ReleaseStatus.IN_PROGRESS)
     } else {
-        isEnabled = false
+        enabled.set(false)
     }
 }
 
