@@ -167,7 +167,7 @@ play {
 
 val glideVersion = "4.11.0"
 val jacksonVersion = "2.11.3"
-val koinVersion = "2.1.6"
+val koinVersion = "2.2.0-rc-2"
 val lifecycleVersion = "2.2.0"
 val navigationVersion = "2.3.0"
 val okHttpVersion = "4.9.0"
@@ -184,9 +184,9 @@ dependencies {
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.collection:collection-ktx:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
-    implementation("androidx.core:core-ktx:1.3.1")
-    implementation("androidx.fragment:fragment-ktx:1.3.0-alpha08")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.2")
+    implementation("androidx.core:core-ktx:1.3.2")
+    implementation("androidx.fragment:fragment-ktx:1.3.0-beta01")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
@@ -208,13 +208,13 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     implementation("io.github.inflationx:calligraphy3:3.1.1")
     implementation("io.github.inflationx:viewpump:2.0.3")
-    implementation("com.google.android.gms:play-services-location:17.0.0")
-    implementation("com.google.android.material:material:1.3.0-alpha02")
-    implementation("com.google.firebase:firebase-analytics:17.5.0")
+    implementation("com.google.android.gms:play-services-location:17.1.0")
+    implementation("com.google.android.material:material:1.3.0-alpha03")
+    implementation("com.google.firebase:firebase-analytics:17.6.0")
     implementation("com.google.firebase:firebase-config-ktx:19.2.0")
-    implementation("com.google.firebase:firebase-crashlytics:17.2.1")
-    implementation("com.google.firebase:firebase-messaging:20.2.4")
-    implementation("com.google.firebase:firebase-perf:19.0.8")
+    implementation("com.google.firebase:firebase-crashlytics:17.2.2")
+    implementation("com.google.firebase:firebase-messaging:20.3.0")
+    implementation("com.google.firebase:firebase-perf:19.0.9")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")
@@ -229,9 +229,9 @@ dependencies {
     testImplementation("androidx.test:runner:1.3.0")
     testImplementation("androidx.test.ext:junit:1.1.2")
     testImplementation("com.google.truth:truth:1.0.1")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("org.koin:koin-test:$koinVersion")
-    testImplementation("org.robolectric:robolectric:4.3.1")
+    testImplementation("org.robolectric:robolectric:4.4")
 }
 
 apply(plugin = "androidx.navigation.safeargs.kotlin")
