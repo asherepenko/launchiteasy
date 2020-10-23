@@ -4,8 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -205,9 +203,6 @@ class LauncherApp : Application() {
         }
     }
 }
-
-@GlideModule
-class LauncherAppGlideModule : AppGlideModule()
 
 internal class CrashlyticsTree : Timber.Tree() {
 

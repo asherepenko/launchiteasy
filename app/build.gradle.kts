@@ -166,7 +166,6 @@ play {
     }
 }
 
-val glideVersion = "4.11.0"
 val jacksonVersion = "2.11.3"
 val koinVersion = "2.2.0-rc-2"
 val lifecycleVersion = "2.2.0"
@@ -181,7 +180,6 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.10")
     kapt("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
-    kapt("com.github.bumptech.glide:compiler:$glideVersion")
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.collection:collection-ktx:1.1.0")
@@ -206,7 +204,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    implementation("com.github.bumptech.glide:glide:$glideVersion")
+    implementation("io.coil-kt:coil:1.0.0")
     implementation("io.github.inflationx:calligraphy3:3.1.1")
     implementation("io.github.inflationx:viewpump:2.0.3")
     implementation("com.google.android.gms:play-services-location:17.1.0")
