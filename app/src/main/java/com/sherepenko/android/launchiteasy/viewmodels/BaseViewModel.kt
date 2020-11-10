@@ -2,8 +2,10 @@ package com.sherepenko.android.launchiteasy.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.sherepenko.android.launchiteasy.repositories.BaseRepository
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
 
+@KoinApiExtension
 abstract class BaseViewModel<R : BaseRepository>(
     private vararg val repositories: R
 ) : ViewModel(), KoinComponent {

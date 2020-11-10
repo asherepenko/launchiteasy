@@ -7,7 +7,8 @@ import androidx.room.Room
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.sherepenko.android.launchiteasy.api.OpenWeatherApi
 import com.sherepenko.android.launchiteasy.data.db.AppDatabase
 import com.sherepenko.android.launchiteasy.livedata.AppStateLiveData
@@ -67,13 +68,9 @@ class LauncherApp : Application() {
         single {
             OkHttpClient.Builder()
                 .addInterceptor(
-                    HttpLoggingInterceptor(
-                        object : HttpLoggingInterceptor.Logger {
-                            override fun log(message: String) {
-                                Timber.tag(tag).i(message)
-                            }
-                        }
-                    ).apply {
+                    HttpLoggingInterceptor {
+                       Timber.tag(tag).i(it)
+                    }.apply {
                         level = HttpLoggingInterceptor.Level.BODY
                     }
                 )
@@ -210,7 +207,7 @@ internal class CrashlyticsTree : Timber.Tree() {
         priority == Log.WARN || priority == Log.ERROR || priority == Log.ASSERT
 
     override fun log(priority: Int, tag: String?, message: String, throwable: Throwable?) {
-        FirebaseCrashlytics.getInstance().apply {
+        Firebase.crashlytics.apply {
             log(message)
 
             throwable?.let {
