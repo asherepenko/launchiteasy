@@ -26,9 +26,11 @@ import kotlinx.android.synthetic.main.fragment_launcher.appsView
 import kotlinx.android.synthetic.main.fragment_launcher.loadingView
 import kotlinx.android.synthetic.main.fragment_launcher.toolbarView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.inject
 import timber.log.Timber
 
+@KoinApiExtension
 class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
 
     companion object {

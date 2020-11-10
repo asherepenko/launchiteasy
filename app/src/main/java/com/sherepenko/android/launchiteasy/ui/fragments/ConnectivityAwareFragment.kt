@@ -7,7 +7,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.viewmodels.ConnectivityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
+@KoinApiExtension
 abstract class ConnectivityAwareFragment(
     @LayoutRes contentLayoutRes: Int
 ) : BaseFragment(contentLayoutRes) {

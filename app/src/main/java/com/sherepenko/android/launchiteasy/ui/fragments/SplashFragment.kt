@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.utils.isPermissionGranted
 import kotlinx.coroutines.delay
+import org.koin.core.component.KoinApiExtension
 import timber.log.Timber
 
+@KoinApiExtension
 class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
     companion object {

@@ -38,9 +38,11 @@ import kotlinx.android.synthetic.main.fragment_home.swipeRefreshLayout
 import kotlinx.android.synthetic.main.fragment_home.toolbarView
 import kotlinx.android.synthetic.main.fragment_home.weatherForecastsView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.inject
 import timber.log.Timber
 
+@KoinApiExtension
 class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     companion object {

@@ -3,11 +3,15 @@ package com.sherepenko.android.launchiteasy.ui.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceFragmentCompat
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.sherepenko.android.launchiteasy.R
 import kotlinx.android.synthetic.main.fragment_settings.toolbarView
+import timber.log.Timber
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -36,7 +40,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setCurrentScreen() {
-        FirebaseAnalytics.getInstance(requireActivity())
-            .setCurrentScreen(requireActivity(), javaClass.simpleName, null)
+        Timber.d("Current fragment: ${javaClass.simpleName}")
+        Firebase.analytics.logEvent(
+            FirebaseAnalytics.Event.SCREEN_VIEW,
+            bundleOf(
+                FirebaseAnalytics.Param.SCREEN_NAME to javaClass.simpleName,
+                FirebaseAnalytics.Param.SCREEN_CLASS to javaClass.canonicalName
+            )
+        )
     }
 }
