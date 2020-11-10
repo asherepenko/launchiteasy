@@ -94,7 +94,7 @@
         <item name="android:layout">@layout/fragment_settings</item>
     </style>
 
-    <style name="Base.ThemeOverlay.App.Toolbar" parent="ThemeOverlay.MaterialComponents.Light">
+    <style name="Base.ThemeOverlay.App.Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
         <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:textSize">@dimen/toolbar_font_size</item>
         <item name="android:textAllCaps">false</item>
@@ -187,7 +187,8 @@
     </style>
 
     <!-- Widgets -->
-    <style name="Base.Theme.App.Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+    <style name="Base.Theme.App.Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:elevation">0dp</item>
         <item name="android:minHeight">?actionBarSize</item>
         <item name="contentInsetStart">@dimen/toolbar_content_inset_start</item>
         <item name="popupTheme">@style/Base.ThemeOverlay.App.Toolbar</item>

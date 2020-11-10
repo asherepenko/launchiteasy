@@ -4,11 +4,11 @@ import android.app.Application
 import android.util.Log
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
+import com.facebook.stetho.Stetho
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.jakewharton.threetenabp.AndroidThreeTen
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.sherepenko.android.launchiteasy.api.OpenWeatherApi
 import com.sherepenko.android.launchiteasy.data.db.AppDatabase
 import com.sherepenko.android.launchiteasy.livedata.AppStateLiveData
@@ -40,12 +40,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.component.KoinApiExtension
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import timber.log.Timber
 
+@KoinApiExtension
 class LauncherApp : Application() {
 
     companion object {
@@ -67,16 +70,13 @@ class LauncherApp : Application() {
         single {
             OkHttpClient.Builder()
                 .addInterceptor(
-                    HttpLoggingInterceptor(
-                        object : HttpLoggingInterceptor.Logger {
-                            override fun log(message: String) {
-                                Timber.tag(tag).i(message)
-                            }
-                        }
-                    ).apply {
+                    HttpLoggingInterceptor {
+                        Timber.tag(tag).i(it)
+                    }.apply {
                         level = HttpLoggingInterceptor.Level.BODY
                     }
                 )
+                .addNetworkInterceptor(StethoInterceptor())
                 .build()
         }
 
@@ -157,9 +157,8 @@ class LauncherApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        AndroidThreeTen.init(this@LauncherApp)
-
         setupTimber()
+        setupStetho()
         setupCalligraphy()
         setupKoin()
     }
@@ -170,6 +169,10 @@ class LauncherApp : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+    }
+
+    private fun setupStetho() {
+        Stetho.initializeWithDefaults(this@LauncherApp)
     }
 
     private fun setupCalligraphy() {
@@ -187,7 +190,7 @@ class LauncherApp : Application() {
 
     private fun setupKoin() {
         startKoin {
-            androidLogger()
+            androidLogger(Level.ERROR)
             androidContext(this@LauncherApp)
             modules(
                 appModule,
@@ -200,16 +203,13 @@ class LauncherApp : Application() {
     }
 }
 
-@GlideModule
-class LauncherAppGlideModule : AppGlideModule()
-
 internal class CrashlyticsTree : Timber.Tree() {
 
     override fun isLoggable(tag: String?, priority: Int): Boolean =
         priority == Log.WARN || priority == Log.ERROR || priority == Log.ASSERT
 
     override fun log(priority: Int, tag: String?, message: String, throwable: Throwable?) {
-        FirebaseCrashlytics.getInstance().apply {
+        Firebase.crashlytics.apply {
             log(message)
 
             throwable?.let {

@@ -13,8 +13,10 @@ import com.sherepenko.android.launchiteasy.repositories.WeatherRepository
 import java.io.IOException
 import java.util.Locale
 import kotlinx.coroutines.Dispatchers
+import org.koin.core.component.KoinApiExtension
 import timber.log.Timber
 
+@KoinApiExtension
 class WeatherViewModel(
     private val context: Context,
     private val weatherRepository: WeatherRepository,
@@ -47,14 +49,14 @@ class WeatherViewModel(
 
                     if (addresses.isNullOrEmpty()) {
                         emit(
-                            Resource.error()
+                            Resource.error<String>()
                         )
                     } else {
                         val locationName = addresses[0].locality
 
                         if (locationName.isNullOrEmpty()) {
                             emit(
-                                Resource.error()
+                                Resource.error<String>()
                             )
                         } else {
                             emit(

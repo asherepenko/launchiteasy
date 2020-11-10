@@ -5,7 +5,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import org.threeten.bp.Instant
+import java.time.Instant
 
 @Entity(
     tableName = "weather_forecasts",

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import coil.load
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.AppItem
 import com.sherepenko.android.launchiteasy.utils.inflate
@@ -47,7 +48,9 @@ class AppsAdapter : BaseRecyclerAdapter<AppItem, AppsAdapter.ViewHolder>() {
 
         override fun bindItem(item: AppItem) {
             itemView.apply {
-                appIconView.setImageDrawable(item.getApplicationIcon(context))
+                appIconView.load(item.getApplicationIcon(context)) {
+                    crossfade(true)
+                }
                 appLabelView.text = item.label
             }
         }

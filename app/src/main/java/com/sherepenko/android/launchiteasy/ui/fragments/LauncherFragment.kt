@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -27,9 +26,11 @@ import kotlinx.android.synthetic.main.fragment_launcher.appsView
 import kotlinx.android.synthetic.main.fragment_launcher.loadingView
 import kotlinx.android.synthetic.main.fragment_launcher.toolbarView
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.inject
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.inject
 import timber.log.Timber
 
+@KoinApiExtension
 class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
 
     companion object {
@@ -129,8 +130,9 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             adapter = appsAdapter
         }
 
-        appsViewModel.getInstalledApps(prefs.showSystemApps())
-            .observe(viewLifecycleOwner, Observer {
+        appsViewModel.getInstalledApps(prefs.showSystemApps()).observe(
+            viewLifecycleOwner,
+            {
                 when (it.status) {
                     Status.LOADING -> {
                         it.data?.let { data ->
@@ -152,7 +154,8 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                         loadingView.visibility = View.GONE
                     }
                 }
-            })
+            }
+        )
     }
 
     private fun NavController.navigateToSettingsFragment() {

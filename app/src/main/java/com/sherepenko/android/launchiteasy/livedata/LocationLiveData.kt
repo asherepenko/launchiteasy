@@ -1,5 +1,7 @@
 package com.sherepenko.android.launchiteasy.livedata
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
 import android.location.LocationManager
@@ -10,11 +12,13 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.sherepenko.android.launchiteasy.BuildConfig
 import com.sherepenko.android.launchiteasy.data.LocationItem
+import com.sherepenko.android.launchiteasy.utils.isPermissionGranted
 import java.util.concurrent.TimeUnit
 import timber.log.Timber
 
+@SuppressLint("MissingPermission")
 class LocationLiveData(
-    context: Context
+    private val context: Context
 ) : LiveData<LocationItem>() {
 
     companion object {
@@ -44,23 +48,27 @@ class LocationLiveData(
     }
 
     init {
-        locationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
-            if (location != null) {
-                Timber.tag(TAG).i("Last known location: $location")
-                postValue(LocationItem(location.latitude, location.longitude))
-            } else if (BuildConfig.DEBUG) {
-                postValue(FALLBACK_LOCATION)
+        if (context.isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            locationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    Timber.tag(TAG).i("Last known location: $location")
+                    postValue(LocationItem(location.latitude, location.longitude))
+                } else if (BuildConfig.DEBUG) {
+                    postValue(FALLBACK_LOCATION)
+                }
             }
-        }
 
-        locationProviderClient.lastLocation.addOnFailureListener {
-            Timber.tag(TAG).e(it, "Unable to get last known location")
+            locationProviderClient.lastLocation.addOnFailureListener {
+                Timber.tag(TAG).e(it, "Unable to get last known location")
+            }
         }
     }
 
     override fun onActive() {
         super.onActive()
-        locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null)
+        if (context.isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null)
+        }
     }
 
     override fun onInactive() {

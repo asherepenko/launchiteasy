@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.sherepenko.android.launchiteasy.data.ForecastItem
-import org.threeten.bp.Instant
+import java.time.Instant
 
 @Dao
 interface ForecastDao {

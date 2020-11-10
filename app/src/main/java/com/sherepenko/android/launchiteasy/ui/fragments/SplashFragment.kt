@@ -1,9 +1,9 @@
 package com.sherepenko.android.launchiteasy.ui.fragments
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -11,14 +11,26 @@ import androidx.navigation.fragment.findNavController
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.utils.isPermissionGranted
 import kotlinx.coroutines.delay
+import org.koin.core.component.KoinApiExtension
 import timber.log.Timber
 
+@KoinApiExtension
 class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
     companion object {
         private const val TAG = "Permissions"
-        private const val REQUEST_RUNTIME_PERMISSIONS = 101
     }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isConnected ->
+            if (isConnected) {
+                Timber.tag(TAG).i("All requested permissions were GRANTED")
+                findNavController().navigateToHomeFragment()
+            } else {
+                Timber.tag(TAG).e("Requested permissions are NOT GRANTED")
+                ActivityCompat.finishAffinity(requireActivity())
+            }
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,48 +41,12 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            REQUEST_RUNTIME_PERMISSIONS -> {
-                val permissionsGranted =
-                    permissions.size == grantResults.size &&
-                    grantResults.all {
-                        it == PackageManager.PERMISSION_GRANTED
-                    }
-
-                if (permissionsGranted) {
-                    Timber.tag(TAG).i("All requested permissions were GRANTED")
-                    findNavController().navigateToHomeFragment()
-                } else {
-                    Timber.tag(TAG).e("Requested permissions are NOT GRANTED")
-                    ActivityCompat.finishAffinity(requireActivity())
-                }
-            }
-            else -> {
-                Timber.tag(TAG).w("Unknown request code: $requestCode")
-            }
-        }
-    }
-
     private fun checkPermissions() {
-        val requestedPermissions = mutableListOf<String>()
-
-        if (!requireActivity().isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            Timber.tag(TAG).i("Request ${Manifest.permission.ACCESS_COARSE_LOCATION} permission")
-            requestedPermissions.add(Manifest.permission.ACCESS_COARSE_LOCATION)
-        }
-
-        if (requestedPermissions.isEmpty()) {
+        if (requireActivity().isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)) {
             findNavController().navigateToHomeFragment()
         } else {
-            requestPermissions(
-                requestedPermissions.toTypedArray(),
-                REQUEST_RUNTIME_PERMISSIONS
-            )
+            Timber.tag(TAG).i("Request ${Manifest.permission.ACCESS_COARSE_LOCATION} permission")
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
         }
     }
 

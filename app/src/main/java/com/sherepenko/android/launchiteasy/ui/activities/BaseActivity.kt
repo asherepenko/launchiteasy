@@ -4,7 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import timber.log.Timber
 
@@ -26,7 +29,12 @@ abstract class BaseActivity(@LayoutRes private val contentLayoutRes: Int) : AppC
 
     private fun setCurrentScreen() {
         Timber.d("Current activity: ${javaClass.simpleName}")
-        FirebaseAnalytics.getInstance(this@BaseActivity)
-            .setCurrentScreen(this@BaseActivity, javaClass.simpleName, null)
+        Firebase.analytics.logEvent(
+            FirebaseAnalytics.Event.SCREEN_VIEW,
+            bundleOf(
+                FirebaseAnalytics.Param.SCREEN_NAME to javaClass.simpleName,
+                FirebaseAnalytics.Param.SCREEN_CLASS to javaClass.canonicalName
+            )
+        )
     }
 }
