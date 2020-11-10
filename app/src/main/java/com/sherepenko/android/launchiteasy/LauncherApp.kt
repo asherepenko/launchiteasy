@@ -69,7 +69,7 @@ class LauncherApp : Application() {
             OkHttpClient.Builder()
                 .addInterceptor(
                     HttpLoggingInterceptor {
-                       Timber.tag(tag).i(it)
+                        Timber.tag(tag).i(it)
                     }.apply {
                         level = HttpLoggingInterceptor.Level.BODY
                     }
