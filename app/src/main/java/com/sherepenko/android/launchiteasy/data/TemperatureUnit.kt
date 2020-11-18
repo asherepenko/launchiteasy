@@ -13,7 +13,7 @@ enum class TemperatureUnit {
 }
 
 fun TemperatureUnit.isMetric() =
-    this@isMetric == TemperatureUnit.CELSIUS
+    this == TemperatureUnit.CELSIUS
 
 fun TemperatureUnit.isImperial() =
-    this@isImperial == TemperatureUnit.FAHRENHEIT
+    this == TemperatureUnit.FAHRENHEIT

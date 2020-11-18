@@ -10,10 +10,12 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.sherepenko.android.launchiteasy.R
-import kotlinx.android.synthetic.main.fragment_settings.toolbarView
+import com.sherepenko.android.launchiteasy.databinding.FragmentSettingsBinding
 import timber.log.Timber
 
 class SettingsFragment : PreferenceFragmentCompat() {
+
+    private lateinit var binding: FragmentSettingsBinding
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.main_preferences, rootKey)
@@ -21,6 +23,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding = FragmentSettingsBinding.bind(view)
+
         setupToolbar()
     }
 
@@ -31,10 +36,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun setupToolbar() {
         if (requireActivity() is AppCompatActivity) {
-            (requireActivity() as AppCompatActivity).setSupportActionBar(toolbarView)
+            (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbarView)
         }
 
-        toolbarView.setNavigationOnClickListener {
+        binding.toolbarView.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
     }

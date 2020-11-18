@@ -15,6 +15,6 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        PreferenceManager.setDefaultValues(this@MainActivity, R.xml.main_preferences, false)
+        PreferenceManager.setDefaultValues(this, R.xml.main_preferences, false)
     }
 }

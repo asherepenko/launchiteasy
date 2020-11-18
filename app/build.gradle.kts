@@ -8,7 +8,7 @@ plugins {
     id("com.android.application")
     id("com.github.triplet.play") version "3.0.0"
     id("com.sherepenko.gradle.plugin-build-version") version "0.2.3"
-    id("org.jlleitschuh.gradle.ktlint") version "9.4.0"
+    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
@@ -64,6 +64,10 @@ android {
     dependenciesInfo {
         includeInApk = false
         includeInBundle = false
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     compileOptions {
@@ -167,9 +171,9 @@ play {
 }
 
 val jacksonVersion = "2.11.3"
-val koinVersion = "2.2.0-rc-4"
+val koinVersion = "2.2.1"
 val lifecycleVersion = "2.2.0"
-val navigationVersion = "2.3.0"
+val navigationVersion = "2.3.1"
 val okHttpVersion = "4.9.0"
 val retrofitVersion = "2.9.0"
 val roomVersion = "2.2.5"
@@ -177,7 +181,7 @@ val stethoVersion = "1.5.1"
 val workVersion = "2.4.0"
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.1")
     kapt("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
@@ -210,10 +214,10 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:17.1.0")
     implementation("com.google.android.material:material:1.3.0-alpha03")
     implementation("com.google.firebase:firebase-analytics-ktx:18.0.0")
-    implementation("com.google.firebase:firebase-config-ktx:20.0.0")
-    implementation("com.google.firebase:firebase-crashlytics-ktx:17.2.2")
+    implementation("com.google.firebase:firebase-config-ktx:20.0.1")
+    implementation("com.google.firebase:firebase-crashlytics-ktx:17.3.0")
     implementation("com.google.firebase:firebase-messaging:21.0.0")
-    implementation("com.google.firebase:firebase-perf:19.0.9")
+    implementation("com.google.firebase:firebase-perf:19.0.10")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")

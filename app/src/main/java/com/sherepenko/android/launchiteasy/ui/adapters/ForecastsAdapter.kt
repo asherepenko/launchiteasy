@@ -1,50 +1,50 @@
 package com.sherepenko.android.launchiteasy.ui.adapters
 
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.ForecastItem
-import com.sherepenko.android.launchiteasy.utils.inflate
+import com.sherepenko.android.launchiteasy.data.TemperatureItem
+import com.sherepenko.android.launchiteasy.databinding.ItemForecastBinding
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import kotlinx.android.synthetic.main.item_forecast.view.forecastIconView
-import kotlinx.android.synthetic.main.item_forecast.view.forecastTemperatureView
-import kotlinx.android.synthetic.main.item_forecast.view.forecastTimeView
 
 class ForecastsAdapter : BaseRecyclerAdapter<ForecastItem, ForecastsAdapter.ViewHolder>() {
 
     var isMetricSystem: Boolean = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(parent.inflate(R.layout.item_forecast))
+        ViewHolder(ItemForecastBinding.inflate(LayoutInflater.from(parent.context)))
 
     inner class ViewHolder(
-        itemView: View
-    ) : BaseRecyclerViewHolder<ForecastItem>(itemView) {
+        private val binding: ItemForecastBinding
+    ) : BaseRecyclerViewHolder<ForecastItem>(binding.root) {
 
         override fun bindItem(item: ForecastItem) {
-            itemView.apply {
+            binding.apply {
                 forecastTimeView.text = item.timestamp.format()
                 forecastIconView.text = item.condition.icon.glyph
-                forecastTemperatureView.text =
-                    context.getString(
-                        R.string.temperature_value,
-                        if (isMetricSystem) {
-                            item.temperature.celsius
-                        } else {
-                            item.temperature.fahrenheit
-                        }
-                    )
+                forecastTemperatureView.text = item.temperature.format()
             }
         }
-    }
 
-    private fun Instant.format(): String =
-        LocalDateTime.ofInstant(this@format, ZoneId.systemDefault())
-            .format(
-                DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+        private fun TemperatureItem.format(): String =
+            itemView.context.getString(
+                R.string.temperature_value,
+                if (isMetricSystem) {
+                    celsius
+                } else {
+                    fahrenheit
+                }
             )
+    }
 }
+
+private fun Instant.format(): String =
+    LocalDateTime.ofInstant(this, ZoneId.systemDefault())
+        .format(
+            DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+        )

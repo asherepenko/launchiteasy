@@ -53,10 +53,10 @@ class AppsRemoteDataSource(context: Context) :
             .toList()
 
     private fun ApplicationInfo.isSystem(): Boolean =
-        (this@isSystem.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+        (flags and ApplicationInfo.FLAG_SYSTEM) != 0
 
     private fun ApplicationInfo.isEnabled(): Boolean {
-        val enabled = packageManager.getApplicationEnabledSetting(this@isEnabled.packageName)
+        val enabled = packageManager.getApplicationEnabledSetting(packageName)
         return enabled == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT ||
             enabled == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
     }

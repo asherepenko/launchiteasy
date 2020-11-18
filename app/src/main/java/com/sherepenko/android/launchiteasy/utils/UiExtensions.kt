@@ -11,11 +11,8 @@ import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import com.sherepenko.android.launchiteasy.R
 
-fun ViewGroup.inflate(@LayoutRes layoutResId: Int, attachToRoot: Boolean = false): View =
-    LayoutInflater.from(context).inflate(layoutResId, this@inflate, attachToRoot)
-
 fun Context.isPermissionGranted(permission: String): Boolean =
-    ContextCompat.checkSelfPermission(this@isPermissionGranted, permission) ==
+    ContextCompat.checkSelfPermission(this, permission) ==
         PackageManager.PERMISSION_GRANTED
 
 fun Activity.launchActivity(intent: Intent) {

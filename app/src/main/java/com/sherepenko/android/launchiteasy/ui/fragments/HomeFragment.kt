@@ -19,6 +19,7 @@ import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.Status
 import com.sherepenko.android.launchiteasy.data.WeatherItem
 import com.sherepenko.android.launchiteasy.data.isMetric
+import com.sherepenko.android.launchiteasy.databinding.FragmentHomeBinding
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
 import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.utils.launchActivityIfResolved
@@ -27,16 +28,6 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import kotlinx.android.synthetic.main.fragment_home.allAppsButton
-import kotlinx.android.synthetic.main.fragment_home.currentLocationView
-import kotlinx.android.synthetic.main.fragment_home.currentTemperatureView
-import kotlinx.android.synthetic.main.fragment_home.currentWeatherConditionView
-import kotlinx.android.synthetic.main.fragment_home.currentWeatherIconView
-import kotlinx.android.synthetic.main.fragment_home.nextAlarmView
-import kotlinx.android.synthetic.main.fragment_home.perceivedTemperatureView
-import kotlinx.android.synthetic.main.fragment_home.swipeRefreshLayout
-import kotlinx.android.synthetic.main.fragment_home.toolbarView
-import kotlinx.android.synthetic.main.fragment_home.weatherForecastsView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.inject
@@ -53,10 +44,14 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     private val prefs: PreferenceHelper by inject()
 
+    private lateinit var binding: FragmentHomeBinding
+
     private lateinit var forecastsAdapter: ForecastsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding = FragmentHomeBinding.bind(view)
 
         setupToolbar()
         setupSwipeRefreshLayout()
@@ -65,15 +60,17 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
         setupCurrentLocation()
         setupWeatherForecasts()
 
-        nextAlarmView.setOnClickListener {
-            requireActivity().launchActivityIfResolved(
-                Intent(AlarmClock.ACTION_SHOW_ALARMS)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
-        }
+        binding.apply {
+            nextAlarmView.setOnClickListener {
+                requireActivity().launchActivityIfResolved(
+                    Intent(AlarmClock.ACTION_SHOW_ALARMS)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
+            }
 
-        allAppsButton.setOnClickListener {
-            findNavController().navigateToLauncherFragment()
+            allAppsButton.setOnClickListener {
+                findNavController().navigateToLauncherFragment()
+            }
         }
     }
 
@@ -100,12 +97,12 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
     private fun setupToolbar() {
         setHasOptionsMenu(true)
         if (requireActivity() is AppCompatActivity) {
-            (requireActivity() as AppCompatActivity).setSupportActionBar(toolbarView)
+            (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbarView)
         }
     }
 
     private fun setupSwipeRefreshLayout() {
-        swipeRefreshLayout.apply {
+        binding.swipeRefreshLayout.apply {
             setColorSchemeResources(
                 R.color.colorSecondary,
                 R.color.colorSecondaryVariant
@@ -114,7 +111,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                 weatherViewModel.forceUpdate()
             }
             post {
-                swipeRefreshLayout.isRefreshing = true
+                binding.swipeRefreshLayout.isRefreshing = true
             }
         }
     }
@@ -126,53 +123,51 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
             val nextAlarm = alarmManager.nextAlarmClock.toLocalDateTime()
             Timber.tag(TAG).i("Next alarm time: $nextAlarm")
 
-            nextAlarmView.text = nextAlarm.formatAlarmDateTime()
-            nextAlarmView.visibility = View.VISIBLE
+            binding.nextAlarmView.apply {
+                text = nextAlarm.formatAlarmDateTime()
+                visibility = View.VISIBLE
+            }
         } else {
-            nextAlarmView.visibility = View.GONE
+            binding.nextAlarmView.visibility = View.GONE
         }
     }
 
     private fun setupCurrentLocation() {
-        weatherViewModel.getCurrentLocationName().observe(
-            viewLifecycleOwner,
-            {
-                when (it.status) {
-                    Status.LOADING -> {
-                        // ignore
-                    }
-                    Status.SUCCESS -> {
-                        checkNotNull(it.data)
-                        currentLocationView.text = it.data
-                    }
-                    Status.ERROR -> {
-                        currentLocationView.text = ""
-                    }
+        weatherViewModel.getCurrentLocationName().observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                    // ignore
+                }
+                Status.SUCCESS -> {
+                    checkNotNull(it.data)
+                    binding.currentLocationView.text = it.data
+                }
+                Status.ERROR -> {
+                    binding.currentLocationView.text = ""
                 }
             }
-        )
+        }
     }
 
     private fun setupCurrentWeather() {
-        weatherViewModel.getCurrentWeather().observe(
-            viewLifecycleOwner,
-            {
-                when (it.status) {
-                    Status.LOADING -> {
-                        it.data?.let { data ->
-                            setCurrentWeather(data)
-                            swipeRefreshLayout.isRefreshing = false
-                        }
+        weatherViewModel.getCurrentWeather().observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                    it.data?.let { data ->
+                        setCurrentWeather(data)
+                        binding.swipeRefreshLayout.isRefreshing = false
                     }
-                    Status.SUCCESS -> {
-                        checkNotNull(it.data)
+                }
+                Status.SUCCESS -> {
+                    checkNotNull(it.data)
+                    setCurrentWeather(it.data)
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
+                Status.ERROR -> {
+                    if (it.data != null) {
                         setCurrentWeather(it.data)
-                        swipeRefreshLayout.isRefreshing = false
-                    }
-                    Status.ERROR -> {
-                        if (it.data != null) {
-                            setCurrentWeather(it.data)
-                        } else {
+                    } else {
+                        binding.apply {
                             currentWeatherIconView.text =
                                 getString(R.string.unknown_weather)
                             currentWeatherConditionView.text = ""
@@ -180,76 +175,75 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                                 getString(R.string.no_temperature)
                             perceivedTemperatureView.text = ""
                         }
-
-                        swipeRefreshLayout.isRefreshing = false
                     }
+
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
-        )
+        }
     }
 
     private fun setupWeatherForecasts() {
         forecastsAdapter = ForecastsAdapter()
 
-        weatherForecastsView.apply {
+        binding.weatherForecastsView.apply {
             setHasFixedSize(true)
             itemAnimator = DefaultItemAnimator()
             adapter = forecastsAdapter
         }
 
-        weatherViewModel.getWeatherForecasts().observe(
-            viewLifecycleOwner,
-            {
-                when (it.status) {
-                    Status.LOADING -> {
-                        it.data?.let { data ->
-                            setWeatherForecasts(it.data)
+        weatherViewModel.getWeatherForecasts().observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                    it.data?.let { data ->
+                        setWeatherForecasts(it.data)
 
-                            if (data.isNotEmpty()) {
-                                swipeRefreshLayout.isRefreshing = false
-                            }
+                        if (data.isNotEmpty()) {
+                            binding.swipeRefreshLayout.isRefreshing = false
                         }
                     }
-                    Status.SUCCESS -> {
-                        checkNotNull(it.data)
-                        setWeatherForecasts(it.data)
-                        swipeRefreshLayout.isRefreshing = false
-                    }
-                    Status.ERROR -> {
-                        setWeatherForecasts(it.data ?: listOf())
-                        swipeRefreshLayout.isRefreshing = false
-                    }
+                }
+                Status.SUCCESS -> {
+                    checkNotNull(it.data)
+                    setWeatherForecasts(it.data)
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
+                Status.ERROR -> {
+                    setWeatherForecasts(it.data ?: listOf())
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
-        )
+        }
     }
 
     private fun setCurrentWeather(item: WeatherItem) {
         val isMetricSystem = prefs.getTemperatureUnit().isMetric()
 
-        currentWeatherIconView.text = item.condition.icon.glyph
-        currentWeatherConditionView.text = item.condition.name
-        currentTemperatureView.text =
-            getString(
-                R.string.temperature_value,
+        binding.apply {
+            currentWeatherIconView.text = item.condition.icon.glyph
+            currentWeatherConditionView.text = item.condition.name
+            currentTemperatureView.text =
+                getString(
+                    R.string.temperature_value,
+                    if (isMetricSystem) {
+                        item.temperature.celsius
+                    } else {
+                        item.temperature.fahrenheit
+                    }
+                )
+            perceivedTemperatureView.text =
                 if (isMetricSystem) {
-                    item.temperature.celsius
+                    getString(
+                        R.string.perceived_temperature_metric,
+                        item.perceivedTemperature.celsius
+                    )
                 } else {
-                    item.temperature.fahrenheit
+                    getString(
+                        R.string.perceived_temperature_imperial,
+                        item.perceivedTemperature.fahrenheit
+                    )
                 }
-            )
-        perceivedTemperatureView.text =
-            if (isMetricSystem) {
-                getString(
-                    R.string.perceived_temperature_metric,
-                    item.perceivedTemperature.celsius
-                )
-            } else {
-                getString(
-                    R.string.perceived_temperature_imperial,
-                    item.perceivedTemperature.fahrenheit
-                )
-            }
+        }
     }
 
     private fun setWeatherForecasts(items: List<ForecastItem>) {

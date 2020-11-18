@@ -16,15 +16,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.Status
+import com.sherepenko.android.launchiteasy.databinding.FragmentLauncherBinding
 import com.sherepenko.android.launchiteasy.ui.adapters.AppsAdapter
 import com.sherepenko.android.launchiteasy.ui.adapters.OnItemClickListener
 import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.utils.launchActivity
 import com.sherepenko.android.launchiteasy.utils.launchActivityIfResolved
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
-import kotlinx.android.synthetic.main.fragment_launcher.appsView
-import kotlinx.android.synthetic.main.fragment_launcher.loadingView
-import kotlinx.android.synthetic.main.fragment_launcher.toolbarView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.inject
@@ -41,10 +39,15 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
 
     private val prefs: PreferenceHelper by inject()
 
+    private lateinit var binding: FragmentLauncherBinding
+
     private lateinit var appsAdapter: AppsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding = FragmentLauncherBinding.bind(view)
+
         setupToolbar()
         setupInstalledApps()
     }
@@ -67,7 +70,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
     private fun setupToolbar() {
         setHasOptionsMenu(true)
         if (requireActivity() is AppCompatActivity) {
-            (requireActivity() as AppCompatActivity).setSupportActionBar(toolbarView)
+            (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbarView)
         }
     }
 
@@ -124,7 +127,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             }
         }
 
-        appsView.apply {
+        binding.appsView.apply {
             setHasFixedSize(true)
             itemAnimator = DefaultItemAnimator()
             adapter = appsAdapter
@@ -136,22 +139,24 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                 when (it.status) {
                     Status.LOADING -> {
                         it.data?.let { data ->
-                            appsView.setItemViewCacheSize(data.size)
+                            binding.appsView.setItemViewCacheSize(data.size)
                             appsAdapter.items = data
 
                             if (data.isNotEmpty()) {
-                                loadingView.visibility = View.GONE
+                                binding.loadingView.visibility = View.GONE
                             }
                         }
                     }
                     Status.SUCCESS -> {
                         checkNotNull(it.data)
-                        appsView.setItemViewCacheSize(it.data.size)
                         appsAdapter.items = it.data
-                        loadingView.visibility = View.GONE
+                        binding.apply {
+                            appsView.setItemViewCacheSize(it.data.size)
+                            loadingView.visibility = View.GONE
+                        }
                     }
                     Status.ERROR -> {
-                        loadingView.visibility = View.GONE
+                        binding.loadingView.visibility = View.GONE
                     }
                 }
             }

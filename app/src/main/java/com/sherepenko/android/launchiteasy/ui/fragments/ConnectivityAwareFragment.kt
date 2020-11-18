@@ -19,32 +19,30 @@ abstract class ConnectivityAwareFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val snackbar = Snackbar.make(view, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
-        snackbar.setAction(R.string.dismiss) {
-            snackbar.hideSnackbar()
+        val snackbar = Snackbar.make(view, R.string.no_connection, Snackbar.LENGTH_INDEFINITE).apply {
+            setAction(R.string.dismiss) {
+                hideSnackbar()
+            }
         }
 
-        connectivityViewModel.getConnectionState().observe(
-            viewLifecycleOwner,
-            { isConnected ->
-                if (!isConnected) {
-                    snackbar.showSnackbar()
-                } else {
-                    snackbar.hideSnackbar()
-                }
+        connectivityViewModel.getConnectionState().observe(viewLifecycleOwner) { isConnected ->
+            if (!isConnected) {
+                snackbar.showSnackbar()
+            } else {
+                snackbar.hideSnackbar()
             }
-        )
+        }
     }
 }
 
 private fun Snackbar.showSnackbar() {
-    if (!this@showSnackbar.isShownOrQueued) {
-        this@showSnackbar.show()
+    if (!isShownOrQueued) {
+        show()
     }
 }
 
 private fun Snackbar.hideSnackbar() {
-    if (this@hideSnackbar.isShownOrQueued) {
-        this@hideSnackbar.dismiss()
+    if (isShownOrQueued) {
+        dismiss()
     }
 }

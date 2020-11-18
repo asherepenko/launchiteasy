@@ -172,7 +172,7 @@ class LauncherApp : Application() {
     }
 
     private fun setupStetho() {
-        Stetho.initializeWithDefaults(this@LauncherApp)
+        Stetho.initializeWithDefaults(this)
     }
 
     private fun setupCalligraphy() {

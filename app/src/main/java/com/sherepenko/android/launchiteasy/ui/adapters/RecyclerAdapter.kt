@@ -56,16 +56,16 @@ abstract class BaseRecyclerViewHolder<T>(
 ) : RecyclerView.ViewHolder(itemView) {
 
     init {
-        itemClickListener?.apply {
+        itemClickListener?.let {
             itemView.setOnClickListener { view ->
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    this@apply.onItemClick(view, adapterPosition, itemId)
+                    it.onItemClick(view, adapterPosition, itemId)
                 }
             }
 
             itemView.setOnLongClickListener { view ->
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    this@apply.onItemLongClick(view, adapterPosition, itemId)
+                    it.onItemLongClick(view, adapterPosition, itemId)
                     return@setOnLongClickListener true
                 }
 
