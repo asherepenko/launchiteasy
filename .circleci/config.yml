@@ -22,55 +22,63 @@ commands:
           key: gradle-orb-v1-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}
 
   setup-environment:
-    - run:
-        name: Setup Environment
-        command: |
-          gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "app/google-services.json" --decrypt "app/google-services.json.gpg"
-          gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "upload-keystore.jks" --decrypt "upload-keystore.jks.gpg"
-          gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "publish-key.json" --decrypt "publish-key.json.gpg"
+    steps:
+      - run:
+          name: Setup Environment
+          command: |
+            gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "app/google-services.json" --decrypt "app/google-services.json.gpg"
+            gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "upload-keystore.jks" --decrypt "upload-keystore.jks.gpg"
+            gpg --passphrase $GPG_KEY --pinentry-mode loopback --output "publish-key.json" --decrypt "publish-key.json.gpg"
 
   git-config:
-    - add_ssh_keys:
-        fingerprints:
-          - "6d:72:29:06:13:e6:c8:26:56:e2:b7:0f:1e:ce:4f:0e"
-    - run:
-        name: Set up Git config
-        command: |
-          git config user.email "bot@circleci.com"
-          git config user.name "Circle CI"
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "6d:72:29:06:13:e6:c8:26:56:e2:b7:0f:1e:ce:4f:0e"
+      - run:
+          name: Set up Git config
+          command: |
+            git config user.email "bot@circleci.com"
+            git config user.name "Circle CI"
 
   download-android-dependencies:
-    - run:
-        name: Download Android Dependencies
-        command: ./gradlew androidDependencies
+    steps:
+      - run:
+          name: Download Android Dependencies
+          command: ./gradlew androidDependencies
 
   run-tests:
-    - run:
-        name: Run Checks and Tests
-        command: ./gradlew check --stacktrace
+    steps:
+      - run:
+          name: Run Checks and Tests
+          command: ./gradlew check --stacktrace
 
   build-debug:
-    - run:
-        name: Build Debug APK
-        command: ./gradlew assembleDebug --stacktrace
+    steps:
+      - run:
+          name: Build Debug APK
+          command: ./gradlew assembleDebug --stacktrace
 
   build-release:
-    - run:
-        name: Prepare Release Bundle
-        command: ./gradlew bundleRelease --stacktrace
+    steps:
+      - run:
+          name: Prepare Release Bundle
+          command: ./gradlew bundleRelease --stacktrace
 
   publish-release:
-    - run:
-        name: Upload to Google Play
-        command: ./gradlew publishBundle --stacktrace
+    steps:
+      - run:
+          name: Upload to Google Play
+          command: ./gradlew publishBundle --stacktrace
 
   increment-version:
-    - run:
-        name: Increment Version
-        command: |
-          ./gradlew incrementPatch
-          git commit -a -m "Set next dev version [ci skip]"
-          git push
+    steps:
+      - run:
+          name: Increment Version
+          command: |
+            ./gradlew incrementPatch
+            git commit -a -m "Set next dev version [ci skip]"
+            git push
 
 jobs:
   build:
