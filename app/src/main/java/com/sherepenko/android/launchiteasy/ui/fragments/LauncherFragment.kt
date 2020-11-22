@@ -22,6 +22,7 @@ import com.sherepenko.android.launchiteasy.ui.adapters.OnItemClickListener
 import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.utils.launchActivity
 import com.sherepenko.android.launchiteasy.utils.launchActivityIfResolved
+import com.sherepenko.android.launchiteasy.utils.viewBinding
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
@@ -39,14 +40,12 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
 
     private val prefs: PreferenceHelper by inject()
 
-    private lateinit var binding: FragmentLauncherBinding
+    private val binding: FragmentLauncherBinding by viewBinding(FragmentLauncherBinding::bind)
 
     private lateinit var appsAdapter: AppsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding = FragmentLauncherBinding.bind(view)
 
         setupToolbar()
         setupInstalledApps()

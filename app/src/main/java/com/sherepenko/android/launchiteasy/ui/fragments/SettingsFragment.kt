@@ -11,11 +11,12 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.databinding.FragmentSettingsBinding
+import com.sherepenko.android.launchiteasy.utils.viewBinding
 import timber.log.Timber
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    private lateinit var binding: FragmentSettingsBinding
+    private val binding: FragmentSettingsBinding by viewBinding(FragmentSettingsBinding::bind)
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.main_preferences, rootKey)
@@ -23,8 +24,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding = FragmentSettingsBinding.bind(view)
 
         setupToolbar()
     }

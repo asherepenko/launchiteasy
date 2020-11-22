@@ -10,7 +10,6 @@ plugins {
     id("com.sherepenko.gradle.plugin-build-version") version "0.2.3"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
 }
 
@@ -226,7 +225,7 @@ dependencies {
     implementation("org.koin:koin-androidx-ext:$koinVersion")
     implementation("org.koin:koin-androidx-scope:$koinVersion")
     implementation("org.koin:koin-androidx-viewmodel:$koinVersion")
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.3")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.5")
     testImplementation("junit:junit:4.13")
     testImplementation("androidx.test:core:1.3.0")
     testImplementation("androidx.test:runner:1.3.0")

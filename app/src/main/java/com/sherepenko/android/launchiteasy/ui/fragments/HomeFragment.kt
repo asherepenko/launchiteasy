@@ -23,6 +23,7 @@ import com.sherepenko.android.launchiteasy.databinding.FragmentHomeBinding
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
 import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.utils.launchActivityIfResolved
+import com.sherepenko.android.launchiteasy.utils.viewBinding
 import com.sherepenko.android.launchiteasy.viewmodels.WeatherViewModel
 import java.time.Instant
 import java.time.LocalDateTime
@@ -44,14 +45,12 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     private val prefs: PreferenceHelper by inject()
 
-    private lateinit var binding: FragmentHomeBinding
+    private val binding: FragmentHomeBinding by viewBinding(FragmentHomeBinding::bind)
 
     private lateinit var forecastsAdapter: ForecastsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding = FragmentHomeBinding.bind(view)
 
         setupToolbar()
         setupSwipeRefreshLayout()
