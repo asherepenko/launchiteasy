@@ -1,38 +1,20 @@
 package com.sherepenko.android.launchiteasy.data
 
-data class Resource<out T> private constructor(
-    val status: Status,
+sealed class Resource<out T>(
     val data: T? = null,
-    val message: String? = null,
-    val error: Throwable? = null
+    val message: String? = null
 ) {
-    companion object {
-        fun <T> loading(
-            data: T? = null,
-            message: String? = null
-        ): Resource<T> =
-            Resource(
-                Status.LOADING,
-                data,
-                message
-            )
 
-        fun <T> success(data: T): Resource<T> =
-            Resource(
-                Status.SUCCESS,
-                data
-            )
+    class Success<out T>(data: T) : Resource<T>(data)
 
-        fun <T> error(
-            error: Throwable? = null,
-            data: T? = null,
-            message: String? = null
-        ): Resource<T> =
-            Resource(
-                Status.ERROR,
-                data,
-                message,
-                error
-            )
-    }
+    class Loading<out T>(
+        data: T? = null,
+        message: String? = null
+    ) : Resource<T>(data, message)
+
+    class Error<out T>(
+        val error: Throwable? = null,
+        data: T? = null,
+        message: String? = null
+    ) : Resource<T>(data, message)
 }

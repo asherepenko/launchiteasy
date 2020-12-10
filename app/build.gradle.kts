@@ -172,7 +172,7 @@ play {
 val jacksonVersion = "2.11.3"
 val koinVersion = "2.2.1"
 val lifecycleVersion = "2.2.0"
-val navigationVersion = "2.3.1"
+val navigationVersion = "2.3.2"
 val okHttpVersion = "4.9.0"
 val retrofitVersion = "2.9.0"
 val roomVersion = "2.2.5"
@@ -187,7 +187,7 @@ dependencies {
     implementation("androidx.collection:collection-ktx:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.fragment:fragment-ktx:1.3.0-beta01")
+    implementation("androidx.fragment:fragment-ktx:1.3.0-beta02")
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -211,9 +211,9 @@ dependencies {
     implementation("io.github.inflationx:calligraphy3:3.1.1")
     implementation("io.github.inflationx:viewpump:2.0.3")
     implementation("com.google.android.gms:play-services-location:17.1.0")
-    implementation("com.google.android.material:material:1.3.0-alpha03")
+    implementation("com.google.android.material:material:1.3.0-alpha04")
     implementation("com.google.firebase:firebase-analytics-ktx:18.0.0")
-    implementation("com.google.firebase:firebase-config-ktx:20.0.1")
+    implementation("com.google.firebase:firebase-config-ktx:20.0.2")
     implementation("com.google.firebase:firebase-crashlytics-ktx:17.3.0")
     implementation("com.google.firebase:firebase-messaging:21.0.0")
     implementation("com.google.firebase:firebase-perf:19.0.10")

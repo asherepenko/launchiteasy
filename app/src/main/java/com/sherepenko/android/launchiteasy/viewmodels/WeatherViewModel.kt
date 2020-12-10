@@ -37,7 +37,7 @@ class WeatherViewModel(
     fun getCurrentLocationName(): LiveData<Resource<String>> =
         locationRepository.getLastKnownLocation().switchMap { lastLocation ->
             liveData(Dispatchers.IO) {
-                emit(Resource.loading())
+                emit(Resource.Loading())
                 val geocoder = Geocoder(context, Locale.ENGLISH)
 
                 try {
@@ -48,28 +48,18 @@ class WeatherViewModel(
                     )
 
                     if (addresses.isNullOrEmpty()) {
-                        emit(
-                            Resource.error<String>()
-                        )
+                        emit(Resource.Error<String>())
                     } else {
                         val locationName = addresses[0].locality
 
                         if (locationName.isNullOrEmpty()) {
-                            emit(
-                                Resource.error<String>()
-                            )
+                            emit(Resource.Error<String>())
                         } else {
-                            emit(
-                                Resource.success(
-                                    locationName
-                                )
-                            )
+                            emit(Resource.Success(locationName))
                         }
                     }
                 } catch (e: IOException) {
-                    emit(
-                        Resource.error(e, UNKNOWN_LOCATION)
-                    )
+                    emit(Resource.Error(e, UNKNOWN_LOCATION))
 
                     Timber.tag(TAG).e(e, "Unable to parse current location")
                 }

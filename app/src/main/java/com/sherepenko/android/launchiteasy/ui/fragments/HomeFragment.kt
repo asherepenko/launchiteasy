@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.ForecastItem
-import com.sherepenko.android.launchiteasy.data.Status
+import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.data.WeatherItem
 import com.sherepenko.android.launchiteasy.data.isMetric
 import com.sherepenko.android.launchiteasy.databinding.FragmentHomeBinding
@@ -133,15 +133,15 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     private fun setupCurrentLocation() {
         weatherViewModel.getCurrentLocationName().observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.LOADING -> {
+            when (it) {
+                is Resource.Loading -> {
                     // ignore
                 }
-                Status.SUCCESS -> {
+                is Resource.Success -> {
                     checkNotNull(it.data)
                     binding.currentLocationView.text = it.data
                 }
-                Status.ERROR -> {
+                is Resource.Error -> {
                     binding.currentLocationView.text = ""
                 }
             }
@@ -150,19 +150,19 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     private fun setupCurrentWeather() {
         weatherViewModel.getCurrentWeather().observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.LOADING -> {
+            when (it) {
+                is Resource.Loading -> {
                     it.data?.let { data ->
                         setCurrentWeather(data)
                         binding.swipeRefreshLayout.isRefreshing = false
                     }
                 }
-                Status.SUCCESS -> {
+                is Resource.Success -> {
                     checkNotNull(it.data)
                     setCurrentWeather(it.data)
                     binding.swipeRefreshLayout.isRefreshing = false
                 }
-                Status.ERROR -> {
+                is Resource.Error -> {
                     if (it.data != null) {
                         setCurrentWeather(it.data)
                     } else {
@@ -192,8 +192,8 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
         }
 
         weatherViewModel.getWeatherForecasts().observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.LOADING -> {
+            when (it) {
+                is Resource.Loading -> {
                     it.data?.let { data ->
                         setWeatherForecasts(it.data)
 
@@ -202,12 +202,12 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
                         }
                     }
                 }
-                Status.SUCCESS -> {
+                is Resource.Success -> {
                     checkNotNull(it.data)
                     setWeatherForecasts(it.data)
                     binding.swipeRefreshLayout.isRefreshing = false
                 }
-                Status.ERROR -> {
+                is Resource.Error -> {
                     setWeatherForecasts(it.data ?: listOf())
                     binding.swipeRefreshLayout.isRefreshing = false
                 }

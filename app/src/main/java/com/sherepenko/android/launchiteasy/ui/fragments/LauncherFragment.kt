@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.sherepenko.android.launchiteasy.R
-import com.sherepenko.android.launchiteasy.data.Status
+import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.databinding.FragmentLauncherBinding
 import com.sherepenko.android.launchiteasy.ui.adapters.AppsAdapter
 import com.sherepenko.android.launchiteasy.ui.adapters.OnItemClickListener
@@ -76,8 +76,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
     private fun setupInstalledApps() {
         appsAdapter = AppsAdapter()
 
-        appsAdapter.itemClickListener = object :
-            OnItemClickListener {
+        appsAdapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClick(view: View, position: Int, id: Long) {
                 val packageName = appsAdapter.getPackageName(position)
                 Timber.tag(TAG).i("Launching package: $packageName")
@@ -132,34 +131,31 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             adapter = appsAdapter
         }
 
-        appsViewModel.getInstalledApps(prefs.showSystemApps()).observe(
-            viewLifecycleOwner,
-            {
-                when (it.status) {
-                    Status.LOADING -> {
-                        it.data?.let { data ->
-                            binding.appsView.setItemViewCacheSize(data.size)
-                            appsAdapter.items = data
+        appsViewModel.getInstalledApps(prefs.showSystemApps()).observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+                    it.data?.let { data ->
+                        binding.appsView.setItemViewCacheSize(data.size)
+                        appsAdapter.items = data
 
-                            if (data.isNotEmpty()) {
-                                binding.loadingView.visibility = View.GONE
-                            }
+                        if (data.isNotEmpty()) {
+                            binding.loadingView.visibility = View.GONE
                         }
-                    }
-                    Status.SUCCESS -> {
-                        checkNotNull(it.data)
-                        appsAdapter.items = it.data
-                        binding.apply {
-                            appsView.setItemViewCacheSize(it.data.size)
-                            loadingView.visibility = View.GONE
-                        }
-                    }
-                    Status.ERROR -> {
-                        binding.loadingView.visibility = View.GONE
                     }
                 }
+                is Resource.Success -> {
+                    checkNotNull(it.data)
+                    appsAdapter.items = it.data
+                    binding.apply {
+                        appsView.setItemViewCacheSize(it.data.size)
+                        loadingView.visibility = View.GONE
+                    }
+                }
+                is Resource.Error -> {
+                    binding.loadingView.visibility = View.GONE
+                }
             }
-        )
+        }
     }
 
     private fun NavController.navigateToSettingsFragment() {

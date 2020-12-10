@@ -13,14 +13,10 @@ internal abstract class RemoteBoundResource<LocalDataType, RemoteDataType> {
 
     fun asLiveData() =
         liveData(Dispatchers.IO) {
-            emit(Resource.loading())
+            emit(Resource.Loading())
 
             val localData = getLocalData()
-            emit(
-                Resource.loading(
-                    localData
-                )
-            )
+            emit(Resource.Loading(localData))
 
             Timber.tag(TAG).d("LOADING: Return data from local DB")
 
@@ -36,29 +32,16 @@ internal abstract class RemoteBoundResource<LocalDataType, RemoteDataType> {
 
                     Timber.tag(TAG).d("Remote data stored locally")
 
-                    emit(
-                        Resource.success(
-                            getLocalData()
-                        )
-                    )
+                    emit(Resource.Success(getLocalData()))
 
                     Timber.tag(TAG).i("SUCCESS: Return data from local DB")
                 } catch (e: Exception) {
-                    emit(
-                        Resource.error(
-                            e,
-                            getLocalData()
-                        )
-                    )
+                    emit(Resource.Error(e, getLocalData()))
 
                     Timber.tag(TAG).e(e, "ERROR: Return data from local DB")
                 }
             } else {
-                emit(
-                    Resource.success(
-                        localData
-                    )
-                )
+                emit(Resource.Success(localData))
 
                 Timber.tag(TAG).i("SUCCESS: Return data from local DB without fetching remote")
             }
