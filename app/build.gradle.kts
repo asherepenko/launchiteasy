@@ -6,9 +6,9 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "3.0.0"
+    id("com.github.triplet.play") version "3.3.0"
     id("com.sherepenko.gradle.plugin-build-version") version "0.2.3"
-    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
     kotlin("android")
     kotlin("kapt")
 }
@@ -169,25 +169,26 @@ play {
     }
 }
 
-val jacksonVersion = "2.11.3"
-val koinVersion = "2.2.1"
-val lifecycleVersion = "2.2.0"
-val navigationVersion = "2.3.2"
+val jacksonVersion = "2.12.2"
+val koinVersion = "2.2.2"
+val lifecycleVersion = "2.3.1"
+val navigationVersion = "2.3.4"
 val okHttpVersion = "4.9.0"
 val retrofitVersion = "2.9.0"
-val roomVersion = "2.2.5"
+val roomVersion = "2.2.6"
 val stethoVersion = "1.5.1"
-val workVersion = "2.4.0"
+val workVersion = "2.5.0"
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
+    implementation(platform("com.google.firebase:firebase-bom:26.8.0"))
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.collection:collection-ktx:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.fragment:fragment-ktx:1.3.0-beta02")
+    implementation("androidx.fragment:fragment-ktx:1.3.2")
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -210,13 +211,13 @@ dependencies {
     implementation("io.coil-kt:coil:1.0.0")
     implementation("io.github.inflationx:calligraphy3:3.1.1")
     implementation("io.github.inflationx:viewpump:2.0.3")
-    implementation("com.google.android.gms:play-services-location:17.1.0")
-    implementation("com.google.android.material:material:1.3.0-alpha04")
-    implementation("com.google.firebase:firebase-analytics-ktx:18.0.0")
-    implementation("com.google.firebase:firebase-config-ktx:20.0.2")
-    implementation("com.google.firebase:firebase-crashlytics-ktx:17.3.0")
-    implementation("com.google.firebase:firebase-messaging:21.0.0")
-    implementation("com.google.firebase:firebase-perf:19.0.10")
+    implementation("com.google.android.gms:play-services-location:18.0.0")
+    implementation("com.google.android.material:material:1.3.0")
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-config-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-perf")
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")
@@ -226,14 +227,14 @@ dependencies {
     implementation("org.koin:koin-androidx-scope:$koinVersion")
     implementation("org.koin:koin-androidx-viewmodel:$koinVersion")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.5")
-    testImplementation("junit:junit:4.13")
+    testImplementation("junit:junit:4.13.1")
     testImplementation("androidx.test:core:1.3.0")
     testImplementation("androidx.test:runner:1.3.0")
     testImplementation("androidx.test.ext:junit:1.1.2")
-    testImplementation("com.google.truth:truth:1.0.1")
-    testImplementation("io.mockk:mockk:1.10.2")
+    testImplementation("com.google.truth:truth:1.1.2")
+    testImplementation("io.mockk:mockk:1.10.6")
     testImplementation("org.koin:koin-test:$koinVersion")
-    testImplementation("org.robolectric:robolectric:4.4")
+    testImplementation("org.robolectric:robolectric:4.5.1")
 }
 
 apply(plugin = "androidx.navigation.safeargs.kotlin")
