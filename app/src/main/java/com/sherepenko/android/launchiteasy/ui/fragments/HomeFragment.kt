@@ -95,9 +95,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     private fun setupToolbar() {
         setHasOptionsMenu(true)
-        if (requireActivity() is AppCompatActivity) {
-            (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbarView)
-        }
+        (requireActivity() as? AppCompatActivity)?.setSupportActionBar(binding.toolbarView)
     }
 
     private fun setupSwipeRefreshLayout() {

@@ -34,9 +34,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupToolbar() {
-        if (requireActivity() is AppCompatActivity) {
-            (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbarView)
-        }
+        (requireActivity() as? AppCompatActivity)?.setSupportActionBar(binding.toolbarView)
 
         binding.toolbarView.setNavigationOnClickListener {
             findNavController().navigateUp()

@@ -68,9 +68,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
 
     private fun setupToolbar() {
         setHasOptionsMenu(true)
-        if (requireActivity() is AppCompatActivity) {
-            (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbarView)
-        }
+        (requireActivity() as? AppCompatActivity)?.setSupportActionBar(binding.toolbarView)
     }
 
     private fun setupInstalledApps() {
