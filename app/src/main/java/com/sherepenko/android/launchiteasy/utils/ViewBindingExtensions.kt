@@ -26,6 +26,7 @@ class FragmentViewBindingDelegate<T : ViewBinding>(
                 it.lifecycle.addObserver(object : DefaultLifecycleObserver {
 
                     override fun onDestroy(owner: LifecycleOwner) {
+                        owner.lifecycle.removeObserver(this)
                         viewBinding = null
                     }
                 })

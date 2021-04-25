@@ -188,7 +188,7 @@ dependencies {
     implementation("androidx.collection:collection-ktx:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.fragment:fragment-ktx:1.3.2")
+    implementation("androidx.fragment:fragment-ktx:1.3.3")
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -227,14 +227,6 @@ dependencies {
     implementation("org.koin:koin-androidx-scope:$koinVersion")
     implementation("org.koin:koin-androidx-viewmodel:$koinVersion")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.5")
-    testImplementation("junit:junit:4.13.1")
-    testImplementation("androidx.test:core:1.3.0")
-    testImplementation("androidx.test:runner:1.3.0")
-    testImplementation("androidx.test.ext:junit:1.1.2")
-    testImplementation("com.google.truth:truth:1.1.2")
-    testImplementation("io.mockk:mockk:1.10.6")
-    testImplementation("org.koin:koin-test:$koinVersion")
-    testImplementation("org.robolectric:robolectric:4.5.1")
 }
 
 apply(plugin = "androidx.navigation.safeargs.kotlin")
