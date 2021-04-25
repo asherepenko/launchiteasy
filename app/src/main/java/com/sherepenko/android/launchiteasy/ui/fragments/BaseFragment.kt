@@ -1,9 +1,5 @@
 package com.sherepenko.android.launchiteasy.ui.fragments
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -16,15 +12,8 @@ import timber.log.Timber
 
 @KoinApiExtension
 abstract class BaseFragment(
-    @LayoutRes private val contentLayoutRes: Int
-) : Fragment(), KoinComponent {
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? =
-        inflater.inflate(contentLayoutRes, container, false)
+    @LayoutRes contentLayoutId: Int
+) : Fragment(contentLayoutId), KoinComponent {
 
     override fun onResume() {
         super.onResume()

@@ -11,8 +11,8 @@ import org.koin.core.component.KoinApiExtension
 
 @KoinApiExtension
 abstract class ConnectivityAwareFragment(
-    @LayoutRes contentLayoutRes: Int
-) : BaseFragment(contentLayoutRes) {
+    @LayoutRes contentLayoutId: Int
+) : BaseFragment(contentLayoutId) {
 
     private val connectivityViewModel: ConnectivityViewModel by viewModel()
 

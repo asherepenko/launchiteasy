@@ -11,7 +11,7 @@ import com.google.firebase.ktx.Firebase
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import timber.log.Timber
 
-abstract class BaseActivity(@LayoutRes private val contentLayoutRes: Int) : AppCompatActivity() {
+abstract class BaseActivity(@LayoutRes private val contentLayoutId: Int) : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -19,7 +19,7 @@ abstract class BaseActivity(@LayoutRes private val contentLayoutRes: Int) : AppC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(contentLayoutRes)
+        setContentView(contentLayoutId)
     }
 
     override fun onResume() {
