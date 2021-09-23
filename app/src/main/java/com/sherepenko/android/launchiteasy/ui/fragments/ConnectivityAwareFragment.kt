@@ -7,9 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.viewmodels.ConnectivityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.component.KoinApiExtension
 
-@KoinApiExtension
 abstract class ConnectivityAwareFragment(
     @LayoutRes contentLayoutId: Int
 ) : BaseFragment(contentLayoutId) {
@@ -19,7 +17,11 @@ abstract class ConnectivityAwareFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val snackbar = Snackbar.make(view, R.string.no_connection, Snackbar.LENGTH_INDEFINITE).apply {
+        val snackbar = Snackbar.make(
+            view,
+            R.string.no_connection,
+            Snackbar.LENGTH_INDEFINITE
+        ).apply {
             setAction(R.string.dismiss) {
                 hideSnackbar()
             }

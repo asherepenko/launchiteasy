@@ -25,11 +25,9 @@ import com.sherepenko.android.launchiteasy.utils.launchActivityIfResolved
 import com.sherepenko.android.launchiteasy.utils.viewBinding
 import com.sherepenko.android.launchiteasy.viewmodels.AppsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.inject
 import timber.log.Timber
 
-@KoinApiExtension
 class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
 
     companion object {

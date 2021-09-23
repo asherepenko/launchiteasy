@@ -6,11 +6,9 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import timber.log.Timber
 
-@KoinApiExtension
 abstract class BaseFragment(
     @LayoutRes contentLayoutId: Int
 ) : Fragment(contentLayoutId), KoinComponent {

@@ -30,11 +30,9 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.inject
 import timber.log.Timber
 
-@KoinApiExtension
 class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
 
     companion object {

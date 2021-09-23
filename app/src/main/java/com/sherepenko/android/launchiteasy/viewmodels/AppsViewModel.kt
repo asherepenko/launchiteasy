@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import com.sherepenko.android.launchiteasy.data.AppItem
 import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.repositories.AppsRepository
-import org.koin.core.component.KoinApiExtension
 
-@KoinApiExtension
 class AppsViewModel(
     private val repository: AppsRepository
 ) : BaseViewModel<AppsRepository>(repository) {

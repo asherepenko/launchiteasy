@@ -6,9 +6,9 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
-    id("com.github.triplet.play") version "3.3.0"
+    id("com.github.triplet.play") version "3.6.0"
     id("com.sherepenko.gradle.plugin-build-version") version "0.2.3"
-    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
     kotlin("android")
     kotlin("kapt")
 }
@@ -20,11 +20,11 @@ val keystorePropertiesFile = rootProject.file("keystore.properties")
 val playstorePropertiesFile = rootProject.file("playstore.properties")
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
 
     defaultConfig {
-        minSdkVersion(23)
-        targetSdkVersion(30)
+        minSdk = 23
+        targetSdk = 30
         applicationId = "com.sherepenko.android.launchiteasy"
         versionCode = buildVersion.versionCode
         versionName = buildVersion.versionName
@@ -71,15 +71,16 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
-    lintOptions {
+    lint {
+        isCheckDependencies = true
         ignore("InvalidPackage")
     }
 
@@ -122,7 +123,7 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = true
             isShrinkResources = true
             signingConfig = signingConfigs.getByName("release")
@@ -169,26 +170,26 @@ play {
     }
 }
 
-val jacksonVersion = "2.12.2"
-val koinVersion = "2.2.2"
+val jacksonVersion = "2.12.5"
+val koinVersion = "3.1.2"
 val lifecycleVersion = "2.3.1"
-val navigationVersion = "2.3.4"
-val okHttpVersion = "4.9.0"
+val navigationVersion = "2.3.5"
+val okHttpVersion = "5.0.0-alpha.2"
 val retrofitVersion = "2.9.0"
-val roomVersion = "2.2.6"
-val stethoVersion = "1.5.1"
-val workVersion = "2.5.0"
+val roomVersion = "2.3.0"
+val stethoVersion = "1.6.0"
+val workVersion = "2.6.0"
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
-    implementation(platform("com.google.firebase:firebase-bom:26.8.0"))
-    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation(platform("com.google.firebase:firebase-bom:28.4.1"))
+    implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.collection:collection-ktx:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.fragment:fragment-ktx:1.3.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.fragment:fragment-ktx:1.3.6")
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -208,25 +209,23 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    implementation("io.coil-kt:coil:1.0.0")
+    implementation("io.coil-kt:coil:1.3.2")
     implementation("io.github.inflationx:calligraphy3:3.1.1")
     implementation("io.github.inflationx:viewpump:2.0.3")
+    implementation("io.insert-koin:koin-android:$koinVersion")
     implementation("com.google.android.gms:play-services-location:18.0.0")
-    implementation("com.google.android.material:material:1.3.0")
+    implementation("com.google.android.material:material:1.4.0")
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-config-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-perf")
-    implementation("com.jakewharton.timber:timber:4.7.1")
+    implementation("com.jakewharton.timber:timber:5.0.1")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-jackson:$retrofitVersion")
-    implementation("org.koin:koin-androidx-ext:$koinVersion")
-    implementation("org.koin:koin-androidx-scope:$koinVersion")
-    implementation("org.koin:koin-androidx-viewmodel:$koinVersion")
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.5")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 }
 
 apply(plugin = "androidx.navigation.safeargs.kotlin")
