@@ -48,7 +48,7 @@ class AppsRemoteDataSource(context: Context) :
                 )
             }
             .sortedBy {
-                it.label.toLowerCase(Locale.getDefault())
+                it.label.lowercase(Locale.getDefault())
             }
             .toList()
 

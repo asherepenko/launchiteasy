@@ -77,7 +77,6 @@
                     android:layout_height="wrap_content"
                     android:format12Hour="hh:mm"
                     android:format24Hour="HH:mm"
-                    app:layout_constraintVertical_bias="@dimen/current_time_bias_vertical"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintVertical_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
@@ -109,7 +108,7 @@
                     app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
                     app:layout_constraintEnd_toStartOf="@+id/nextAlarmView"
                     app:layout_constraintTop_toBottomOf="@+id/currentTimeView"
-                    app:layout_constraintBottom_toBottomOf="@+id/contentBottomGuideline"
+                    app:layout_constraintBottom_toTopOf="@+id/currentLocationView"
                     tools:text="Sun, February 16" />
 
             <TextView
@@ -117,9 +116,9 @@
                     style="@style/Base.Theme.App.TextAppearance.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_alarm"
-                    android:drawablePadding="@dimen/default_drawable_padding"
                     android:visibility="gone"
+                    android:drawablePadding="@dimen/default_drawable_padding"
+                    app:drawableStartCompat="@drawable/ic_alarm"
                     app:layout_constraintBaseline_toBaselineOf="@+id/currentDateView"
                     app:layout_constraintStart_toEndOf="@+id/currentDateView"
                     app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
@@ -135,6 +134,7 @@
                     app:layout_constraintStart_toStartOf="@+id/contentStartGuideline"
                     app:layout_constraintEnd_toEndOf="@+id/contentEndGuideline"
                     app:layout_constraintTop_toBottomOf="@+id/currentDateView"
+                    app:layout_constraintBottom_toTopOf="@+id/currentTemperatureView"
                     tools:text="Kyiv" />
 
             <!-- Current weather widget -->
@@ -181,6 +181,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/currentTemperatureView"
                     app:layout_constraintTop_toBottomOf="@+id/perceivedTemperatureView"
+                    app:layout_constraintBottom_toTopOf="@+id/weatherForecastsView"
                     tools:text="Clear" />
 
             <!-- Weather forecast widget -->
@@ -206,6 +207,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_apps"
+                    android:contentDescription="@string/all_apps"
                     app:fabCustomSize="@dimen/all_apps_button_size"
                     app:maxImageSize="@dimen/all_apps_button_icon_size"
                     app:elevation="@dimen/all_apps_button_elevation"

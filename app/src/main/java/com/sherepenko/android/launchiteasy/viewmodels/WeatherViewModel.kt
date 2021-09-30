@@ -46,12 +46,12 @@ class WeatherViewModel(
                     )
 
                     if (addresses.isNullOrEmpty()) {
-                        emit(Resource.Error<String>())
+                        emit(Resource.Error())
                     } else {
                         val locationName = addresses[0].locality
 
                         if (locationName.isNullOrEmpty()) {
-                            emit(Resource.Error<String>())
+                            emit(Resource.Error())
                         } else {
                             emit(Resource.Success(locationName))
                         }
