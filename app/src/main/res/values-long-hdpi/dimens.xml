@@ -60,8 +60,6 @@
     <dimen name="app_list_margin_end">4dp</dimen>
     <dimen name="app_list_padding_horizontal">4dp</dimen>
 
-    <item format="float" name="current_time_bias_vertical" type="dimen">0.0</item>
-
     <dimen name="current_time_font_size">@dimen/headline1_font_size</dimen>
 
     <dimen name="current_date_margin_top">4dp</dimen>

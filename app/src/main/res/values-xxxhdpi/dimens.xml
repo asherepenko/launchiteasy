@@ -5,8 +5,6 @@
     <dimen name="app_item_icon_width">56dp</dimen>
     <dimen name="app_item_icon_height">56dp</dimen>
 
-    <item format="float" name="current_time_bias_vertical" type="dimen">0.1</item>
-
     <dimen name="current_time_font_size">@dimen/headline1_font_size</dimen>
 
     <dimen name="current_temperature_font_size">@dimen/headline2_font_size</dimen>

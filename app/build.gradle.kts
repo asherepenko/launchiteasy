@@ -187,7 +187,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:28.4.1"))
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.collection:collection-ktx:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.1")
     implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.fragment:fragment-ktx:1.3.6")
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
