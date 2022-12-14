@@ -20,8 +20,8 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
     }
 
     private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isConnected ->
-            if (isConnected) {
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
                 Timber.tag(TAG).i("All requested permissions were GRANTED")
                 findNavController().navigateToHomeFragment()
             } else {

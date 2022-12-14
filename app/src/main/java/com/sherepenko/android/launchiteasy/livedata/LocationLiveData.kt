@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
-import android.location.LocationManager
 import androidx.lifecycle.LiveData
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -30,22 +29,17 @@ class LocationLiveData(
     private val locationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
 
-    private val locationManager =
-        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
     private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult?) {
-            locationResult?.locations?.forEach {
+        override fun onLocationResult(locationResult: LocationResult) {
+            locationResult.locations.forEach {
                 Timber.tag(TAG).i("Current location updated: $it")
                 postValue(LocationItem(it.latitude, it.longitude))
             }
         }
     }
 
-    private val locationRequest = LocationRequest.create().apply {
-        interval = TimeUnit.HOURS.toMillis(1)
-        priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-    }
+    private val locationRequest = LocationRequest.Builder(TimeUnit.HOURS.toMillis(1))
+        .build()
 
     init {
         if (context.isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)) {

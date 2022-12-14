@@ -1,27 +1,17 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5")
-        classpath("com.android.tools.build:gradle:7.0.2")
-        classpath ("com.google.gms:google-services:4.3.10")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.7.1")
-        classpath("com.google.firebase:perf-plugin:1.4.0")
-        classpath("io.insert-koin:koin-gradle-plugin:3.1.2")
-        classpath(kotlin("gradle-plugin", version = "1.5.31"))
-    }
+@Suppress("DSL_SCOPE_VIOLATION")
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.ksp) apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.androidx.navigation.safeargs) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
+    alias(libs.plugins.firebase.perf) apply false
+    alias(libs.plugins.build.version) apply false
+    alias(libs.plugins.play.publisher) apply false
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-val clean by tasks.registering(Delete::class) {
+tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }

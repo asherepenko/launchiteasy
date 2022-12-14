@@ -1,0 +1,105 @@
+[versions]
+android-desugar-jdk = "1.2.0"
+android-gradle-plugin = "7.3.1"
+android-location = "21.0.1"
+android-material = "1.7.0"
+androidx-appcompat = "1.5.1"
+androidx-collection = "1.2.0"
+androidx-constraintlayout = "2.1.4"
+androidx-core = "1.9.0"
+androidx-fragment = "1.5.5"
+androidx-lifecycle = "2.5.1"
+androidx-navigation = "2.5.3"
+androidx-preference = "1.2.0"
+androidx-room = "2.4.3"
+androidx-swiperefreshlayout = "1.1.0"
+androidx-work = "2.7.1"
+build-version = "0.2.3"
+coil = "2.2.2"
+firebase = "31.1.1"
+firebase-crashlytics = "2.9.2"
+firebase-performance = "1.4.2"
+google-services = "4.3.14"
+inflationx-calligraphy = "3.1.1"
+inflationx-viewpump = "2.0.3"
+jackson = "2.13.4"
+koin = "3.3.0"
+kotlin = "1.7.21"
+kotlin-ksp = "1.7.21-1.0.8"
+ktlint = "11.0.0"
+okhttp = "4.10.0"
+play-publisher = "3.7.0"
+retrofit = "2.9.0"
+stetho = "1.6.0"
+timber = "5.0.1"
+
+[libraries]
+android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugar-jdk" }
+android-location = { module = "com.google.android.gms:play-services-location", version.ref = "android-location" }
+android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-collection-ktx = { module = "androidx.collection:collection-ktx", version.ref = "androidx-collection" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
+androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "androidx-lifecycle" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
+androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "androidx-navigation" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
+androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "androidx-preference" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "androidx-swiperefreshlayout" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
+firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
+firebase-config-ktx = { module = "com.google.firebase:firebase-config-ktx" }
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
+firebase-perf = { module = "com.google.firebase:firebase-perf" }
+inflationx-calligraphy = { module = "io.github.inflationx:calligraphy3", version.ref = "inflationx-calligraphy" }
+inflationx-viewpump = { module = "io.github.inflationx:viewpump", version.ref = "inflationx-viewpump" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+koin = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttp" }
+okhttp = { module = "com.squareup.okhttp3:okhttp" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-jackson = { module = "com.squareup.retrofit2:converter-jackson", version.ref = "retrofit" }
+stetho = { module = "com.facebook.stetho:stetho", version.ref = "stetho" }
+stetho-okhttp = { module = "com.facebook.stetho:stetho-okhttp3", version.ref = "stetho" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+[bundles]
+androidx-lifecycle = ["androidx-lifecycle-common-java8", "androidx-lifecycle-livedata-ktx", "androidx-lifecycle-runtime-ktx", "androidx-lifecycle-viewmodel-ktx", "androidx-lifecycle-viewmodel-savedstate"]
+androidx-navigation = ["androidx-navigation-fragment-ktx", "androidx-navigation-runtime-ktx", "androidx-navigation-ui-ktx"]
+androidx-room = ["androidx-room-ktx", "androidx-room-runtime"]
+firebase = ["firebase-analytics-ktx", "firebase-config-ktx", "firebase-crashlytics-ktx", "firebase-messaging", "firebase-perf"]
+inflationx-calligraphy = ["inflationx-calligraphy", "inflationx-viewpump"]
+jackson = ["jackson-annotations", "jackson-core", "jackson-databind", "jackson-module-kotlin"]
+okhttp = ["okhttp", "okhttp-logging-interceptor"]
+retrofit = ["retrofit", "retrofit-converter-jackson"]
+stetho = ["stetho", "stetho-okhttp"]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+androidx-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidx-navigation" }
+build-version = { id = "com.sherepenko.gradle.plugin-build-version", version.ref = "build-version" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
+firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebase-performance" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+play-publisher = { id = "com.github.triplet.play", version.ref = "play-publisher" }
