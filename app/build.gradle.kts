@@ -27,6 +27,8 @@ val playstorePropertiesFile = rootProject.file("playstore.properties")
 android {
     compileSdk = 33
 
+    namespace = "com.sherepenko.android.launchiteasy"
+
     defaultConfig {
         minSdk = 23
         targetSdk = 33

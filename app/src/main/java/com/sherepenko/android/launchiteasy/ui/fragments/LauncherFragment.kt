@@ -49,10 +49,19 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
         setupInstalledApps()
     }
 
+    @Deprecated(
+        "Deprecated in Java",
+        ReplaceWith(
+            "inflater.inflate(R.menu.main_menu, menu)",
+            "com.sherepenko.android.launchiteasy.R"
+        )
+    )
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
     }
 
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
             R.id.actionSettings -> {
@@ -64,6 +73,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             }
         }
 
+    @Suppress("DEPRECATION")
     private fun setupToolbar() {
         setHasOptionsMenu(true)
         (requireActivity() as? AppCompatActivity)?.setSupportActionBar(binding.toolbarView)

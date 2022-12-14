@@ -76,10 +76,19 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
         setupAlarmClock()
     }
 
+    @Deprecated(
+        "Deprecated in Java",
+        ReplaceWith(
+            "inflater.inflate(R.menu.main_menu, menu)",
+            "com.sherepenko.android.launchiteasy.R"
+        )
+    )
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
     }
 
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
             R.id.actionSettings -> {
@@ -91,6 +100,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
             }
         }
 
+    @Suppress("DEPRECATION")
     private fun setupToolbar() {
         setHasOptionsMenu(true)
         (requireActivity() as? AppCompatActivity)?.setSupportActionBar(binding.toolbarView)
