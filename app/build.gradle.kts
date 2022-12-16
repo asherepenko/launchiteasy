@@ -11,6 +11,8 @@ plugins {
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.google.services)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.dependency.check)
     alias(libs.plugins.androidx.navigation.safeargs)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)

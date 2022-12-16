@@ -16,6 +16,8 @@ androidx-swiperefreshlayout = "1.2.0-alpha01"
 androidx-work = "2.8.0-rc01"
 build-version-plugin = "0.3.0"
 coil = "2.2.2"
+dependency-check = "7.4.1"
+detekt = "1.22.0"
 firebase = "31.1.1"
 firebase-crashlytics = "2.9.2"
 firebase-performance = "1.4.2"
@@ -132,6 +134,8 @@ stetho = [
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 androidx-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidx-navigation" }
 build-version = { id = "com.sherepenko.gradle.plugin-build-version", version.ref = "build-version-plugin" }
+dependency-check = { id = "org.owasp.dependencycheck", version.ref = "dependency-check" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebase-performance" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
