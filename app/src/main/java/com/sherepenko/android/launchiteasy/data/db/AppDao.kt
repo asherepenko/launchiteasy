@@ -11,10 +11,10 @@ import com.sherepenko.android.launchiteasy.data.AppItem
 @Dao
 interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertApps(vararg apps: AppItem)
+    suspend fun insertApps(apps: List<AppItem>)
 
     @Delete
-    suspend fun deleteApps(vararg apps: AppItem)
+    suspend fun deleteApps(apps: List<AppItem>)
 
     @Query("DELETE FROM applications where package_name IN (:packageNames)")
     suspend fun deleteApps(vararg packageNames: String)
@@ -23,9 +23,9 @@ interface AppDao {
     suspend fun deleteAllApps()
 
     @Transaction
-    suspend fun updateApps(vararg apps: AppItem) {
+    suspend fun updateApps(apps: List<AppItem>) {
         deleteAllApps()
-        insertApps(*apps)
+        insertApps(apps)
     }
 
     @Query("SELECT * FROM applications WHERE is_enabled = :enabledOnly ORDER BY label ASC")

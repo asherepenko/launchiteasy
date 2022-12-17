@@ -18,6 +18,8 @@ import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.data.WeatherItem
+import com.sherepenko.android.launchiteasy.data.celsius
+import com.sherepenko.android.launchiteasy.data.fahrenheit
 import com.sherepenko.android.launchiteasy.data.isMetric
 import com.sherepenko.android.launchiteasy.databinding.FragmentHomeBinding
 import com.sherepenko.android.launchiteasy.ui.adapters.ForecastsAdapter
@@ -129,7 +131,7 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
             Timber.tag(TAG).i("Next alarm time: $nextAlarm")
 
             binding.nextAlarmView.apply {
-                text = nextAlarm.formatAlarmDateTime()
+                text = nextAlarm.formatAlarmDateTime(requireContext())
                 visibility = View.VISIBLE
             }
         } else {
@@ -252,27 +254,27 @@ class HomeFragment : ConnectivityAwareFragment(R.layout.fragment_home) {
     }
 
     private fun setWeatherForecasts(items: List<ForecastItem>) {
-        forecastsAdapter.isMetricSystem = prefs.getTemperatureUnit().isMetric()
-        forecastsAdapter.items = items
+        forecastsAdapter.apply {
+            isMetricSystem = prefs.getTemperatureUnit().isMetric()
+            submitList(items)
+        }
     }
-
-    private fun NavController.navigateToLauncherFragment() {
-        navigate(HomeFragmentDirections.toLauncherFragment())
-    }
-
-    private fun NavController.navigateToSettingsFragment() {
-        navigate(HomeFragmentDirections.toSettingsFragment())
-    }
-
-    private fun AlarmManager.AlarmClockInfo.toLocalDateTime(): LocalDateTime =
-        LocalDateTime.ofInstant(Instant.ofEpochMilli(triggerTime), ZoneId.systemDefault())
-
-    private fun LocalDateTime.formatAlarmDateTime(): String =
-        format(
-            if (DateFormat.is24HourFormat(requireActivity())) {
-                DateTimeFormatter.ofPattern("E HH:mm")
-            } else {
-                DateTimeFormatter.ofPattern("E hh:mm a")
-            }
-        )
 }
+
+private fun NavController.navigateToLauncherFragment() =
+    navigate(HomeFragmentDirections.toLauncherFragment())
+
+private fun NavController.navigateToSettingsFragment() =
+    navigate(HomeFragmentDirections.toSettingsFragment())
+
+private fun AlarmManager.AlarmClockInfo.toLocalDateTime(): LocalDateTime =
+    LocalDateTime.ofInstant(Instant.ofEpochMilli(triggerTime), ZoneId.systemDefault())
+
+private fun LocalDateTime.formatAlarmDateTime(context: Context): String =
+    format(
+        if (DateFormat.is24HourFormat(context)) {
+            DateTimeFormatter.ofPattern("E HH:mm")
+        } else {
+            DateTimeFormatter.ofPattern("E hh:mm a")
+        }
+    )

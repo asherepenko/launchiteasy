@@ -35,7 +35,7 @@ internal abstract class RemoteBoundResource<LocalDataType, RemoteDataType> {
                     emit(Resource.Success(getLocalData()))
 
                     Timber.tag(TAG).i("SUCCESS: Return data from local DB")
-                } catch (e: Exception) {
+                } catch (e: Throwable) {
                     emit(Resource.Error(e, getLocalData()))
 
                     Timber.tag(TAG).e(e, "ERROR: Return data from local DB")

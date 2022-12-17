@@ -42,10 +42,8 @@ android {
 
         setProperty("archivesBaseName", "$archivesBaseName-$versionName")
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                argument("room.schemaLocation", "$projectDir/schemas")
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
 
         if (localPropertiesFile.exists()) {

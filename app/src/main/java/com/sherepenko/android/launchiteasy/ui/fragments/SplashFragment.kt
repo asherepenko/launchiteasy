@@ -19,16 +19,17 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
         private const val TAG = "Permissions"
     }
 
-    private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                Timber.tag(TAG).i("All requested permissions were GRANTED")
-                findNavController().navigateToHomeFragment()
-            } else {
-                Timber.tag(TAG).e("Requested permissions are NOT GRANTED")
-                ActivityCompat.finishAffinity(requireActivity())
-            }
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            Timber.tag(TAG).i("All requested permissions were GRANTED")
+            findNavController().navigateToHomeFragment()
+        } else {
+            Timber.tag(TAG).e("Requested permissions are NOT GRANTED")
+            ActivityCompat.finishAffinity(requireActivity())
         }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,8 +48,8 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
         }
     }
+}
 
-    private fun NavController.navigateToHomeFragment() {
-        navigate(SplashFragmentDirections.toHomeFragment())
-    }
+private fun NavController.navigateToHomeFragment() {
+    navigate(SplashFragmentDirections.toHomeFragment())
 }

@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import com.sherepenko.android.launchiteasy.R
 import com.sherepenko.android.launchiteasy.data.ForecastItem
 import com.sherepenko.android.launchiteasy.data.TemperatureItem
+import com.sherepenko.android.launchiteasy.data.celsius
+import com.sherepenko.android.launchiteasy.data.fahrenheit
 import com.sherepenko.android.launchiteasy.databinding.ItemForecastBinding
 import java.time.Instant
 import java.time.LocalDateTime
@@ -44,7 +46,6 @@ class ForecastsAdapter : BaseRecyclerAdapter<ForecastItem, ForecastsAdapter.View
 }
 
 private fun Instant.format(): String =
-    LocalDateTime.ofInstant(this, ZoneId.systemDefault())
-        .format(
-            DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
-        )
+    LocalDateTime.ofInstant(this, ZoneId.systemDefault()).format(
+        DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+    )

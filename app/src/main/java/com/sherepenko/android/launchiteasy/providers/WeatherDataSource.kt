@@ -37,7 +37,7 @@ class WeatherLocalDataSource(
     }
 
     suspend fun saveWeatherForecasts(forecasts: List<ForecastItem>) {
-        forecastDao.updateWeatherForecasts(*forecasts.toTypedArray())
+        forecastDao.updateWeatherForecasts(forecasts)
     }
 }
 

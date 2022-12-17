@@ -19,6 +19,7 @@ import com.sherepenko.android.launchiteasy.data.Resource
 import com.sherepenko.android.launchiteasy.databinding.FragmentLauncherBinding
 import com.sherepenko.android.launchiteasy.ui.adapters.AppsAdapter
 import com.sherepenko.android.launchiteasy.ui.adapters.OnItemClickListener
+import com.sherepenko.android.launchiteasy.ui.adapters.OnItemLongClickListener
 import com.sherepenko.android.launchiteasy.utils.PreferenceHelper
 import com.sherepenko.android.launchiteasy.utils.launchActivity
 import com.sherepenko.android.launchiteasy.utils.launchActivityIfResolved
@@ -80,54 +81,56 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
     }
 
     private fun setupInstalledApps() {
-        appsAdapter = AppsAdapter()
+        appsAdapter = AppsAdapter().also {
+            it.itemClickListener = object : OnItemClickListener {
+                override fun onItemClick(view: View, position: Int, id: Long) {
+                    val packageName = appsAdapter.getPackageName(position)
+                    Timber.tag(TAG).i("Launching package: $packageName")
 
-        appsAdapter.itemClickListener = object : OnItemClickListener {
-            override fun onItemClick(view: View, position: Int, id: Long) {
-                val packageName = appsAdapter.getPackageName(position)
-                Timber.tag(TAG).i("Launching package: $packageName")
-
-                requireActivity().packageManager.getLaunchIntentForPackage(packageName)?.let {
-                    requireActivity().launchActivity(
-                        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    )
+                    requireActivity().packageManager.getLaunchIntentForPackage(packageName)?.let {
+                        requireActivity().launchActivity(
+                            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
+                    }
                 }
             }
 
-            override fun onItemLongClick(view: View, position: Int, id: Long) {
-                val packageName = appsAdapter.getPackageName(position)
+            it.itemLongClickListener = object : OnItemLongClickListener {
+                override fun onItemLongClick(view: View, position: Int, id: Long) {
+                    val packageName = appsAdapter.getPackageName(position)
 
-                PopupMenu(requireActivity(), view, Gravity.TOP).apply {
-                    inflate(R.menu.app_details_menu)
+                    PopupMenu(requireActivity(), view, Gravity.TOP).apply {
+                        inflate(R.menu.app_details_menu)
 
-                    Timber.tag(TAG).d("Show details menu for: $packageName")
+                        Timber.tag(TAG).d("Show details menu for: $packageName")
 
-                    setOnMenuItemClickListener {
-                        when (it.itemId) {
-                            R.id.actionAppInfo -> {
-                                Timber.tag(TAG).i("Info action called for: $packageName")
-                                requireActivity().launchActivityIfResolved(
-                                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                        .setData(Uri.parse("package:$packageName"))
-                                )
-                                true
-                            }
-                            R.id.actionAppUninstall -> {
-                                Timber.tag(TAG).i("Delete action called for: $packageName")
-                                requireActivity().launchActivityIfResolved(
-                                    Intent(Intent.ACTION_DELETE)
-                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                        .setData(Uri.parse("package:$packageName"))
-                                )
-                                true
-                            }
-                            else -> {
-                                false
+                        setOnMenuItemClickListener { menuItem ->
+                            when (menuItem.itemId) {
+                                R.id.actionAppInfo -> {
+                                    Timber.tag(TAG).i("Info action called for: $packageName")
+                                    requireActivity().launchActivityIfResolved(
+                                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                            .setData(Uri.parse("package:$packageName"))
+                                    )
+                                    true
+                                }
+                                R.id.actionAppUninstall -> {
+                                    Timber.tag(TAG).i("Delete action called for: $packageName")
+                                    requireActivity().launchActivityIfResolved(
+                                        Intent(Intent.ACTION_DELETE)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                            .setData(Uri.parse("package:$packageName"))
+                                    )
+                                    true
+                                }
+                                else -> {
+                                    false
+                                }
                             }
                         }
-                    }
-                }.show()
+                    }.show()
+                }
             }
         }
 
@@ -142,7 +145,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                 is Resource.Loading -> {
                     it.data?.let { data ->
                         binding.appsView.setItemViewCacheSize(data.size)
-                        appsAdapter.items = data
+                        appsAdapter.submitList(data)
 
                         if (data.isNotEmpty()) {
                             binding.loadingView.visibility = View.GONE
@@ -151,7 +154,7 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
                 }
                 is Resource.Success -> {
                     checkNotNull(it.data)
-                    appsAdapter.items = it.data
+                    appsAdapter.submitList(it.data)
                     binding.apply {
                         appsView.setItemViewCacheSize(it.data.size)
                         loadingView.visibility = View.GONE
@@ -163,8 +166,8 @@ class LauncherFragment : BaseFragment(R.layout.fragment_launcher) {
             }
         }
     }
+}
 
-    private fun NavController.navigateToSettingsFragment() {
-        navigate(LauncherFragmentDirections.toSettingsFragment())
-    }
+private fun NavController.navigateToSettingsFragment() {
+    navigate(LauncherFragmentDirections.toSettingsFragment())
 }
