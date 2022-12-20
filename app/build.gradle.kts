@@ -8,14 +8,14 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
     alias(libs.plugins.dependency.check)
     alias(libs.plugins.google.services)
     alias(libs.plugins.androidx.navigation.safeargs)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.firebase.perf)
+    alias(libs.plugins.firebase.performance)
     alias(libs.plugins.build.version)
     alias(libs.plugins.play.publisher)
 }
@@ -27,9 +27,9 @@ val keystorePropertiesFile = rootProject.file("keystore.properties")
 val playstorePropertiesFile = rootProject.file("playstore.properties")
 
 android {
-    compileSdk = 33
-
     namespace = "com.sherepenko.android.launchiteasy"
+
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 23
