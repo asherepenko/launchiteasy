@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@0.2.3
+  android: circleci/android@2.1.2
 
 commands:
   save-build-cache: android/save-build-cache
@@ -82,10 +82,9 @@ commands:
 
 jobs:
   build:
-    executor: android/android
-
-    environment:
-      JVM_OPTS: -Xmx3200m
+    executor:
+      name: android/android-machine
+      resource-class: large
 
     steps:
       - checkout
@@ -107,10 +106,9 @@ jobs:
           path: app/build/test-results
 
   increment:
-    executor: android/android
-
-    environment:
-      JVM_OPTS: -Xmx3200m
+    executor:
+      name: android/android-machine
+      resource-class: large
 
     steps:
       - checkout
@@ -121,10 +119,9 @@ jobs:
       - increment-version
 
   deploy:
-    executor: android/android
-
-    environment:
-      JVM_OPTS: -Xmx3200m
+    executor:
+      name: android/android-machine
+      resource-class: large
 
     steps:
       - checkout
